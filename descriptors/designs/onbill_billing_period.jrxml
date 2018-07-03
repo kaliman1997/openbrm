@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Usage Rport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4034e164-a6c1-4aee-ad71-eeb11c222b96">
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
+	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="org.joda.time.DateTime"/>
+	<parameter name="entity_id" class="java.lang.Integer"/>
+	<parameter name="customerId" class="java.lang.String"/>
+	<parameter name="entityPhoneCountryCode" class="java.lang.String"/>
+	<parameter name="entityPhoneAreaCode" class="java.lang.String"/>
+	<parameter name="entityPhoneContry" class="java.lang.String"/>
+	<parameter name="invoiceDate" class="java.lang.String"/>
+	<parameter name="invoiceDueDate" class="java.lang.String"/>
+	<parameter name="invoiceId" class="java.lang.Integer"/>
+	<parameter name="userId" class="java.lang.Integer"/>
+	<parameter name="invoiceNumber" class="java.lang.String"/>
+	<parameter name="organizationName" class="java.lang.String"/>
+	<parameter name="typeId" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select min(order_process.period_start) as period_start, max(order_process.period_end) as period_end from invoice_line join invoice on invoice.id = invoice_line.invoice_id join order_process on order_process.invoice_id = invoice_line.invoice_id where invoice_line.invoice_id = $P{invoiceId} and invoice_line.deleted = 0 ;]]>
+	</queryString>
+	<field name="period_start" class="java.util.Date"/>
+	<field name="period_end" class="java.util.Date"/>
+	<title>
+		<band height="15">
+			<textField>
+				<reportElement x="0" y="0" width="88" height="15" uuid="a9066de0-df35-4583-b4cd-ad33faec70c5"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{period_start} == null ?new SimpleDateFormat("dd.MM.yy").format(new SimpleDateFormat("MM-dd-yy").parse($P{invoiceDate})):new SimpleDateFormat("dd MMM yyyy").format($F{period_start})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="62" y="0" width="92" height="15" uuid="16dd954b-44fe-463e-9295-e7eaaea000c0"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{period_end} == null ?new SimpleDateFormat("dd.MM.yy").format(new SimpleDateFormat("MM-dd-yy").parse($P{invoiceDueDate})):new SimpleDateFormat("dd MMM yyyy").format(new SimpleDateFormat("MM-dd-yy").parse(new DateTime($F{period_end}).minusDays(1).toString("MM-dd-yy")))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="52" y="0" width="10" height="12" uuid="2ba0841e-6b61-4972-803e-6b5c5acf8caf"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>

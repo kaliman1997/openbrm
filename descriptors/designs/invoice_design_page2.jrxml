@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice_design_page2" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryWithPageHeaderAndFooter="true" uuid="70b14f03-7d6b-455a-9849-201aba17dd1e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="59"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="invoiceNumber" class="java.lang.String"/>
+	<parameter name="entityName" class="java.lang.String"/>
+	<parameter name="entity_id" class="java.lang.Integer"/>
+	<parameter name="entityAddress" class="java.lang.String"/>
+	<parameter name="entityCity" class="java.lang.String"/>
+	<parameter name="entityProvince" class="java.lang.String"/>
+	<parameter name="entityPostalCode" class="java.lang.String"/>
+	<parameter name="invoiceDate" class="java.lang.String"/>
+	<parameter name="invoiceDueDate" class="java.lang.String"/>
+	<parameter name="customerName" class="java.lang.String"/>
+	<parameter name="customerAddress" class="java.lang.String"/>
+	<parameter name="customerCity" class="java.lang.String"/>
+	<parameter name="customerProvince" class="java.lang.String"/>
+	<parameter name="customerPostalCode" class="java.lang.String"/>
+	<parameter name="customerMessage1" class="java.lang.String"/>
+	<parameter name="entityLogo" class="java.io.File"/>
+	<parameter name="customerMessage2" class="java.lang.String"/>
+	<parameter name="notes" class="java.lang.String"/>
+	<parameter name="customerOrganization" class="java.lang.String"/>
+	<parameter name="totalWithTax" class="java.lang.String"/>
+	<parameter name="totalWithoutTax" class="java.lang.String"/>
+	<parameter name="customerId" class="java.lang.String"/>
+	<parameter name="pageNumber" class="java.lang.Integer"/>
+	<parameter name="customerUsername" class="java.lang.String"/>
+	<parameter name="invoiceId" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select public_number,create_datetime as invDate, total from invoice where create_datetime between
+to_date($P{invoiceDate},'MM/DD/YYYY') - INTERVAL '3 months' and
+to_date($P{invoiceDate},'MM/DD/YYYY') and invoice.user_id=cast($P{customerId} as INT) order by create_datetime DESC ;]]>
+	</queryString>
+	<field name="total" class="java.math.BigDecimal"/>
+	<field name="invDate" class="java.util.Date"/>
+	<field name="public_number" class="java.lang.String"/>
+	<title>
+		<band height="128" splitType="Stretch">
+			<staticText>
+				<reportElement x="322" y="51" width="98" height="14" uuid="da4837ee-56eb-40cf-a4f9-e38d9acf4793"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Account Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="322" y="65" width="98" height="14" uuid="f47ae585-2155-47e5-86e4-214eac89bef2"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Invoice Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="322" y="79" width="98" height="14" uuid="1380bf65-b18e-41f8-af8a-21a2457e5bf9"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date of Issue]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="322" y="93" width="98" height="14" uuid="5ca7eb75-91f8-4e58-b420-d947db9ac2ef"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Page Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="13" y="112" width="255" height="14" forecolor="#FFFFFF" backcolor="#000000" uuid="c876082e-e980-436e-a69b-70420347bfc4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Important Information]]></text>
+			</staticText>
+			<line>
+				<reportElement x="13" y="126" width="509" height="1" uuid="89c2a912-b0cf-4f30-ac38-3c29226f9174"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="420" y="52" width="100" height="14" uuid="85ae869a-fc0d-4754-951c-95f1972af825"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerId}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement positionType="Float" x="420" y="66" width="100" height="14" uuid="35eb6c43-aadf-4233-83bf-e3d17647f7f3"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoiceNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="80" width="100" height="14" uuid="c534e1cc-5b14-494d-88e7-a0b4db124337"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMM yyyy").format(new SimpleDateFormat("MM/dd/yyyy").parse($P{invoiceDate}))]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="12" y="6" width="220" height="72" uuid="12a61087-2677-4d67-ab90-ee140e0d44f2"/>
+				<imageExpression><![CDATA[$P{entityLogo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="420" y="94" width="100" height="14" uuid="21dfbae8-9ae4-4414-beac-e16d362438ec"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="323" y="3" width="198" height="16" uuid="3d36661f-621c-4cad-8312-d333de77fa27"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="Float" x="340" y="3" width="179" height="14" uuid="5cb1b888-e63d-4b11-9e1b-a157aefe494b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Account Details]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="442" y="26" width="78" height="14" uuid="2641a701-3c02-4e0f-a622-ac34de2ff674"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["$"+new DecimalFormat("#,##0.00").format(new BigDecimal($P{totalWithTax}.replaceAll(",", "").split("\\s+")[1]))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="322" y="24" width="89" height="14" uuid="fb34de1f-df36-4c2e-9514-0063a4cc0020"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount Due]]></text>
+			</staticText>
+			<line>
+				<reportElement x="14" y="109" width="509" height="1" uuid="7825d273-9079-4338-a89f-221abb169bda"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="322" y="37" width="78" height="14" uuid="09d79031-5a1f-48d8-8c1d-fd3449650a81"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pay Due Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="38" width="100" height="14" uuid="177e1387-bb6b-4182-9028-c06be8a9d4d5"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMM yyyy").format(new SimpleDateFormat("MM/dd/yyyy").parse($P{invoiceDueDate}))]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="45">
+			<line>
+				<reportElement x="13" y="27" width="510" height="1" uuid="f81623c7-b5e1-41bc-bb38-f4bfc1edce99"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="13" y="0" width="100" height="14" uuid="4b866f9f-f7d0-42b3-a4ef-5f2d4988eb47"/>
+				<textElement>
+					<font size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Transaction History]]></text>
+			</staticText>
+			<line>
+				<reportElement x="15" y="13" width="508" height="1" uuid="075dddda-b91c-4c65-a6d0-ae9d6adf7fc6"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="13" y="14" width="45" height="15" uuid="69b9efa9-f72a-4769-bfa5-d1ab3881f75b"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="14" width="48" height="15" uuid="2256393d-4d8e-4b9c-ae54-da597ca26fff"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Credit ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="133" y="14" width="72" height="15" uuid="34f0f806-247f-4aa6-b39b-2be12c45f1fd"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ref.No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="235" y="14" width="95" height="15" uuid="0f97968a-9f21-4f8d-9df1-4447212a72e2"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transaction Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="14" width="69" height="15" uuid="4d4b08f7-df49-4ee8-bd12-427423fa3e5b"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Running Balance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="14" width="37" height="15" uuid="a07abbaf-602c-4eed-9ed7-f78f9ecfac82"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Debit]]></text>
+			</staticText>
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="13" y="29" width="508" height="16" uuid="bc408f9b-3fda-4b0b-98c0-3f1a90d5ca42"/>
+				<subreportParameter name="entityCity">
+					<subreportParameterExpression><![CDATA[$P{entityCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerName">
+					<subreportParameterExpression><![CDATA[$P{customerName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerProvince">
+					<subreportParameterExpression><![CDATA[$P{customerProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerOrganization">
+					<subreportParameterExpression><![CDATA[$P{customerOrganization}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceId">
+					<subreportParameterExpression><![CDATA[$P{invoiceId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerCity">
+					<subreportParameterExpression><![CDATA[$P{customerCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceNumber">
+					<subreportParameterExpression><![CDATA[$P{invoiceNumber}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDueDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDueDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerPostalCode">
+					<subreportParameterExpression><![CDATA[$P{customerPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityName">
+					<subreportParameterExpression><![CDATA[$P{entityName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityPostalCode">
+					<subreportParameterExpression><![CDATA[$P{entityPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerId">
+					<subreportParameterExpression><![CDATA[$P{customerId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage2">
+					<subreportParameterExpression><![CDATA[$P{customerMessage2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage1">
+					<subreportParameterExpression><![CDATA[$P{customerMessage1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityAddress">
+					<subreportParameterExpression><![CDATA[$P{entityAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityProvince">
+					<subreportParameterExpression><![CDATA[$P{entityProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerAddress">
+					<subreportParameterExpression><![CDATA[$P{customerAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerUsername">
+					<subreportParameterExpression><![CDATA[$P{customerUsername}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pageNumber">
+					<subreportParameterExpression><![CDATA[$P{pageNumber}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithoutTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithoutTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityLogo">
+					<subreportParameterExpression><![CDATA[$P{entityLogo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="notes">
+					<subreportParameterExpression><![CDATA[$P{notes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "onbill_inv_transaction_history.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band height="7"/>
+	</pageFooter>
+	<summary>
+		<band height="392">
+			<line>
+				<reportElement x="6" y="232" width="516" height="1" uuid="8593f787-1b2f-4647-8c22-cec6a2deba71"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<rectangle>
+				<reportElement mode="Transparent" x="13" y="243" width="211" height="20" uuid="c6ea54eb-cdf2-4612-aeef-93caf3ef5883"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="15" y="243" width="197" height="20" uuid="5ef965bd-0ed5-4656-b997-fe693265ea0b"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment Method]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="305" y="243" width="217" height="20" uuid="55a7fa65-a408-4703-8ba4-110b833ff1a4"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="310" y="243" width="71" height="20" uuid="2208dc6d-f73e-4850-839d-1b5ae9dc4a06"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Credit Card]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="381" y="249" width="141" height="14" uuid="8a7143e3-b233-4a8e-994a-aa994a39c8d6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[(Surcharges may apply see above)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="290" width="29" height="16" uuid="55f60c8d-f5f1-4a43-8231-e58b57c104da"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[BSB:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="275" width="100" height="15" uuid="74ef7368-6936-40dd-a829-0423a65b697c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[EFT or Direct Deposit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="290" width="52" height="16" uuid="aa0dcd1f-d809-42e4-83cb-57a160bdbc81"/>
+				<text><![CDATA[062223]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="305" width="118" height="20" uuid="7bac052f-8394-4776-9cf0-895921482ee9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bank Account Number:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="181" y="305" width="44" height="20" uuid="d99f0bfc-a9a3-4793-ac9e-ba379a95aca8"/>
+				<text><![CDATA[11039088]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="270" width="34" height="20" uuid="a835492c-c0cd-4be0-8041-c50443bcae9b"/>
+				<text><![CDATA[VISA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="359" y="270" width="34" height="20" uuid="84b9f6ff-cad1-4ff9-94b8-dd6f7727ef6a"/>
+				<text><![CDATA[MCard]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="270" width="34" height="20" uuid="04ec6153-8f58-4fd9-94cd-488cb42fb03d"/>
+				<text><![CDATA[AMEX]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="270" width="35" height="20" uuid="4f4d46da-fb93-4ff7-9713-dda45614053a"/>
+				<text><![CDATA[Diners]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="347" width="82" height="20" uuid="530e5a01-da5a-4c3f-90a1-e95cc66d6083"/>
+				<text><![CDATA[Card Expiry Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="373" width="50" height="14" uuid="bd196c3d-61b8-44ed-8351-706356996a01"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Signed :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="360" y="386" width="161" height="1" uuid="f77d2ece-83c1-48b4-be8f-081b2a33ccb9"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<image>
+				<reportElement x="16" y="281" width="40" height="40" uuid="d5be2d85-3f25-4139-bdc6-b3b6720ba372"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/2.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="225" y="62" width="100" height="20" uuid="f053ef24-3d3d-43a2-9f22-44a2f3998b1d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[How To Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="94" width="113" height="15" uuid="e4c9ee74-af7b-4fea-96c5-8eafd21043a6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[EFT or Direct Deposit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="111" width="179" height="47" uuid="25fd999e-3601-4c9a-81b4-05cba6bc6904"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Pay your bill directly from your nominated bank
+account to onbill Pty Ltd with our EFT details
+below.
+Please Note your Account Number on the Transfer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="187" width="179" height="41" uuid="3a204038-ca4a-449b-9e39-26ce2125af75"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Please detach the Payment Advice and return it
+together with your cheque. Cheques should be made
+payable to: onbill Pty Ltd.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="170" width="138" height="15" uuid="c04e98f1-0e4a-4e9c-9147-69f0f5f66358"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mailing Your Payment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="113" width="184" height="74" uuid="427d8a03-286a-4663-b2de-7ed0284e7e9d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Please call the Account Enquiries number for an
+authority form or go online and make your credit
+card payment by selecting the My Account option at
+http://www.onbill.com.au. Payments may incur an
+additional fee , 3% Visa, 3% Mastercard, 3% Amex,
+3% Diners.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="94" width="100" height="15" uuid="92fe8887-1b0d-47c5-b491-4f9918c66429"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Credit Card]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="13" y="62" width="509" height="20" uuid="ae6dadce-cf4c-4d53-b785-f990066e95f6"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</rectangle>
+			<image>
+				<reportElement x="13" y="113" width="30" height="32" uuid="00365783-a26b-4772-ae6e-8c32de0032c7"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/2.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="303" y="98" width="20" height="15" uuid="de36e09b-30a1-4e64-bf7d-bb4d0c6c2ca1"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/3.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="303" y="125" width="20" height="15" uuid="d323c3f1-ba1f-42d0-b194-fab6ac88135e"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/4.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="303" y="145" width="20" height="15" uuid="d9179b0a-f6cc-4d18-9b8a-14cf86dddf9d"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/5.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="13" y="187" width="30" height="32" uuid="17d9024e-47ca-4059-8017-7239af5ff32c"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/9.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="303" y="172" width="20" height="15" uuid="3d458f9b-d24b-4564-b67c-26b52816452e"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/6.jpg"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="12" y="29" width="508" height="1" uuid="24d53705-2e24-4331-86eb-8b69e5dc9321"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="13" y="10" width="176" height="20" uuid="b25cc162-55e5-4a1f-ab14-b4a6d59f2001"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Miscellaneous Transactions]]></text>
+			</staticText>
+			<line>
+				<reportElement x="13" y="44" width="508" height="1" uuid="380fd083-2936-4077-91ad-26100ae39479"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="16" y="30" width="100" height="15" uuid="3a70f446-8618-415d-a4b4-0d7666168221"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="30" width="72" height="15" uuid="992f9ae7-564b-40ba-bf21-b878863a4508"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ref no.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="212" y="30" width="100" height="15" uuid="0eac3217-95a5-489d-85eb-02d13774e2b4"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transaction Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="31" width="68" height="15" uuid="8e7e946b-d8c5-4252-a886-b6e9c3f5efc2"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ref Inv No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="31" width="67" height="15" uuid="0e58d6b0-1531-4c85-900b-2a51bb3955c3"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Net Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="456" y="30" width="66" height="15" uuid="3b824c2e-f9c2-4f49-aa0b-2225efa4b43e"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="306" y="325" width="44" height="15" uuid="580ba578-e0a4-4322-af2e-5d1be2807eec"/>
+				<text><![CDATA[Card No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="295" width="95" height="17" uuid="01214652-5f80-43a7-8644-88b1a5e4e417"/>
+				<text><![CDATA[Cardholder's Name]]></text>
+			</staticText>
+			<line>
+				<reportElement x="308" y="318" width="204" height="1" uuid="4837008f-cb08-48c9-a68a-c7eccb73eefd"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<image>
+				<reportElement x="340" y="275" width="20" height="15" uuid="73b89ea9-0cce-4c6d-9432-b22ca5b11b44"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/7.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="393" y="275" width="20" height="15" uuid="e8acd7b0-cd8f-4a6b-b27c-0e1b154d768b"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/7.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="442" y="275" width="20" height="15" uuid="450acd14-1433-4555-b0af-c223278b5380"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/7.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="443" y="325" width="32" height="18" uuid="a153c1c0-298e-4a90-8905-c10332278088"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/8.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="480" y="325" width="32" height="18" uuid="e5954a62-cd36-475a-b430-826260fbac34"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/8.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="402" y="325" width="32" height="18" uuid="47244d6a-69a2-4917-b21f-473787b6c3bf"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/8.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="363" y="325" width="32" height="18" uuid="8cd119e1-c5f2-4353-b858-456ba22fbead"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/8.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="395" y="351" width="20" height="15" uuid="a3b9a01f-6dd0-42a0-a12a-758046cf5311"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/7.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="387" y="351" width="20" height="15" uuid="a218c000-86a5-4399-a58a-a23183a071dd"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/7.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="434" y="351" width="20" height="15" uuid="beb4d902-e010-43e5-aa8d-f9184ddab59d"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/7.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="415" y="351" width="9" height="22" uuid="f99309d8-2fac-4eff-978a-84b88ecf4416"/>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<image>
+				<reportElement x="423" y="351" width="20" height="15" uuid="c5f12e33-8cbc-457b-924f-3b57a2f2a16b"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/7.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="457" y="346" width="23" height="20" uuid="7304655a-ff2c-4ec2-8957-7ddf2e8dd7db"/>
+				<text><![CDATA[CSV]]></text>
+			</staticText>
+			<image>
+				<reportElement x="480" y="347" width="32" height="18" uuid="b5d21bde-decf-486c-ae0e-6362187a8b71"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +"icons/8.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</summary>
+</jasperReport>

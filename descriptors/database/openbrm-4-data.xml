@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="Han" id="1">
+	   <insert tableName="device_type">
+	       <column name="id" valueNumeric="1"/>
+	   </insert>
+	   <insert tableName="device_type">
+            <column name="id" valueNumeric="2"/>
+       </insert>
+	   <insert tableName="device_type">
+            <column name="id" valueNumeric="3"/>
+        </insert>
+		<insert tableName="device_type">
+            <column name="id" valueNumeric="4"/>
+        </insert>
+	</changeSet>
+   <!-- <changeSet author="Han" id="2">
+        <insert tableName="generic_status">
+            <column name="id" valueNumeric="200"/>
+            <column name="dtype" value="device_status"/>
+            <column name="status_value" valueNumeric="1"/>
+            <column name="can_login"/>
+        </insert>
+        <insert tableName="generic_status">
+            <column name="id" valueNumeric="201"/>
+            <column name="dtype" value="device_status"/>
+            <column name="status_value" valueNumeric="2"/>
+            <column name="can_login"/>
+        </insert>	
+		<insert tableName="generic_status">
+            <column name="id" valueNumeric="202"/>
+            <column name="dtype" value="device_status"/>
+            <column name="status_value" valueNumeric="3"/>
+            <column name="can_login"/>
+        </insert>	
+		<insert tableName="generic_status">
+            <column name="id" valueNumeric="203"/>
+            <column name="dtype" value="device_status"/>
+            <column name="status_value" valueNumeric="4"/>
+            <column name="can_login"/>
+        </insert>
+		<insert tableName="generic_status">
+            <column name="id" valueNumeric="204"/>
+            <column name="dtype" value="user_device_status"/>
+            <column name="status_value" valueNumeric="1"/>
+            <column name="can_login"/>
+        </insert>
+		<insert tableName="generic_status">
+            <column name="id" valueNumeric="205"/>
+            <column name="dtype" value="user_device_status"/>
+            <column name="status_value" valueNumeric="2"/>
+            <column name="can_login"/>
+        </insert>
+		<insert tableName="generic_status">
+            <column name="id" valueNumeric="206"/>
+            <column name="dtype" value="user_device_status"/>
+            <column name="status_value" valueNumeric="3"/>
+            <column name="can_login"/>
+        </insert>
+		<insert tableName="generic_status">
+            <column name="id" valueNumeric="212"/>
+            <column name="dtype" value="voucher_status"/>
+            <column name="status_value" valueNumeric="1"/>
+            <column name="can_login"/>
+        </insert>
+		<insert tableName="generic_status">
+            <column name="id" valueNumeric="213"/>
+            <column name="dtype" value="voucher_status"/>
+            <column name="status_value" valueNumeric="2"/>
+            <column name="can_login"/>
+        </insert>
+		<insert tableName="generic_status">
+            <column name="id" valueNumeric="214"/>
+            <column name="dtype" value="voucher_status"/>
+            <column name="status_value" valueNumeric="3"/>
+            <column name="can_login"/>
+        </insert>
+		<insert tableName="generic_status">
+            <column name="id" valueNumeric="215"/>
+            <column name="dtype" value="voucher_status"/>
+            <column name="status_value" valueNumeric="4"/>
+            <column name="can_login"/>
+        </insert>
+		<insert tableName="generic_status">
+            <column name="id" valueNumeric="216"/>
+            <column name="dtype" value="voucher_status"/>
+            <column name="status_value" valueNumeric="5"/>
+            <column name="can_login"/>
+        </insert>
+		<insert tableName="generic_status">
+            <column name="id" valueNumeric="222"/>
+            <column name="dtype" value="bundle_status"/>
+            <column name="status_value" valueNumeric="1"/>
+            <column name="can_login"/>
+        </insert>
+		<insert tableName="generic_status">
+            <column name="id" valueNumeric="223"/>
+            <column name="dtype" value="bundle_status"/>
+            <column name="status_value" valueNumeric="2"/>
+            <column name="can_login"/>
+        </insert>
+		<insert tableName="generic_status">
+            <column name="id" valueNumeric="224"/>
+            <column name="dtype" value="bundle_status"/>
+            <column name="status_value" valueNumeric="3"/>
+            <column name="can_login"/>
+        </insert>
+	</changeSet>	-->
+	<!--<changeSet author="Han" id="3">
+        <insert tableName="generic_status_type">
+            <column name="id" value="bundle_status"/>
+        </insert>
+        <insert tableName="generic_status_type">
+            <column name="id" value="device_status"/>
+        </insert>
+        <insert tableName="generic_status_type">
+            <column name="id" value="user_device_status"/>
+        </insert>
+        <insert tableName="generic_status_type">
+            <column name="id" value="voucher_status"/>
+        </insert>
+    </changeSet>  -->	
+	<changeSet author="Han" id="5">
+        <insert tableName="ticket_status">
+            <column name="id" value="1"/>
+            <column name="type" value="New"/>
+        </insert>
+        <insert tableName="ticket_status">
+            <column name="id" value="2"/>
+            <column name="type" value="Open"/>
+        </insert>
+        <insert tableName="ticket_status">
+            <column name="id" value="3"/>
+            <column name="type" value="Closed"/>
+        </insert>
+    </changeSet>	
+	<changeSet author="Han" id="6">
+        <!--<insert tableName="jbilling_seqs">
+            <column name="name" value="rating_unit"/>
+            <column name="next_id" valueNumeric="1"/>
+        </insert>-->
+        <insert tableName="jbilling_seqs">
+            <column name="name" value="package_price"/>
+            <column name="next_id" valueNumeric="100"/>
+        </insert>
+        <insert tableName="jbilling_seqs">
+            <column name="name" value="package_product"/>
+            <column name="next_id" valueNumeric="100"/>
+        </insert>
+		<insert tableName="jbilling_seqs">
+            <column name="name" value="price_package"/>
+            <column name="next_id" valueNumeric="100"/>
+        </insert>
+		<insert tableName="jbilling_seqs">
+            <column name="name" value="purchased_bundle"/>
+            <column name="next_id" valueNumeric="100"/>
+        </insert>
+		<insert tableName="jbilling_seqs">
+            <column name="name" value="purchased_bundle_product"/>
+            <column name="next_id" valueNumeric="100"/>
+        </insert>
+		<insert tableName="jbilling_seqs">
+            <column name="name" value="support_ticket"/>
+            <column name="next_id" valueNumeric="100"/>
+        </insert>
+		<insert tableName="jbilling_seqs">
+            <column name="name" value="ticket_details"/>
+            <column name="next_id" valueNumeric="100"/>
+        </insert>
+	</changeSet>
+	<changeSet author="Han" id="7">
+        <insert tableName="tab">
+            <column name="id" value="16"/>
+            <column name="message_code" value="menu.link.voucher"/>
+			<column name="controller_name" value="voucher"/>
+			<column name="access_url" value="/voucher/list"/>
+			<column name="required_role" value=" "/>
+			<column name="version" value="1"/>
+			<column name="default_order" value="16"/>
+        </insert>
+        <insert tableName="tab">
+            <column name="id" value="17"/>
+            <column name="message_code" value="menu.link.support"/>
+			<column name="controller_name" value="CRM"/>
+			<column name="access_url" value="/crm/list"/>
+			<column name="required_role" value=" "/>
+			<column name="version" value="1"/>
+			<column name="default_order" value="17"/>
+        </insert>
+        <insert tableName="tab">
+           <column name="id" value="18"/>
+            <column name="message_code" value="menu.link.devices"/>
+			<column name="controller_name" value="device"/>
+			<column name="access_url" value="/device/list"/>
+			<column name="required_role" value=" "/>
+			<column name="version" value="1"/>
+			<column name="default_order" value="18"/>
+        </insert>
+		<insert tableName="tab">
+           <column name="id" value="19"/>
+            <column name="message_code" value="menu.link.bundles"/>
+			<column name="controller_name" value="bundle"/>
+			<column name="access_url" value="/bundle/list"/>
+			<column name="required_role" value=" "/>
+			<column name="version" value="1"/>
+			<column name="default_order" value="19"/>
+        </insert>
+		<insert tableName="tab">
+           <column name="id" value="20"/>
+            <column name="message_code" value="menu.link.openrate"/>
+			<column name="controller_name" value="openRate"/>
+			<column name="access_url" value="/openrate/list"/>
+			<column name="required_role" value=" "/>
+			<column name="version" value="1"/>
+			<column name="default_order" value="20"/>
+        </insert>
+		<insert tableName="tab">
+           <column name="id" value="21"/>
+             <column name="message_code" value="menu.link.subscription"/>
+			<column name="controller_name" value="subscription"/>
+			<column name="access_url" value="/subscription/list"/>
+			<column name="required_role" value=" "/>
+			<column name="version" value="1"/>
+			<column name="default_order" value="21"/>
+        </insert>
+		<insert tableName="tab">
+           <column name="id" value="22"/>
+             <column name="message_code" value="menu.link.mediation"/>
+			<column name="controller_name" value="mediation"/>
+			<column name="access_url" value="/mediation/list"/>
+			<column name="required_role" value=" "/>
+			<column name="version" value="1"/>
+			<column name="default_order" value="22"/>
+        </insert>
+    </changeSet>
+	<changeSet author="Han" id="8">
+        <insert tableName="preference_type">
+            <column name="id" valueNumeric="999"/>
+            <column name="def_value"/>
+        </insert>
+	</changeSet>	
+	<changeSet author="Han" id="9">
+        <insert tableName="bulk_notification_type">
+            <column name="id" valueNumeric="1"/>
+            <column name="type" value="SMS"/>
+        </insert>
+		<insert tableName="bulk_notification_type">
+            <column name="id" valueNumeric="2"/>
+            <column name="type" value="Email"/>
+        </insert>
+	</changeSet>	
+	</databaseChangeLog>
+	
+		
+		
+		
+		
+		
+		
+		

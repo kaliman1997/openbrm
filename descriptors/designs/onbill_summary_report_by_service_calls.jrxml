@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Usage Rport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4034e164-a6c1-4aee-ad71-eeb11c222b96">
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
+	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="org.joda.time.DateTime"/>
+	<parameter name="entity_id" class="java.lang.Integer"/>
+	<parameter name="customerId" class="java.lang.String"/>
+	<parameter name="entityPhoneCountryCode" class="java.lang.String"/>
+	<parameter name="entityPhoneAreaCode" class="java.lang.String"/>
+	<parameter name="entityPhoneContry" class="java.lang.String"/>
+	<parameter name="invoiceDate" class="java.lang.String"/>
+	<parameter name="invoiceDueDate" class="java.lang.String"/>
+	<parameter name="invoiceId" class="java.lang.Integer"/>
+	<parameter name="userId" class="java.lang.Integer"/>
+	<parameter name="invoiceNumber" class="java.lang.String"/>
+	<parameter name="organizationName" class="java.lang.String"/>
+	<parameter name="alias_name" class="java.lang.String"/>
+	<parameter name="typeId" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select cdr.destination_descr as alias_name, count(cdr.*) as quantity, sum(cdr.cost) as amount from gotosolr_cdr_event cdr join order_process o on o.order_id =cdr.order_id where o.invoice_id=$P{invoiceId} and cdr.calling_number = $P{alias_name} or cdr.calling_number = concat('0', substr($P{alias_name}, 3,9)) group by alias_name;]]>
+	</queryString>
+	<field name="amount" class="java.math.BigDecimal"/>
+	<field name="quantity" class="java.lang.Integer"/>
+	<field name="alias_name" class="java.lang.String"/>
+	<detail>
+		<band height="13">
+			<textField>
+				<reportElement x="10" y="0" width="122" height="13" uuid="a9066de0-df35-4583-b4cd-ad33faec70c5"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alias_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="283" y="0" width="57" height="13" uuid="16dd954b-44fe-463e-9295-e7eaaea000c0"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="57" height="13" uuid="2780bea6-d52c-45c9-8e87-dea1542444cd"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["$"+new DecimalFormat("#,##0.00").format($F{amount})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="0" width="65" height="13" uuid="e499daf6-f799-444e-9716-f7ad1e4e5ac8"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["$"+(new DecimalFormat("#,##0.00").format(($F{amount}.doubleValue())+($F{amount}.doubleValue()/10.00)))]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Usage Rport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c838663b-3b38-4802-bee8-c149b5691e51">
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
+	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="org.joda.time.DateTime"/>
+	<parameter name="entity_id" class="java.lang.Integer"/>
+	<parameter name="invoiceNumber" class="java.lang.String"/>
+	<parameter name="entityName" class="java.lang.String"/>
+	<parameter name="entityAddress" class="java.lang.String"/>
+	<parameter name="entityCity" class="java.lang.String"/>
+	<parameter name="entityProvince" class="java.lang.String"/>
+	<parameter name="entityPostalCode" class="java.lang.String"/>
+	<parameter name="invoiceDate" class="java.lang.String"/>
+	<parameter name="invoiceDueDate" class="java.lang.String"/>
+	<parameter name="customerUsername" class="java.lang.String"/>
+	<parameter name="customerAddress" class="java.lang.String"/>
+	<parameter name="customerCity" class="java.lang.String"/>
+	<parameter name="customerProvince" class="java.lang.String"/>
+	<parameter name="customerPostalCode" class="java.lang.String"/>
+	<parameter name="customerMessage1" class="java.lang.String"/>
+	<parameter name="entityLogo" class="java.io.File"/>
+	<parameter name="carriedBalance" class="java.lang.String"/>
+	<parameter name="customerMessage2" class="java.lang.String"/>
+	<parameter name="notes" class="java.lang.String"/>
+	<parameter name="customerOrganization" class="java.lang.String"/>
+	<parameter name="totalWithTax" class="java.lang.String"/>
+	<parameter name="totalWithoutTax" class="java.lang.String"/>
+	<parameter name="customerId" class="java.lang.String"/>
+	<parameter name="invoiceId" class="java.lang.Integer"/>
+	<parameter name="balance" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select t.type, t.id, t.invDate, t.total from ((select cast('i' as CHAR) as type, public_number as id, create_datetime as invDate,total from invoice where create_datetime between to_date($P{invoiceDate},'MM/DD/YYYY') - INTERVAL '3 months' and to_date($P{invoiceDate},'MM/DD/YYYY') and invoice.user_id=cast('51' as INT)) union (select cast('p' as CHAR)  as type, cast(pi.id as CHAR) as id,pi.create_datetime as invDate, pi.amount as total from payment_invoice pi,invoice i where pi.create_datetime between to_date($P{invoiceDate},'MM/DD/YYYY') - INTERVAL '3 months' and to_date($P{invoiceDate},'MM/DD/YYYY') and pi.invoice_id=i.id and i.user_id=cast($P{customerId} as INT))) t order by t.invDate desc;]]>
+	</queryString>
+	<field name="total" class="java.math.BigDecimal"/>
+	<field name="invDate" class="java.util.Date"/>
+	<detail>
+		<band height="16">
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="145" y="0" width="134" height="15" backcolor="#B8EF57" uuid="efd2b176-e305-4e88-8e3d-4a7557adb386"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMM yyyy").format($F{invDate})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="145" height="15" backcolor="#B8EF57" uuid="c486897c-44d8-472f-8eff-1cf29fd5cc11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ PAYMENT]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="15" width="507" height="1" uuid="9d8f33f7-0d76-4835-bf0d-5b085d60c5cb"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement mode="Opaque" x="279" y="0" width="66" height="15" backcolor="#B8EF57" uuid="c671c855-fb3e-4661-b040-226a3de259e4"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["$"+(($F{total} == null)?(new DecimalFormat("#,##0.00")).format(0):(new DecimalFormat("#,##0.00")).format($F{total}))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="345" y="0" width="53" height="15" backcolor="#B8EF57" uuid="32e75ae4-5249-4787-ac45-2e47c86b3aa3"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[$0.0]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="398" y="0" width="109" height="15" backcolor="#B8EF57" uuid="e6a33d97-35ce-4d81-917d-d5997c662647"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[$0.0]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

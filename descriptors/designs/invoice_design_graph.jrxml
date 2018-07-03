@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Usage Rport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6d468a6c-4dbf-4a29-99d8-633706038028">
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
+	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="org.joda.time.DateTime"/>
+	<parameter name="entity_id" class="java.lang.Integer"/>
+	<parameter name="customerId" class="java.lang.String"/>
+	<parameter name="entityPhoneCountryCode" class="java.lang.String"/>
+	<parameter name="entityPhoneAreaCode" class="java.lang.String"/>
+	<parameter name="entityPhoneContry" class="java.lang.String"/>
+	<parameter name="invoiceDate" class="java.lang.String"/>
+	<parameter name="invoiceDueDate" class="java.lang.String"/>
+	<parameter name="invoiceId" class="java.lang.Integer"/>
+	<parameter name="userId" class="java.lang.Integer"/>
+	<parameter name="invoiceNumber" class="java.lang.String"/>
+	<parameter name="organizationName" class="java.lang.String"/>
+	<parameter name="typeId" class="java.lang.Integer"/>
+	<parameter name="startDate" class="java.util.Date"/>
+	<parameter name="endDate" class="java.util.Date"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select create_datetime, total,user_id from invoice where user_id=cast($P{customerId} as INT) and create_datetime between TO_DATE($P{invoiceDate},'MM/DD/YYYY') - INTERVAL '2' month and TO_DATE($P{invoiceDate},'MM/DD/YYYY');]]>
+	</queryString>
+	<field name="create_datetime" class="java.util.Date"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<summary>
+		<band height="158">
+			<stackedBar3DChart>
+				<chart isShowLegend="false" evaluationTime="Report" renderType="image" theme="default">
+					<reportElement x="0" y="1" width="200" height="157" uuid="f49a8d8d-8956-4fe5-86f7-a9438da1ae1e"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend position="Top"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{create_datetime}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{create_datetime}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{total}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot xOffset="15.0" yOffset="7.0">
+					<plot orientation="Horizontal" labelRotation="1.0"/>
+					<itemLabel/>
+					<categoryAxisFormat labelRotation="1.0">
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat verticalTickLabels="false"/>
+					</valueAxisFormat>
+					<rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
+					<rangeAxisMaxValueExpression><![CDATA[3000]]></rangeAxisMaxValueExpression>
+				</bar3DPlot>
+			</stackedBar3DChart>
+		</band>
+	</summary>
+</jasperReport>

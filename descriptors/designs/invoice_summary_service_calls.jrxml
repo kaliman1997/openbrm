@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice_design_page2" pageWidth="555" pageHeight="812" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="83d12bbc-0b04-4fdf-ab45-ef360ad971e8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="invoiceNumber" class="java.lang.String"/>
+	<parameter name="entityName" class="java.lang.String"/>
+	<parameter name="entityAddress" class="java.lang.String"/>
+	<parameter name="entityCity" class="java.lang.String"/>
+	<parameter name="entityProvince" class="java.lang.String"/>
+	<parameter name="entityPostalCode" class="java.lang.String"/>
+	<parameter name="invoiceDate" class="java.lang.String"/>
+	<parameter name="invoiceDueDate" class="java.lang.String"/>
+	<parameter name="customerName" class="java.lang.String"/>
+	<parameter name="customerAddress" class="java.lang.String"/>
+	<parameter name="customerCity" class="java.lang.String"/>
+	<parameter name="customerProvince" class="java.lang.String"/>
+	<parameter name="customerPostalCode" class="java.lang.String"/>
+	<parameter name="customerMessage1" class="java.lang.String"/>
+	<parameter name="entityLogo" class="java.io.File"/>
+	<parameter name="customerMessage2" class="java.lang.String"/>
+	<parameter name="notes" class="java.lang.String"/>
+	<parameter name="customerOrganization" class="java.lang.String"/>
+	<parameter name="totalWithTax" class="java.lang.String"/>
+	<parameter name="totalWithoutTax" class="java.lang.String"/>
+	<parameter name="customerId" class="java.lang.String"/>
+	<parameter name="balance" class="java.lang.String"/>
+	<parameter name="pageNumber" class="java.lang.Integer"/>
+	<parameter name="invoiceId" class="java.lang.Integer"/>
+	<parameter name="alias_name" class="java.lang.String"/>
+	<parameter name="customerUsername" class="java.lang.String"/>
+	<parameter name="callingNumber" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select sum(amount) amount, sum(quantity) quantity from ((select ol.amount,ol.quantity from service s, service_alias sa, purchase_order po, order_line ol,order_process op where sa.alias_name = $P{alias_name} and op.invoice_id = $P{invoiceId} and sa.service_id = s.id and s.deleted = 0 and  sa.deleted = 0 and po.id = s.order_id and ol.order_id = po.id and op.order_id = po.id) union (select  sum(cdr.cost) as amount, count(cdr.*) as quantity from gotosolr_cdr_event cdr join order_process o on o.order_id =cdr.order_id where  o.invoice_id=$P{invoiceId} and cdr.calling_number = $P{alias_name} or cdr.calling_number = concat('0', substr($P{alias_name}, 3,9))))t;]]>
+	</queryString>
+	<field name="amount" class="java.math.BigDecimal"/>
+	<field name="quantity" class="java.lang.Integer"/>
+	<variable name="total_calls" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{quantity}]]></variableExpression>
+	</variable>
+	<variable name="total_cost" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{amount}]]></variableExpression>
+	</variable>
+	<summary>
+		<band height="14">
+			<textField pattern="h.mm a">
+				<reportElement x="85" y="0" width="147" height="14" uuid="db262629-943c-4850-8c2f-9f3f3a1ffe7d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{alias_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="10" y="0" width="75" height="14" forecolor="#000000" backcolor="#000000" uuid="25ee00ab-a7bd-4b2d-960b-3e34db7d3993"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Charges:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="270" y="0" width="258" height="1" uuid="a591ac57-0020-4a64-ab43-d0df26f2faa9"/>
+			</line>
+			<textField>
+				<reportElement x="266" y="0" width="74" height="14" uuid="147aee7e-d579-4288-9751-914590a88d38">
+					<printWhenExpression><![CDATA[$V{total_calls}!=null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_calls}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="0" width="62" height="14" uuid="6d263a24-563e-4573-99a0-0bf4f45115a1"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["$"+($V{total_cost} == null? "0.00" :new DecimalFormat("#,##0.00").format(($V{total_cost}.doubleValue())+($V{total_cost}.doubleValue()/10.00)))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="375" y="0" width="62" height="14" uuid="b9c0ac59-0e9d-48cf-ba79-4fa0b60cce20"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["$"+($V{total_cost} == null? "0.00" : new DecimalFormat("#,##0.00").format($V{total_cost}))]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

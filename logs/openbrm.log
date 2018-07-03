@@ -1,0 +1,140 @@
+2018-06-26 10:40:50,946 1     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-06-26 10:40:50,962 17    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-06-26 10:40:51,543 598   INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-06-26 10:40:51,546 601   WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-06-29 22:24:41,760 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-06-29 22:24:41,776 16    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-06-29 22:24:43,279 1519  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-06-29 22:24:43,295 1535  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-06-29 22:27:54,485 192725 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-06-29 22:27:54,485 192725 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-06-29 22:27:54,532 192772 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-06-29 22:27:54,532 192772 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-06-29 22:32:19,656 457896 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-06-29 22:32:19,666 457906 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-06-29 22:32:19,726 457966 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-06-29 22:32:19,736 457976 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-06-29 23:01:58,840 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-06-29 23:01:58,856 16    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-06-29 23:01:59,580 740   INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-06-29 23:01:59,588 748   WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-06-30 23:08:59,107 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-06-30 23:08:59,156 49    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-06-30 23:09:01,503 2396  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-06-30 23:09:01,503 2396  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-06-30 23:50:07,061 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-06-30 23:50:07,077 16    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-06-30 23:50:08,570 1509  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-06-30 23:50:08,580 1519  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 00:00:55,517 648456 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 00:00:55,558 648497 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 00:00:55,789 648728 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 00:00:55,799 648738 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 00:11:11,666 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 00:11:11,696 30    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 00:11:13,257 1591  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 00:11:13,267 1601  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 00:17:00,031 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 00:17:00,078 47    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 00:17:04,440 4409  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 00:17:04,443 4412  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 00:34:21,757 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 00:34:21,773 16    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 00:34:23,209 1452  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 00:34:23,209 1452  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 00:49:08,065 886308 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 00:49:08,075 886318 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 00:49:08,246 886489 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 00:49:08,256 886499 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 00:54:48,543 1226786 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 00:54:48,549 1226792 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 00:54:48,643 1226886 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 00:54:48,655 1226898 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 01:01:14,642 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 01:01:14,674 32    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 01:01:16,098 1456  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 01:01:16,114 1472  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 13:39:32,924 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 13:39:32,954 30    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 13:39:34,665 1741  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 13:39:34,675 1751  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 13:50:54,409 681485 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 13:50:54,411 681487 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 13:50:54,490 681566 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 13:50:54,492 681568 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 16:27:41,663 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 16:27:41,710 47    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 16:27:43,024 1361  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 16:27:43,024 1361  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 17:44:54,115 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 17:44:54,146 31    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 17:44:55,463 1348  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 17:44:55,463 1348  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 20:45:09,045 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 20:45:09,083 38    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 20:45:10,599 1554  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 20:45:10,614 1569  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 22:26:30,069 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 22:26:30,101 32    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 22:26:31,725 1656  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 22:26:31,741 1672  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 22:54:27,399 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 22:54:27,415 16    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-01 22:54:28,267 868   INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-01 22:54:28,269 870   WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 14:02:28,206 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 14:02:28,252 46    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 14:02:30,108 1902  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 14:02:30,114 1908  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 14:33:36,700 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 14:33:36,774 74    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 14:33:39,346 2646  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 14:33:39,352 2652  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 15:01:40,808 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 15:01:40,845 37    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 15:01:42,885 2077  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 15:01:42,891 2083  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 15:07:00,325 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 15:07:00,356 31    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 15:07:02,422 2097  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 15:07:02,428 2103  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 22:03:47,311 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 22:03:47,358 47    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 22:03:49,958 2647  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 22:03:49,958 2647  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 22:23:17,360 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 22:23:17,391 31    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 22:23:18,252 892   INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 22:23:18,252 892   WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 22:27:39,298 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 22:27:39,314 16    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 22:27:40,689 1391  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 22:27:40,689 1391  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 22:30:28,035 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 22:30:28,066 31    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 22:30:28,847 812   INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 22:30:28,863 828   WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 22:39:18,061 530026 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 22:39:18,061 530026 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 22:39:18,123 530088 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 22:39:18,123 530088 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 23:14:04,587 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 23:14:04,609 22    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 23:14:05,537 950   INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 23:14:05,539 952   WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 23:34:22,006 1217419 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 23:34:22,013 1217426 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 23:34:22,122 1217535 INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 23:34:22,129 1217542 WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 23:36:38,856 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 23:36:38,871 15    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-02 23:36:40,060 1204  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-02 23:36:40,060 1204  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-03 01:31:15,762 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-03 01:31:15,793 31    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-03 01:31:17,029 1267  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-03 01:31:17,031 1269  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-03 12:37:19,806 0     INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-03 12:37:19,842 36    WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig
+2018-07-03 12:37:21,933 2127  INFO  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Loading default config file: class DefaultWebXmlConfig
+2018-07-03 12:37:21,939 2133  WARN  [grails.plugin.webxml.WebxmlGrailsPlugin] (main:) Did not find application config file: WebXmlConfig

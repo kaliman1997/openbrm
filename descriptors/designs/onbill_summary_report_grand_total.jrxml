@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Usage Rport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4034e164-a6c1-4aee-ad71-eeb11c222b96">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="invoiceNumber" class="java.lang.String"/>
+	<parameter name="entityName" class="java.lang.String"/>
+	<parameter name="entityAddress" class="java.lang.String"/>
+	<parameter name="entityCity" class="java.lang.String"/>
+	<parameter name="entityProvince" class="java.lang.String"/>
+	<parameter name="entityPostalCode" class="java.lang.String"/>
+	<parameter name="invoiceDate" class="java.lang.String"/>
+	<parameter name="invoiceDueDate" class="java.lang.String"/>
+	<parameter name="customerName" class="java.lang.String"/>
+	<parameter name="customerAddress" class="java.lang.String"/>
+	<parameter name="customerCity" class="java.lang.String"/>
+	<parameter name="customerProvince" class="java.lang.String"/>
+	<parameter name="customerPostalCode" class="java.lang.String"/>
+	<parameter name="customerMessage1" class="java.lang.String"/>
+	<parameter name="entityLogo" class="java.io.File"/>
+	<parameter name="customerMessage2" class="java.lang.String"/>
+	<parameter name="notes" class="java.lang.String"/>
+	<parameter name="customerOrganization" class="java.lang.String"/>
+	<parameter name="totalWithTax" class="java.lang.String"/>
+	<parameter name="totalWithoutTax" class="java.lang.String"/>
+	<parameter name="customerId" class="java.lang.String"/>
+	<parameter name="balance" class="java.lang.String"/>
+	<parameter name="typeId" class="java.lang.Integer"/>
+	<parameter name="pageNumber" class="java.lang.Integer"/>
+	<parameter name="cat_name" class="java.lang.String"/>
+	<parameter name="invoiceId" class="java.lang.Integer"/>
+	<parameter name="customerUsername" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select sum(Amount) AMOUNT, sum(qty) Quantity from (select u.itemDesc, sum(u.amount) Amount, sum(u.qty) qty from ((select it.description as itemDesc, sum(amount) Amount,sum(quantity) Qty from(select  distinct l.id, l.item_id, itm.type_id, l.amount,l.quantity from invoice_line l,item i,item_type it,item_type_map itm where l.invoice_id =$P{invoiceId} and itm.type_id in (200, 201,202, 203) and l.item_id = itm.item_id ) t, item_type it where it.id = t.type_id group by t.type_id, itemDesc)  union (select 'FIXED' itemdesc, sum(e.cost) as amount, count(e.id) as qty from gotosolr_cdr_event e join order_process o on e.order_id = o.order_id where o.invoice_id = $P{invoiceId})) u group by itemDesc) p;]]>
+	</queryString>
+	<field name="Quantity" class="java.lang.Integer"/>
+	<field name="AMOUNT" class="java.math.BigDecimal"/>
+	<variable name="total" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{AMOUNT}]]></variableExpression>
+	</variable>
+	<variable name="total_qty" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{Quantity}]]></variableExpression>
+	</variable>
+	<summary>
+		<band height="15">
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="352" y="0" width="88" height="15" uuid="30208c4a-ab4f-4069-affc-a0c2cf8fe2ea"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["$"+(($V{total} == null)?(new DecimalFormat("#,##0.00")).format(0):(new DecimalFormat("#,##0.00")).format($V{total}))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="275" y="0" width="67" height="15" uuid="43c05003-80fb-48af-bcfc-76941b4ee286"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="447" y="0" width="81" height="15" uuid="39791368-f3e8-4af8-8489-7240ff5e0036"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["$"+new DecimalFormat("#,##0.00").format($V{total}.add($V{total}.multiply(new BigDecimal("0.1"))))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="192" y="0" width="81" height="15" uuid="bb308ce3-1310-4b86-851e-99868063f035"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grand Total:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="270" y="0" width="256" height="1" uuid="75162462-1435-4721-9822-79601b7422bc"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

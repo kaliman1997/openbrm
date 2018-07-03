@@ -1,0 +1,1353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice_design" pageWidth="630" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="574" leftMargin="28" rightMargin="28" topMargin="36" bottomMargin="36" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="23dc9c41-aaa4-40c4-8baa-5b729fc7529a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="481"/>
+	<import value="java.text.SimpleDateFormat"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="invoiceNumber" class="java.lang.String"/>
+	<parameter name="entityName" class="java.lang.String"/>
+	<parameter name="entityAddress" class="java.lang.String"/>
+	<parameter name="entityCity" class="java.lang.String"/>
+	<parameter name="entityProvince" class="java.lang.String"/>
+	<parameter name="entityPostalCode" class="java.lang.String"/>
+	<parameter name="invoiceDate" class="java.lang.String"/>
+	<parameter name="invoiceDueDate" class="java.lang.String"/>
+	<parameter name="customerUsername" class="java.lang.String"/>
+	<parameter name="customerAddress" class="java.lang.String"/>
+	<parameter name="customerCity" class="java.lang.String"/>
+	<parameter name="customerProvince" class="java.lang.String"/>
+	<parameter name="customerPostalCode" class="java.lang.String"/>
+	<parameter name="customerMessage1" class="java.lang.String"/>
+	<parameter name="entityLogo" class="java.io.File"/>
+	<parameter name="carriedBalance" class="java.lang.String"/>
+	<parameter name="customerMessage2" class="java.lang.String"/>
+	<parameter name="notes" class="java.lang.String"/>
+	<parameter name="customerOrganization" class="java.lang.String"/>
+	<parameter name="totalWithTax" class="java.lang.String"/>
+	<parameter name="totalWithoutTax" class="java.lang.String"/>
+	<parameter name="customerId" class="java.lang.String"/>
+	<parameter name="invoiceId" class="java.lang.Integer"/>
+	<parameter name="balance" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+
+max(case when meta_field_name_id=(SELECT  mfn.id FROM meta_field_name mfn,metafield_group_meta_field_map mgmfm,meta_field_group mfg,customer cu
+   where  mfn.field_usage='ADDRESS1' and mfn.id = mgmfm.meta_field_value_id and
+   mgmfm.metafield_group_id = mfg.id and mfg.account_type_id=cu.account_type_id and cu.user_id=cast($P{customerId} as INT)ORDER BY id ASC
+LIMIT 1) then string_value end) as address1,
+
+  max(case when meta_field_name_id=(SELECT mfn.id FROM meta_field_name mfn,metafield_group_meta_field_map mgmfm,meta_field_group mfg,customer cu
+   where  mfn.field_usage='ORGANIZATION' and mfn.id = mgmfm.meta_field_value_id and
+   mgmfm.metafield_group_id = mfg.id and mfg.account_type_id=cu.account_type_id and cu.user_id=cast($P{customerId} as INT)ORDER BY id ASC
+LIMIT 1) then string_value end) as organisation,
+
+ max(case when meta_field_name_id=(SELECT mfn.id FROM meta_field_name mfn,metafield_group_meta_field_map mgmfm,meta_field_group mfg,customer cu
+   where  mfn.field_usage='STATE_PROVINCE' and mfn.id = mgmfm.meta_field_value_id and
+   mgmfm.metafield_group_id = mfg.id and mfg.account_type_id=cu.account_type_id and cu.user_id=cast($P{customerId} as INT)ORDER BY id ASC
+LIMIT 1) then string_value end)province,
+
+	max(case when meta_field_name_id=(SELECT mfn.id FROM meta_field_name mfn,metafield_group_meta_field_map mgmfm,meta_field_group mfg,customer cu
+   where  mfn.field_usage='ADDRESS2' and mfn.id = mgmfm.meta_field_value_id and
+   mgmfm.metafield_group_id = mfg.id and mfg.account_type_id=cu.account_type_id and cu.user_id=cast($P{customerId} as INT)ORDER BY id ASC
+LIMIT 1) then string_value end)address2,
+
+   max(case when meta_field_name_id=(SELECT mfn.id FROM meta_field_name mfn,metafield_group_meta_field_map mgmfm,meta_field_group mfg,customer cu
+   where  mfn.field_usage='CITY' and mfn.id = mgmfm.meta_field_value_id and
+   mgmfm.metafield_group_id = mfg.id and mfg.account_type_id=cu.account_type_id and cu.user_id=cast($P{customerId} as INT)ORDER BY id ASC
+LIMIT 1) then string_value end)as city,
+
+   max(case when meta_field_name_id=(SELECT mfn.id FROM meta_field_name mfn,metafield_group_meta_field_map mgmfm,meta_field_group mfg,customer cu
+   where  mfn.field_usage='POSTAL_CODE' and mfn.id = mgmfm.meta_field_value_id and
+   mgmfm.metafield_group_id = mfg.id and mfg.account_type_id=cu.account_type_id and cu.user_id=cast($P{customerId} as INT)ORDER BY id ASC
+LIMIT 1) then string_value end)as pincode
+
+  FROM meta_field_value mfv,customer_account_info_type_timeline cuAcc ,customer cus,meta_field_group mfgg where mfv.id=cuAcc.meta_field_value_id
+  and cuAcc.customer_id=cus.id and cus.user_id=cast($P{customerId} as INT) and cuAcc.account_info_type_id =mfgg.id and
+  mfgg.account_type_id=cus.account_type_id ;]]>
+	</queryString>
+	<field name="address1" class="java.lang.String"/>
+	<field name="address2" class="java.lang.String"/>
+	<field name="organisation" class="java.lang.String"/>
+	<field name="province" class="java.lang.String"/>
+	<field name="city" class="java.lang.String"/>
+	<field name="pincode" class="java.lang.String"/>
+	<title>
+		<band height="495">
+			<staticText>
+				<reportElement uuid="e98aff53-f17c-4da3-8bc7-344525a697f1" x="472" y="1" width="99" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tax Invoice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c7812821-2a07-4b59-b9ac-c33e7f0a8a9d" x="496" y="31" width="36" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ph:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="db2a5687-533a-4ab2-b4a7-f084b82a90fe" x="319" y="21" width="252" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[PO BOX 360, Parramatta NSW 2124 Australia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="af9977f0-f90d-43f9-9bad-c6b6e3f48e97" positionType="Float" x="531" y="31" width="40" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[1300396979]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="45fd367b-ffa8-40ba-b957-8c35f8d3fc80" positionType="Float" x="369" y="101" width="179" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Account Details]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="65886999-75d5-4310-8c98-0da771c1b84d" x="9" y="4" width="220" height="72"/>
+				<imageExpression><![CDATA[$P{entityLogo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="ce31bcb0-3768-4723-87e2-df8f7477ef41" x="496" y="41" width="36" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FAX:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="94eb2e73-710b-4f64-9c76-b720f2fc0e43" positionType="Float" x="531" y="41" width="40" height="12"/>
+				<textElement textAlignment="Right" rotation="None">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[1300873757]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ffdfbce7-8c31-488b-8b03-b90e3b785740" x="453" y="51" width="36" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8949312-0a96-437b-a26c-9269526384b7" positionType="Float" x="489" y="51" width="83" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[billing@caretel.com.au]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6085139d-f00e-45bb-ab97-301138e7a466" x="454" y="61" width="117" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ABN 34 151 889 584]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="3a587eb5-6601-48d5-a51d-316ff6433298" x="3" y="81" width="565" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<rectangle>
+				<reportElement uuid="ee7b18a8-8e4f-49cf-9e09-65cb9fa86f27" mode="Transparent" x="344" y="101" width="227" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="48d3b4d0-61f9-4a56-a691-f173b04c6a25" x="349" y="125" width="78" height="20"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount Due]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="22405173-829d-4750-a8a9-9a8f0f01e8a4" x="348" y="141" width="78" height="20"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pay Due Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3ea97ec8-224d-46f0-8223-22db7401d4fb" x="349" y="157" width="98" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Account Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="75960af9-e53a-4653-9be4-11734d64b0ba" x="349" y="171" width="98" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Invoice Number]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="25c498cb-ace8-4f31-8b00-6d0e95328701" x="469" y="169" width="99" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoiceNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5f055e4d-5f33-424a-aa35-3fbe961a1977" x="349" y="185" width="98" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date of Issue]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="68f89f05-afce-4a2a-bee1-43b55040e4a1" x="349" y="217" width="98" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Page Number]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="9116f7db-f726-42bc-a3c0-3b6fec3ab1b7" mode="Transparent" x="8" y="248" width="558" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="1bb82e7d-649e-43aa-a908-c0feb0e4c7cf" positionType="Float" x="246" y="250" width="179" height="15"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Account Summary]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0c57f493-a06c-4f43-b52d-f6d6909d2b8a" mode="Opaque" x="365" y="281" width="96" height="62" backcolor="#B8EF57"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Current Charges]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c286c291-1f09-4de3-9d07-62812664ba24" mode="Opaque" x="190" y="281" width="88" height="62" backcolor="#B8EF57"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Adjustments]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d4acfd59-1d5a-42d1-be18-6e8be3d60aea" mode="Opaque" x="8" y="281" width="92" height="62" backcolor="#B8EF57"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Previous Balance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3aa9cc52-e055-4144-8d5d-49f48ffb864e" mode="Opaque" x="100" y="281" width="90" height="62" backcolor="#B8EF57"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Payments Received]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ceedfe7d-ee35-432c-837c-287df162e99a" mode="Opaque" x="278" y="281" width="87" height="62" backcolor="#B8EF57"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Outstanding]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="43f2c7e2-4ff6-4f43-9de8-2027bd8ecebd" mode="Opaque" x="461" y="281" width="105" height="62" backcolor="#B8EF57"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Amount Due in GST]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="a705e80d-e534-42c4-974d-39f139615438" mode="Opaque" x="12" y="310" width="78" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="d8cf8ce8-e4eb-40a1-967a-978656452ab9" mode="Opaque" x="100" y="310" width="78" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="3b86d89a-e493-44cb-8f1c-d9d319c04b15" mode="Opaque" x="190" y="309" width="78" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="425d6fa8-d37c-491f-9f7e-b87b24c02558" mode="Opaque" x="282" y="309" width="78" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="4f078d92-9563-41c4-9405-63caea4751d6" mode="Opaque" x="374" y="309" width="78" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="7588383b-7974-40f6-89e0-39e304df1d84" mode="Opaque" x="464" y="308" width="87" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="3a905f38-5c58-4f15-a93d-7d66c9e4a0d8" mode="Opaque" x="93" y="311" width="5" height="20" backcolor="#B8EF57"/>
+				<textElement/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5bedefca-8e57-4585-adcc-95bf17ec1f80" mode="Opaque" x="183" y="311" width="5" height="20" backcolor="#B8EF57"/>
+				<textElement/>
+				<text><![CDATA[+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5938138a-f849-49d6-afef-b3386be77df9" mode="Opaque" x="271" y="311" width="5" height="20" backcolor="#B8EF57"/>
+				<textElement/>
+				<text><![CDATA[=]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8507ac52-b124-4675-a934-0407c2ffecd3" mode="Opaque" x="362" y="311" width="5" height="20" backcolor="#B8EF57"/>
+				<textElement/>
+				<text><![CDATA[+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="23ceacae-aa28-4175-84ad-2cbfe9980373" mode="Opaque" x="456" y="311" width="5" height="20" backcolor="#B8EF57"/>
+				<textElement/>
+				<text><![CDATA[=]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="02e47d56-b97d-4703-9828-1090f4ba11d3" mode="Transparent" x="5" y="355" width="210" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="598bb584-192b-4edb-92c8-8a5cdb407136" positionType="Float" x="17" y="355" width="179" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Billing History]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="1a712b4f-7a7e-478c-9938-62a652750db8" mode="Transparent" x="296" y="355" width="270" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="f1976894-42a3-4d2a-87df-958ae97e8528" positionType="Float" x="309" y="357" width="179" height="20"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Charges Summary]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6b40da9c-7ec0-4479-a05f-f2079c93b18c" x="473" y="216" width="95" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5e18025f-b379-48d8-a720-b162dfb442e5" x="284" y="310" width="78" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{balance}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f2af1ff9-f55b-4500-b942-017cbbadd469" x="464" y="309" width="80" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{totalWithTax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7c4ed9ff-c377-47ec-9bd0-454ee003ea2c" x="469" y="141" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoiceDueDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="50338399-4157-48db-91b6-35c9502e0279" x="461" y="127" width="106" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalWithTax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="04d4b832-7a65-4122-a601-9e760d755615" x="469" y="185" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoiceDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8ecc3f0b-2b71-4d62-8522-ed40c38f937e" x="470" y="155" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b3832a6a-9cbb-4d39-96ab-718006df9b79" x="62" y="160" width="198" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="a75bbf67-2b42-46f0-bc64-656850b84706" positionType="Float" x="62" y="187" width="231" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pincode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4067370f-6daf-459a-9cbd-5c275a20c3b4" x="62" y="145" width="100" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{address1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fd18eea7-6575-44bb-92a7-341eba4fa6a1" x="62" y="129" width="184" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerUsername}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="a374c502-6d33-40f5-8895-654547006107" x="158" y="144" width="100" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{address2}!=null]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{address2}]]></textFieldExpression>
+			</textField>
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement uuid="e97098b9-b06d-4e83-a8c0-4edf07fbd35b" positionType="Float" x="3" y="377" width="165" height="95"/>
+				<subreportParameter name="entityCity">
+					<subreportParameterExpression><![CDATA[$P{entityCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerCity">
+					<subreportParameterExpression><![CDATA[$P{customerCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDueDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDueDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerPostalCode">
+					<subreportParameterExpression><![CDATA[$P{customerPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="balance">
+					<subreportParameterExpression><![CDATA[$P{balance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityPostalCode">
+					<subreportParameterExpression><![CDATA[$P{entityPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerId">
+					<subreportParameterExpression><![CDATA[$P{customerId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage2">
+					<subreportParameterExpression><![CDATA[$P{customerMessage2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage1">
+					<subreportParameterExpression><![CDATA[$P{customerMessage1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="carriedBalance">
+					<subreportParameterExpression><![CDATA[$P{carriedBalance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerUsername">
+					<subreportParameterExpression><![CDATA[$P{customerUsername}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityLogo">
+					<subreportParameterExpression><![CDATA[$P{entityLogo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerProvince">
+					<subreportParameterExpression><![CDATA[$P{customerProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerOrganization">
+					<subreportParameterExpression><![CDATA[$P{customerOrganization}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceId">
+					<subreportParameterExpression><![CDATA[$P{invoiceId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceNumber">
+					<subreportParameterExpression><![CDATA[$P{invoiceNumber}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityName">
+					<subreportParameterExpression><![CDATA[$P{entityName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityAddress">
+					<subreportParameterExpression><![CDATA[$P{entityAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityProvince">
+					<subreportParameterExpression><![CDATA[$P{entityProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerAddress">
+					<subreportParameterExpression><![CDATA[$P{customerAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithoutTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithoutTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="notes">
+					<subreportParameterExpression><![CDATA[$P{notes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "invoice_design_graph.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="601b9c95-8bb2-44e0-b65c-9c416998eead" x="196" y="314" width="53" height="15"/>
+				<textElement/>
+				<text><![CDATA[$ 0.0]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a10c263a-aa45-4ab6-9ad0-37906b5b6eeb" x="374" y="309" width="78" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{totalWithTax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="aea82a9b-dca3-4a45-87b8-b27201ba2c9d" x="12" y="311" width="78" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{carriedBalance}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9719c3be-31d0-4b2b-a8bd-f887eda0759b" x="109" y="314" width="53" height="15"/>
+				<textElement/>
+				<text><![CDATA[$ 0.0]]></text>
+			</staticText>
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement uuid="8e78edb1-458a-41a8-8ea5-950052a8be2c" positionType="Float" isPrintRepeatedValues="false" x="296" y="375" width="273" height="114"/>
+				<subreportParameter name="entityCity">
+					<subreportParameterExpression><![CDATA[$P{entityCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerCity">
+					<subreportParameterExpression><![CDATA[$P{customerCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDueDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDueDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerPostalCode">
+					<subreportParameterExpression><![CDATA[$P{customerPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="balance">
+					<subreportParameterExpression><![CDATA[$P{balance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityPostalCode">
+					<subreportParameterExpression><![CDATA[$P{entityPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerId">
+					<subreportParameterExpression><![CDATA[$P{customerId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage2">
+					<subreportParameterExpression><![CDATA[$P{customerMessage2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage1">
+					<subreportParameterExpression><![CDATA[$P{customerMessage1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerUsername">
+					<subreportParameterExpression><![CDATA[$P{customerUsername}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="carriedBalance">
+					<subreportParameterExpression><![CDATA[$P{carriedBalance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityLogo">
+					<subreportParameterExpression><![CDATA[$P{entityLogo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerProvince">
+					<subreportParameterExpression><![CDATA[$P{customerProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerOrganization">
+					<subreportParameterExpression><![CDATA[$P{customerOrganization}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceId">
+					<subreportParameterExpression><![CDATA[$P{invoiceId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceNumber">
+					<subreportParameterExpression><![CDATA[$P{invoiceNumber}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityName">
+					<subreportParameterExpression><![CDATA[$P{entityName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityProvince">
+					<subreportParameterExpression><![CDATA[$P{entityProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityAddress">
+					<subreportParameterExpression><![CDATA[$P{entityAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerAddress">
+					<subreportParameterExpression><![CDATA[$P{customerAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithoutTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithoutTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="notes">
+					<subreportParameterExpression><![CDATA[$P{notes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "invoice_design_charge_summary.jasper"]]></subreportExpression>
+			</subreport>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="2fe145d9-9de2-48f4-a225-3fdd5c8d66c8" positionType="Float" x="62" y="173" width="231" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{province}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a23d9c0b-90bf-4430-a67f-32e32693975b" x="349" y="202" width="98" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Billing Period]]></text>
+			</staticText>
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement uuid="fe866e31-9254-410e-a2e2-8b1791fa731b" positionType="Float" isPrintRepeatedValues="false" x="450" y="202" width="115" height="15"/>
+				<subreportParameter name="entityCity">
+					<subreportParameterExpression><![CDATA[$P{entityCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerCity">
+					<subreportParameterExpression><![CDATA[$P{customerCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDueDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDueDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerPostalCode">
+					<subreportParameterExpression><![CDATA[$P{customerPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="balance">
+					<subreportParameterExpression><![CDATA[$P{balance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityPostalCode">
+					<subreportParameterExpression><![CDATA[$P{entityPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerId">
+					<subreportParameterExpression><![CDATA[$P{customerId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage2">
+					<subreportParameterExpression><![CDATA[$P{customerMessage2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage1">
+					<subreportParameterExpression><![CDATA[$P{customerMessage1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerUsername">
+					<subreportParameterExpression><![CDATA[$P{customerUsername}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="carriedBalance">
+					<subreportParameterExpression><![CDATA[$P{carriedBalance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityLogo">
+					<subreportParameterExpression><![CDATA[$P{entityLogo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerProvince">
+					<subreportParameterExpression><![CDATA[$P{customerProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerOrganization">
+					<subreportParameterExpression><![CDATA[$P{customerOrganization}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceId">
+					<subreportParameterExpression><![CDATA[$P{invoiceId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceNumber">
+					<subreportParameterExpression><![CDATA[$P{invoiceNumber}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityName">
+					<subreportParameterExpression><![CDATA[$P{entityName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityProvince">
+					<subreportParameterExpression><![CDATA[$P{entityProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityAddress">
+					<subreportParameterExpression><![CDATA[$P{entityAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerAddress">
+					<subreportParameterExpression><![CDATA[$P{customerAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithoutTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithoutTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="notes">
+					<subreportParameterExpression><![CDATA[$P{notes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "caretel_billing_period.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="174">
+			<frame>
+				<reportElement uuid="08ce9712-f0c5-47f3-925f-bf7b87367e8f" x="11" y="56" width="547" height="0"/>
+			</frame>
+			<image>
+				<reportElement uuid="02595fce-fbba-4753-a6a9-e15564190802" x="12" y="11" width="246" height="58"/>
+				<imageExpression><![CDATA[$P{entityLogo}]]></imageExpression>
+			</image>
+			<line>
+				<reportElement uuid="d73d188b-b216-4d41-a7fd-a06aac2110d4" x="14" y="8" width="561" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="051f293f-e67b-4de4-a44a-360438fd384d" positionType="Float" x="12" y="69" width="284" height="28"/>
+				<textElement markup="none">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[If paying by mail, please send this payment advice with your
+cheque or money order payable to:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="91de7e9b-da9c-4a32-98d3-d751db4d55ae" positionType="Float" x="17" y="159" width="241" height="15"/>
+				<textElement markup="none">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[PARRAMATTA NEW SOUTH WALES 2124]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5f6a6db0-53ad-4b45-a7b5-279343743847" positionType="Float" x="17" y="143" width="198" height="15"/>
+				<textElement markup="none">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[POST OFFICE BOX 360]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5da16835-0b29-471d-b16a-58e39d402b55" positionType="Float" x="17" y="127" width="198" height="15"/>
+				<textElement markup="none">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Accounts Receivable]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e62e86ce-88a2-473b-b468-9cfac300c5a4" positionType="Float" x="17" y="111" width="198" height="15"/>
+				<textElement markup="none">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[CareTel Pty Ltd]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="993b608b-2f83-4b8f-972c-554f27176d51" x="329" y="69" width="98" height="14"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="200283a0-b22f-4722-ae6f-ecf1bb75412e" x="329" y="55" width="98" height="14"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Account Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6c0a20e7-9ca7-44be-8358-c50e1a0f48e1" x="329" y="83" width="89" height="14"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OverDue Amount]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="f3e0ac4f-d4f1-4e8c-b0ca-5964f9bd841b" mode="Transparent" x="329" y="21" width="236" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="eaeb6bff-fbd2-484f-9093-e6841300b2d7" positionType="Float" x="452" y="69" width="113" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoiceNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="eb74100b-7c73-48d3-a66b-0206208bf021" x="329" y="129" width="91" height="14"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Payment Due Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1916d619-cbea-477d-b3f3-01fa3918d54a" positionType="Float" x="359" y="21" width="179" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment Advice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c7f219d6-289b-4b16-91dc-2d2684b00ffd" x="329" y="97" width="89" height="14"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Amount Due]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="fa1a35f3-f432-415c-9955-d8b45883fa5f" x="466" y="56" width="100" height="14"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e09b214f-228d-4515-8da4-ec0dff19ff84" x="488" y="83" width="78" height="14"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalWithTax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9ec88e76-5144-43df-85fc-7671e4b464d7" x="489" y="98" width="78" height="14"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalWithTax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9e1bb58e-821c-43c5-9b6f-49eb3bc1c096" x="465" y="126" width="100" height="14"/>
+				<textElement textAlignment="Right">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoiceDueDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cca37816-7fb2-43ed-8a7c-e3deee8f89f1" x="329" y="112" width="98" height="14"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Billing Period]]></text>
+			</staticText>
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement uuid="dd35d3ec-dd92-44f4-abc1-114442c4a3ba" positionType="Float" isPrintRepeatedValues="false" x="447" y="110" width="113" height="15"/>
+				<subreportParameter name="entityCity">
+					<subreportParameterExpression><![CDATA[$P{entityCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerCity">
+					<subreportParameterExpression><![CDATA[$P{customerCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDueDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDueDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerPostalCode">
+					<subreportParameterExpression><![CDATA[$P{customerPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="balance">
+					<subreportParameterExpression><![CDATA[$P{balance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityPostalCode">
+					<subreportParameterExpression><![CDATA[$P{entityPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerId">
+					<subreportParameterExpression><![CDATA[$P{customerId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage2">
+					<subreportParameterExpression><![CDATA[$P{customerMessage2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage1">
+					<subreportParameterExpression><![CDATA[$P{customerMessage1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerUsername">
+					<subreportParameterExpression><![CDATA[$P{customerUsername}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="carriedBalance">
+					<subreportParameterExpression><![CDATA[$P{carriedBalance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityLogo">
+					<subreportParameterExpression><![CDATA[$P{entityLogo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerProvince">
+					<subreportParameterExpression><![CDATA[$P{customerProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerOrganization">
+					<subreportParameterExpression><![CDATA[$P{customerOrganization}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceId">
+					<subreportParameterExpression><![CDATA[$P{invoiceId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceNumber">
+					<subreportParameterExpression><![CDATA[$P{invoiceNumber}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityName">
+					<subreportParameterExpression><![CDATA[$P{entityName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityProvince">
+					<subreportParameterExpression><![CDATA[$P{entityProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityAddress">
+					<subreportParameterExpression><![CDATA[$P{entityAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerAddress">
+					<subreportParameterExpression><![CDATA[$P{customerAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithoutTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithoutTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="notes">
+					<subreportParameterExpression><![CDATA[$P{notes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "caretel_billing_period.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="16">
+			<textField>
+				<reportElement uuid="524c7149-e167-45fa-9bff-608accf14f7a" x="186" y="0" width="96" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}.intValue()+" of "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="5daaddfa-2405-4e4a-b206-f5b2dfe78568" x="284" y="0" width="100" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="115">
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement uuid="23b95487-823d-4dc5-9677-146ddd8edcb1" positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="566" height="23"/>
+				<subreportParameter name="entityCity">
+					<subreportParameterExpression><![CDATA[$P{entityCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerProvince">
+					<subreportParameterExpression><![CDATA[$P{customerProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerOrganization">
+					<subreportParameterExpression><![CDATA[$P{customerOrganization}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceId">
+					<subreportParameterExpression><![CDATA[$P{invoiceId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceNumber">
+					<subreportParameterExpression><![CDATA[$P{invoiceNumber}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerCity">
+					<subreportParameterExpression><![CDATA[$P{customerCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDueDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDueDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityName">
+					<subreportParameterExpression><![CDATA[$P{entityName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerPostalCode">
+					<subreportParameterExpression><![CDATA[$P{customerPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="balance">
+					<subreportParameterExpression><![CDATA[$P{balance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityPostalCode">
+					<subreportParameterExpression><![CDATA[$P{entityPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerId">
+					<subreportParameterExpression><![CDATA[$P{customerId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage2">
+					<subreportParameterExpression><![CDATA[$P{customerMessage2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage1">
+					<subreportParameterExpression><![CDATA[$P{customerMessage1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityAddress">
+					<subreportParameterExpression><![CDATA[$P{entityAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityProvince">
+					<subreportParameterExpression><![CDATA[$P{entityProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerAddress">
+					<subreportParameterExpression><![CDATA[$P{customerAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerUsername">
+					<subreportParameterExpression><![CDATA[$P{customerUsername}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithoutTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithoutTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="notes">
+					<subreportParameterExpression><![CDATA[$P{notes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityLogo">
+					<subreportParameterExpression><![CDATA[$P{entityLogo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "invoice_design_page2.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement uuid="57612442-c8e1-403f-8299-1546781085bc" positionType="Float" x="0" y="23" width="567" height="23">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()==1)]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="entityCity">
+					<subreportParameterExpression><![CDATA[$P{entityCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerProvince">
+					<subreportParameterExpression><![CDATA[$P{customerProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerOrganization">
+					<subreportParameterExpression><![CDATA[$P{customerOrganization}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceId">
+					<subreportParameterExpression><![CDATA[$P{invoiceId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerCity">
+					<subreportParameterExpression><![CDATA[$P{customerCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceNumber">
+					<subreportParameterExpression><![CDATA[$P{invoiceNumber}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDueDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDueDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerPostalCode">
+					<subreportParameterExpression><![CDATA[$P{customerPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityName">
+					<subreportParameterExpression><![CDATA[$P{entityName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="balance">
+					<subreportParameterExpression><![CDATA[$P{balance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityPostalCode">
+					<subreportParameterExpression><![CDATA[$P{entityPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerId">
+					<subreportParameterExpression><![CDATA[$P{customerId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage2">
+					<subreportParameterExpression><![CDATA[$P{customerMessage2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage1">
+					<subreportParameterExpression><![CDATA[$P{customerMessage1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityAddress">
+					<subreportParameterExpression><![CDATA[$P{entityAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityProvince">
+					<subreportParameterExpression><![CDATA[$P{entityProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerAddress">
+					<subreportParameterExpression><![CDATA[$P{customerAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerUsername">
+					<subreportParameterExpression><![CDATA[$P{customerUsername}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithoutTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithoutTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityLogo">
+					<subreportParameterExpression><![CDATA[$P{entityLogo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="notes">
+					<subreportParameterExpression><![CDATA[$P{notes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "invoice_summary_report_by_service.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement uuid="b396711b-8b12-4947-b033-a1643a6b87db" positionType="Float" x="2" y="92" width="565" height="23"/>
+				<subreportParameter name="entityCity">
+					<subreportParameterExpression><![CDATA[$P{entityCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerCity">
+					<subreportParameterExpression><![CDATA[$P{customerCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDueDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDueDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerPostalCode">
+					<subreportParameterExpression><![CDATA[$P{customerPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="balance">
+					<subreportParameterExpression><![CDATA[$P{balance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityPostalCode">
+					<subreportParameterExpression><![CDATA[$P{entityPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerId">
+					<subreportParameterExpression><![CDATA[$P{customerId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage2">
+					<subreportParameterExpression><![CDATA[$P{customerMessage2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage1">
+					<subreportParameterExpression><![CDATA[$P{customerMessage1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerUsername">
+					<subreportParameterExpression><![CDATA[$P{customerUsername}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="carriedBalance">
+					<subreportParameterExpression><![CDATA[$P{carriedBalance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityLogo">
+					<subreportParameterExpression><![CDATA[$P{entityLogo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerProvince">
+					<subreportParameterExpression><![CDATA[$P{customerProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerOrganization">
+					<subreportParameterExpression><![CDATA[$P{customerOrganization}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceId">
+					<subreportParameterExpression><![CDATA[$P{invoiceId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceNumber">
+					<subreportParameterExpression><![CDATA[$P{invoiceNumber}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityName">
+					<subreportParameterExpression><![CDATA[$P{entityName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityProvince">
+					<subreportParameterExpression><![CDATA[$P{entityProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityAddress">
+					<subreportParameterExpression><![CDATA[$P{entityAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerAddress">
+					<subreportParameterExpression><![CDATA[$P{customerAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithoutTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithoutTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="notes">
+					<subreportParameterExpression><![CDATA[$P{notes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "invoice_itemisation_report_service.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement uuid="bd434ffb-77fb-46a9-8b81-339ab318eb3b" positionType="Float" x="0" y="46" width="566" height="23">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()==1)]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="entityCity">
+					<subreportParameterExpression><![CDATA[$P{entityCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerProvince">
+					<subreportParameterExpression><![CDATA[$P{customerProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerOrganization">
+					<subreportParameterExpression><![CDATA[$P{customerOrganization}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceId">
+					<subreportParameterExpression><![CDATA[$P{invoiceId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceNumber">
+					<subreportParameterExpression><![CDATA[$P{invoiceNumber}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerCity">
+					<subreportParameterExpression><![CDATA[$P{customerCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDueDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDueDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerPostalCode">
+					<subreportParameterExpression><![CDATA[$P{customerPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityName">
+					<subreportParameterExpression><![CDATA[$P{entityName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityPostalCode">
+					<subreportParameterExpression><![CDATA[$P{entityPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerId">
+					<subreportParameterExpression><![CDATA[$P{customerId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage2">
+					<subreportParameterExpression><![CDATA[$P{customerMessage2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage1">
+					<subreportParameterExpression><![CDATA[$P{customerMessage1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityAddress">
+					<subreportParameterExpression><![CDATA[$P{entityAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityProvince">
+					<subreportParameterExpression><![CDATA[$P{entityProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerAddress">
+					<subreportParameterExpression><![CDATA[$P{customerAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerUsername">
+					<subreportParameterExpression><![CDATA[$P{customerUsername}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithoutTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithoutTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="notes">
+					<subreportParameterExpression><![CDATA[$P{notes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityLogo">
+					<subreportParameterExpression><![CDATA[$P{entityLogo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "invoice_summary_report_type.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement uuid="1c1557e3-acab-4797-b9f6-e36f61fc7ccc" positionType="Float" x="2" y="69" width="564" height="23">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()==1)]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="entityCity">
+					<subreportParameterExpression><![CDATA[$P{entityCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerCity">
+					<subreportParameterExpression><![CDATA[$P{customerCity}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceDueDate">
+					<subreportParameterExpression><![CDATA[$P{invoiceDueDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerPostalCode">
+					<subreportParameterExpression><![CDATA[$P{customerPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="balance">
+					<subreportParameterExpression><![CDATA[$P{balance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityPostalCode">
+					<subreportParameterExpression><![CDATA[$P{entityPostalCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerId">
+					<subreportParameterExpression><![CDATA[$P{customerId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage2">
+					<subreportParameterExpression><![CDATA[$P{customerMessage2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerMessage1">
+					<subreportParameterExpression><![CDATA[$P{customerMessage1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerUsername">
+					<subreportParameterExpression><![CDATA[$P{customerUsername}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="carriedBalance">
+					<subreportParameterExpression><![CDATA[$P{carriedBalance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityLogo">
+					<subreportParameterExpression><![CDATA[$P{entityLogo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerProvince">
+					<subreportParameterExpression><![CDATA[$P{customerProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerOrganization">
+					<subreportParameterExpression><![CDATA[$P{customerOrganization}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceId">
+					<subreportParameterExpression><![CDATA[$P{invoiceId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceNumber">
+					<subreportParameterExpression><![CDATA[$P{invoiceNumber}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityName">
+					<subreportParameterExpression><![CDATA[$P{entityName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityProvince">
+					<subreportParameterExpression><![CDATA[$P{entityProvince}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="entityAddress">
+					<subreportParameterExpression><![CDATA[$P{entityAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerAddress">
+					<subreportParameterExpression><![CDATA[$P{customerAddress}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalWithoutTax">
+					<subreportParameterExpression><![CDATA[$P{totalWithoutTax}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="notes">
+					<subreportParameterExpression><![CDATA[$P{notes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "invoice_summary_analysis_report.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

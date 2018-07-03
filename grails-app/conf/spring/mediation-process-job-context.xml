@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
+	
+	<!--	generate invoices job bean	-->
+	<job id="mediationProcessJob" xmlns="http://www.springframework.org/schema/batch">
+		<listeners>
+			<listener ref="mediationJobListener" />
+		</listeners>
+		<!-- Partioning job step -->
+		<step id="processCallRecords" next="stepDecider">
+			<partition step="partitionCallRecords"
+				partitioner="mediationProcessPartitioner">
+				<handler grid-size="${springbatch.mediation.process.grid.size}" task-executor="taskExecutor" />
+			</partition>
+		</step>
+
+		<decision id="stepDecider" decider="jobFlowDecider">
+			<next on="SUCCESS" to="mediationSuccess" />
+			<next on="FAILURE" to="mediationFailure" />	
+		</decision>
+		<!--	one of the following two steps is executed depending upon exit status of previous step	--> 
+		<step id="mediationSuccess">
+			<tasklet ref="mediationProcessSucceededTasklet" allow-start-if-complete="true"/>
+		</step>
+		
+		<step id="mediationFailure">
+			<tasklet ref="mediationProcessFailedTasklet" allow-start-if-complete="true"/>
+		</step>
+		
+	</job>
+	
+	<!--	first step of the job to generate invoices	-->
+	<batch:step id="partitionCallRecords">
+		<batch:tasklet allow-start-if-complete="true">
+			<batch:chunk reader="mediationProcessUserReader" processor="mediationProcessUsageProcessor" writer="mediationProcessWriter" commit-interval="1" skip-policy="skipPolicy">					
+				<batch:listeners>
+					<batch:listener ref="skipListener" />
+				</batch:listeners>
+			</batch:chunk>
+		</batch:tasklet>		
+	</batch:step>
+
+	<!--	reader of the chunk oriented step to read the ids of the users to be processed later	-->
+	<bean id="mediationProcessUserReader"
+		class="in.saralam.sbs.batch.mediation.MediationProcessUserReader" scope="step">
+		<property name="minValue" value="#{stepExecutionContext['minValue']}"/>
+		<property name="maxValue" value="#{stepExecutionContext['maxValue']}"/>
+	</bean>
+
+	<!--	processor of chunk oriented step to generate invoices	-->
+	<bean id="mediationProcessUsageProcessor"
+		class="in.saralam.sbs.batch.mediation.MediationProcessUsageProcessor" parent="jobContextHandler" scope="step">
+		<property name="entityId" value="#{jobParameters['entityId']}"/>
+		<property name="billingDate" value="#{jobParameters['billingDate']}"/>
+		<property name="review" value="#{jobParameters['review']}"/>
+		<property name="stepExecution" value="#{stepExecution}"/>
+	</bean>
+	
+	<!--	writer of chunk oriented step, it does nothing 	-->
+	<bean id="billingProcessWriter" class="in.saralam.sbs.batch.mediation.MediationProcessWriter" scope="step">
+	</bean>
+	
+	<!--	spring batch tasklet containing piece of that will run if billing process succeeds	-->
+	<bean id="mediationProcessSucceededTasklet" class="in.saralam.sbs.batch.mediation.MediationProcessSucceededTasklet" scope="step">
+		<property name="entityId" value="#{jobParameters['entityId']}"/>
+		<property name="billingDate" value="#{jobParameters['billingDate']}"/>
+		<property name="periodType" value="#{jobParameters['periodType']}"/>
+		<property name="periodValue" value="#{jobParameters['periodValue']}"/>
+		<property name="review" value="#{jobParameters['review']}"/>
+	</bean>
+	
+	<!--	spring batch tasklet containing code that will run if billing process fails	-->
+	<bean id="mediationProcessFailedTasklet" class="in.saralam.sbs.batch.mediation.MediationProcessFailedTasklet" scope="step">
+		<property name="entityId" value="#{jobParameters['entityId']}"/>
+	</bean>
+	
+	<!--	spring batch listener to set custom exit status of step	-->
+	<bean id="jobFlowDecider" class="in.saralam.sbs.batch.mediation.MediationProcessJobFlowDecider" />
+	
+	<!--	spring batch listener to do processing on skipped items	-->
+	<bean id="skipListener" class="com.sapienter.jbilling.batch.billing.BillingProcessSkipListener" parent="jobContextHandler" scope="step">
+		<property name="stepExecution" value="#{stepExecution}"/>
+	</bean>
+	
+	<!--	billing process job listener to initialize maps and save values in database at the start and end of job	-->
+	<bean id="mediationJobListener" class="in.saralam.sbs.batch.mediation.MediationProcessJobListener"/>
+
+	<!--	custom class to save and retrive values from job execution context	-->
+	<bean id="jobContextHandler" class="in.saralam.sbs.batch.mediation.JobContextHandler" abstract="true"/>
+
+	<bean id="mediationProcessPartitioner"
+		class="in.saralam.sbs.batch.mediation.MediationProcessPartitioner" scope="step">
+		<property name="entityId" value="#{jobParameters['entityId']}"/>
+		<property name="billingDate" value="#{jobParameters['billingDate']}"/>
+	</bean>
+
+
+
+</beans>

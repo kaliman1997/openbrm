@@ -1,0 +1,5 @@
+#prefix,destination,flat_rate,connection_charge,scaled_rate,valid_from,valid_to,rate_type,call_type
+1,Mobile,0,21.81,238.98,1/1/2013,1/1/2030,event,MOCI
+2,openbrm,0,21.81,38.98,1/1/2013,1/1/2030,event,MOCI
+3,saralam,0,21.81,438.98,1/1/2013,1/1/2030,event,MOCI
+4,mobile,0,21.81,23.98,1/1/2013,1/1/2030,event,MOCI
