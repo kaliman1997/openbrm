@@ -34,10 +34,14 @@ public class AltanAPITest {
 			if (acr.getStatus().equals("200")) {
 
 				OAuthResp oar = testOauth();
-				CoverageResp cr = new Coverage().check(oar.getAccessToken(),
-						acr.getLatitude(), acr.getLongitude());
-
-				System.out.println(cr.getResult());
+//				CoverageResp cr = new Coverage().check(oar.getAccessToken(),
+//						acr.getLatitude(), acr.getLongitude());
+//
+//				System.out.println(cr.getResult());
+				
+				Activation act = new Activation();
+				ActivationResponse ar = act.activate("5584614839", "1002001037", "19.3959336,-99.176576");
+				System.out.println(ar.getStatusDescription() + " " + ar.getStatus());
 			}
 			;
 
@@ -52,7 +56,7 @@ public class AltanAPITest {
 		OAuthResp oar = null;
 		try {
 
-			oar = oa.getToken("aGhZbU1BbUJtR3FraHJrN3h5N21KNGh2UEt0SklpMUU6b3FHUFcwcnRkZ255Mm45Ug==");
+			oar = oa.getToken();
 
 			System.out.println(oar.getAccessToken());
 

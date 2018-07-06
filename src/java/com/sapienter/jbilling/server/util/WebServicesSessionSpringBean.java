@@ -1477,7 +1477,7 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 								+ acr.getLatitude() + ":" + acr.getLongitude());
 						OAuth oAuth = new OAuth();
 						OAuthResp oar = oAuth
-								.getToken("aGhZbU1BbUJtR3FraHJrN3h5N21KNGh2UEt0SklpMUU6b3FHUFcwcnRkZ255Mm45Ug==");
+								.getToken();
 
 						CoverageResp cr = new Coverage().check(
 								oar.getAccessToken(), acr.getLatitude(),

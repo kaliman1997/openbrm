@@ -14,6 +14,7 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 
 import org.apache.log4j.Logger;
 import org.json.*;
@@ -27,11 +28,58 @@ import com.sapienter.jbilling.common.FormatLogger;
 public class OAuth {
 	private static final FormatLogger LOG = new FormatLogger(
 			Logger.getLogger(OAuth.class));
+	private final String base64Credentials = 
+			"aGhZbU1BbUJtR3FraHJrN3h5N21KNGh2UEt0SklpMUU6b3FHUFcwcnRkZ255Mm45Ug==";
+	
+	private static AccessToken accessToken = new AccessToken();
+	
+	private static class AccessToken{
+		private static String accessToken;
+		private static Calendar tokenAdquireTime;
+		private static Integer expiresIn;
+		
+		public static String getAccessToken() {
+			return accessToken;
+		}
+		public static void setAccessToken(String accessToken) {
+			AccessToken.accessToken = accessToken;
+		}
+		public static Calendar getTokenAdquireTime() {
+			return tokenAdquireTime;
+		}
+		public static void setTokenAdquireTime(Long tokenAdquireTime) {
+			AccessToken.tokenAdquireTime = Calendar.getInstance();
+			AccessToken.tokenAdquireTime.setTimeInMillis(tokenAdquireTime);
+		}
+		public static Integer getExpiresIn() {
+			return expiresIn;
+		}
+		public static void setExpiresIn(String expiresIn) {
+			AccessToken.expiresIn = new Integer(expiresIn);
+		}
+
+		
+		
+	}
 
 	OAuthResp or = new OAuthResp();
 
-	public OAuthResp getToken(String base64Credentials) {
+	public OAuthResp getToken() {
 		try {
+			
+			
+			if(AccessToken.getAccessToken()!= null && (Calendar.getInstance().getTimeInMillis()/1000 < 
+					((AccessToken.getTokenAdquireTime().getTimeInMillis() /1000 ) + 
+							AccessToken.getExpiresIn() - 600) 
+					)){
+				or.setStatus("success");
+				or.setStatusDescription("Credenciales correctas");		
+				
+				or.setAccessToken(AccessToken.getAccessToken());	
+				return or;
+				
+			}
+			
 
 			String response = sendRequest(base64Credentials);
 
@@ -49,11 +97,21 @@ public class OAuth {
 
 					or.setStatus("success");
 					or.setStatusDescription("Credenciales correctas");
+					
+					
 					or.setAccessToken(jsonObj.getString("accessToken"));
+					AccessToken.setAccessToken(or.getAccessToken());
+					
 					or.setClientId(jsonObj.getString("clientId"));
 					or.setTokenType(jsonObj.getString("tokenType"));
+					
 					or.setIssuedAt(jsonObj.getString("issuedAt"));
-					or.setExpiresIn(jsonObj.getString("expiresIn"));
+					AccessToken.setTokenAdquireTime(					
+									new Long(or.getIssuedAt()));
+					
+					or.setExpiresIn(jsonObj.getString("expiresIn"));					
+					AccessToken.setExpiresIn(or.getExpiresIn());
+					
 					or.setStatus(jsonObj.getString("status"));
 					or.setScopes(jsonObj.getString("scopes"));
 

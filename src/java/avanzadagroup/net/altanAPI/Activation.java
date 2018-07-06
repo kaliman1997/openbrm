@@ -24,10 +24,12 @@ public class Activation {
 
 	public ActivationResponse activate(String MSISDN, String offeringId,
 			String address) {
-		String body = "{\" msisdn\": \"" + MSISDN + "\"," + "\"offeringId\":\""
+		String body = "{\"offeringId\":\""
 				+ offeringId + "\"," + "\"address\":\"" + address + "\"}";
 
-		String response = sendRequest(body);
+		OAuth oauth = new OAuth();
+		
+		String response = sendRequest(oauth.getToken().getAccessToken(), MSISDN, body);		
 
 		if (response.equals("error")) {
 			ar.setStatus("error");
@@ -35,10 +37,12 @@ public class Activation {
 		} else {
 			try {
 
-				String[] responseValues = response.split("|");
+				System.out.println(response);
+				String[] responseValues = response.split("\\|");
 
 				String responseCode = responseValues[0];
 				String responseJSON = responseValues[1];
+				System.out.println(responseCode);
 				JSONObject jsonObj = new JSONObject(responseJSON);
 
 				if (responseCode.equals("200")) {
@@ -46,24 +50,45 @@ public class Activation {
 					ar.setStatus("success");
 					ar.setStatusDescription("Activacion correcta");
 					ar.setMsisdn(jsonObj.getString("msisdn"));
-					ar.setEffectiveDate(jsonObj.getString("efectiveDate"));
+					ar.setEffectiveDate(jsonObj.getString("effectiveDate"));
+					ar.setOrderId(jsonObj.getJSONObject("order").getString("id"));
 
 				} else if (responseCode.equals("400")) {
 					ar.setStatus("error 400");
 					ar.setStatusDescription(jsonObj.getString("description"));
 					ar.setErrorCode(jsonObj.getString("errorCode"));
 					ar.setDescription(jsonObj.getString("description"));
-					ar.setDetail(jsonObj.getString("detail"));
+					try{
+						ar.setDetail(jsonObj.getString("detail"));
+					} catch (JSONException jsonE){
+						System.out.println(jsonE.toString());
+						for(StackTraceElement ste : jsonE.getStackTrace()){
+							System.out.println(ste.toString());
+							
+						}
+					}
 
 				} else if (responseCode.equals("500")) {
 					ar.setStatus("error 500");
 					ar.setStatusDescription(jsonObj.getString("description"));
 					ar.setErrorCode(jsonObj.getString("errorCode"));
 					ar.setDescription(jsonObj.getString("description"));
-					ar.setDetail(jsonObj.getString("detail"));
-					ar.setTicket(jsonObj.getString("ticket"));
+					try{
+						ar.setDetail(jsonObj.getString("detail"));
+					} catch (JSONException jsonE){
+						System.out.println(jsonE.toString());
+						for(StackTraceElement ste : jsonE.getStackTrace()){
+							System.out.println(ste.toString());
+							
+						}
+					}
 				}
 			} catch (Exception e) {
+				System.out.println(e.toString());
+				for(StackTraceElement ste : e.getStackTrace()){
+					System.out.println(ste.toString());
+					
+				}
 				ar.setStatus("error 500");
 				ar.setStatusDescription("Server error");
 
@@ -75,45 +100,45 @@ public class Activation {
 
 	}
 
-	private String sendRequest(String body) {
+	private String sendRequest(String accessToken, String msisdn, String body) {
+//		return "200|{\"msisdn\": \"5554316832\"," + 
+//				"  \"effectiveDate\": \"20180705223420\"," + 
+//				"  \"offeringId\": \"\"," + 
+//				"  \"order\": {" + 
+//				"    \"id\": \"9e1321375c5f48c1e472c7b69d4406f9\"" + 
+//				"  }" + 
+//				"}";
+		
+		
 		URL url;
 		HttpURLConnection connection = null;
 		try {
-			url = new URL("https://altanHost:port/v1/activations/msisdn");
+			url = new URL("https://altanredes-prod.apigee.net/cm/v1/subscribers/"+msisdn+"/activate");
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
-			connection.setRequestProperty("authorization", body);
-			connection.setRequestProperty("Operation-User", body);
-			connection.setRequestProperty("Operation-Password", body);
+			connection.setRequestProperty("authorization", "Bearer " + accessToken);
 			connection.setRequestProperty("Content-Type", "application/json");
 			connection.setRequestProperty("Accept", "application/json");
-			connection.setRequestProperty("Accept-Language",
-					"es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3");
-			connection.setRequestProperty("Accept-Encoding", "gzip, deflate");
-			connection.setRequestProperty("Content-Length", "" + body.length());
-			connection.setRequestProperty("Cache-Control", "max-age=0");
-			connection
-					.setRequestProperty("User-Agent",
-							"Mozilla/5.0 (Windows NT 6.1; rv:35.0) Gecko/20100101 Firefox/35.0");
-			connection.setRequestProperty("Pragma", "no-cache");
-
 			connection.setDoInput(true);
 			connection.setDoOutput(true);
-
-			// Send request
-			DataOutputStream wr = new DataOutputStream(
-					connection.getOutputStream());
-			wr.writeBytes(body);
-			wr.flush();
-			wr.close();
-
- 
-		BufferedReader d
-			          = new BufferedReader(new InputStreamReader(
-			        		  connection.getInputStream()));
-			 
 			
-		
+			if (body != null) {
+				connection.setRequestProperty("Content-Length", Integer.toString(body.length()));
+				connection.getOutputStream().write(body.getBytes("UTF8"));
+				}
+			
+			BufferedReader d;
+			
+			if (connection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
+				 d = new BufferedReader(new InputStreamReader(
+						connection.getInputStream()));
+			} else {
+				d = new BufferedReader(new InputStreamReader(
+						connection.getErrorStream()));
+			}
+
+
+
 			String inputLine;
 
 			StringBuilder buf = new StringBuilder();
@@ -126,10 +151,15 @@ public class Activation {
 
 			return connection.getResponseCode() + "|" + buf.toString();
 		} catch (Exception e) {
+			System.out.println(e.toString());
+			for(StackTraceElement ste: e.getStackTrace()){
+				System.out.println(ste.toString());
+				
+			}
 
 			return "error";
 		}
 
-	}// registro
+	}
 
 }

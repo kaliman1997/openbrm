@@ -12,6 +12,7 @@ package avanzadagroup.net.altanAPI.responses;
 public class ActivationResponse extends GeneralResponse {
     private String msisdn;
     private String effectiveDate;
+    private String orderId;
     private String detail;
     private String ticket;
     private String errorCode;
@@ -65,6 +66,14 @@ public class ActivationResponse extends GeneralResponse {
     public void setDescription(String description) {
         this.description = description;
     }
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
 
 
     
