@@ -136,7 +136,7 @@
 
 <!-- header -->
 <div id="header">
-    <h1><a href="${resource(dir:'')}">OpenBRM</a></h1>
+    <h1><a href="${resource(dir:'')}">CBOSS</a></h1>
     <div class="search">
         <g:form controller="search" name="search-form">
             <fieldset>
