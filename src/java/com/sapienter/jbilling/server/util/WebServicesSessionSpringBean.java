@@ -1436,66 +1436,101 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 	}
 
 	private MetaFieldValueWS[] getCoverage(UserWS newUser) throws Exception {
-		String calle = "", noExterior = "", cp = "", col = "", ciudad = "", estado = "";
+		try {
+			String calle = "", noExterior = "", cp = "", col = "", ciudad = "", estado = "";
 
-		for (MetaFieldValueWS mfvws : newUser.getMetaFields()) {
-			LOG.debug("avanzada::" + mfvws.getFieldName() + ":"
-					+ mfvws.getValue());
+			for (MetaFieldValueWS mfvws : newUser.getMetaFields()) {
+				LOG.debug("avanzada::" + mfvws.getFieldName() + ":"
+						+ mfvws.getValue());
 
-			if (mfvws.getFieldName().equalsIgnoreCase("Calle, No Ext, No Int"))
-				calle = (String) mfvws.getValue();
-			if (mfvws.getFieldName().equalsIgnoreCase("no exterior"))
-				noExterior = (String) mfvws.getValue();
-			if (mfvws.getFieldName().equalsIgnoreCase("Colonia"))
-				col = (String) mfvws.getValue();
-			if (mfvws.getFieldName().equalsIgnoreCase("ciudad"))
-				ciudad = (String) mfvws.getValue();
-			if (mfvws.getFieldName().equalsIgnoreCase("estado"))
-				estado = (String) mfvws.getValue();
-			if (mfvws.getFieldName().equalsIgnoreCase("cp"))
-				cp = (String) mfvws.getValue();
-
-		}
-
-		ArrayList<MetaFieldValueWS> mfvList = new ArrayList<MetaFieldValueWS>();
-
-		for (MetaFieldValueWS mfvws : newUser.getMetaFields()) {
-
-			if (mfvws.getFieldName().equalsIgnoreCase("Cobertura")) {
-
-				LOG.debug("avanzada:: direccion " + calle + " " + noExterior
-						+ " " + cp);
-
-				if (!calle.equals("") && !cp.equals("") && !estado.equals("")) {
-					AddressCoordinates ac = new AddressCoordinates();
-					AddressCoordinatesResp acr = ac.getCoordinates(calle,
-							noExterior, cp, ciudad, estado, "Mexico");
-					LOG.debug("avanzada::" + acr.getStatus());
-
-					if (acr.getStatus().equals("200")) {
-						LOG.debug("avanzada:: las cordenadas son "
-								+ acr.getLatitude() + ":" + acr.getLongitude());
-						OAuth oAuth = new OAuth();
-						OAuthResp oar = oAuth
-								.getToken();
-
-						CoverageResp cr = new Coverage().check(
-								oar.getAccessToken(), acr.getLatitude(),
-								acr.getLongitude());
-
-						LOG.debug("avanzada:: cobertura " + cr.getResult());
-
-						mfvws.setValue(cr.getResult());
-
-					} else {
-						mfvws.setValue("ERROR EN GEOLOCALIZACION");
-					}
-				}
+				if (mfvws.getFieldName().equalsIgnoreCase("Calle, No Ext, No Int"))
+					calle = (String) mfvws.getValue();
+				if (mfvws.getFieldName().equalsIgnoreCase("no exterior"))
+					noExterior = (String) mfvws.getValue();
+				if (mfvws.getFieldName().equalsIgnoreCase("Colonia"))
+					col = (String) mfvws.getValue();
+				if (mfvws.getFieldName().equalsIgnoreCase("ciudad"))
+					ciudad = (String) mfvws.getValue();
+				if (mfvws.getFieldName().equalsIgnoreCase("estado"))
+					estado = (String) mfvws.getValue();
+				if (mfvws.getFieldName().equalsIgnoreCase("cp"))
+					cp = (String) mfvws.getValue();
 
 			}
-			mfvList.add(mfvws);
+
+			ArrayList<MetaFieldValueWS> mfvList = new ArrayList<MetaFieldValueWS>();
+			String coverage = "";
+			String latitude = "";
+			String longitude = "";
+
+			for (MetaFieldValueWS mfvws : newUser.getMetaFields()) {
+
+				if (mfvws.getFieldName().equalsIgnoreCase("Cobertura")) {
+
+					LOG.debug("avanzada:: direccion " + calle + " " + noExterior
+							+ " " + cp);
+
+					if (!calle.equals("") && !cp.equals("") && !estado.equals("")) {
+						AddressCoordinates ac = new AddressCoordinates();
+						AddressCoordinatesResp acr = ac.getCoordinates(calle,
+								noExterior, cp, ciudad, estado, "Mexico");
+						LOG.debug("avanzada::" + acr.getStatus());
+
+						if (acr.getStatus().equals("200")) {
+							LOG.debug("avanzada:: las cordenadas son "
+									+ acr.getLatitude() + ":" + acr.getLongitude());
+							OAuth oAuth = new OAuth();
+							OAuthResp oar = oAuth.getToken();
+
+							CoverageResp cr = new Coverage().check(
+									oar.getAccessToken(), acr.getLatitude(),
+									acr.getLongitude());
+
+							LOG.debug("avanzada:: cobertura " + cr.getResult());
+
+							coverage = cr.getResult();
+							latitude = acr.getLatitude();
+							longitude = acr.getLongitude();
+							LOG.debug("AVANZADA:: " + latitude);
+
+							mfvws.setValue(cr.getResult());
+
+						} else {
+							mfvws.setValue("ERROR EN GEOLOCALIZACION");
+						}
+					}
+
+				}
+				mfvList.add(mfvws);
+			}
+			
+
+			if (!latitude.equals("")) {
+				LOG.debug("AVANZADA:: " + latitude);
+				mfvList = new ArrayList<MetaFieldValueWS>();
+				for (MetaFieldValueWS mfvws : newUser.getMetaFields()) {
+					LOG.debug("fieldName" + mfvws.getFieldName());
+					if (mfvws.getFieldName().equalsIgnoreCase("Latitud")) {
+						mfvws.setValue(latitude);
+					} else if(mfvws.getFieldName().equalsIgnoreCase("Longitud")){
+						mfvws.setValue(longitude);
+					}
+					
+					mfvList.add(mfvws);
+				}
+			}
+			
+			MetaFieldValueWS[]  arrayToReturn = new MetaFieldValueWS[mfvList.size()];
+			
+			for(int i = 0; i < mfvList.size(); i++ ){
+				arrayToReturn[i] = mfvList.get(i);				
+			}
+					
+			return arrayToReturn;
+		} catch (Exception e) {
+			LOG.debug(e);
+			throw e;
 		}
-		return (MetaFieldValueWS[]) mfvList.toArray();
 	}
 
 	/**

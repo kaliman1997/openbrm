@@ -20,8 +20,8 @@
 
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsAnnotationConfiguration
 
-def dbUser = System.getenv("OPENBRM_DB_USER") ?: "openbrm_test"
-def dbName = System.getenv("OPENBRM_DB_NAME") ?: "openbrm_test"
+def dbUser = System.getenv("OPENBRM_DB_USER") ?: "openbrm_prod"
+def dbName = System.getenv("OPENBRM_DB_NAME") ?: "openbrm_prod"
 def dbHost = System.getenv("OPENBRM_DB_HOST") ?: "localhost"
 
 dataSource {
@@ -38,7 +38,7 @@ dataSource {
     dialect = "org.hibernate.dialect.PostgreSQLDialect"
     driverClassName = "org.postgresql.Driver"
     username = dbUser
-    password = "jbilling"
+    password = "openbrm_prod"
     url = "jdbc:postgresql://${dbHost}:5432/${dbName}"
 
     /*

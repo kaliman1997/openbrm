@@ -39,9 +39,33 @@ public class AltanAPITest {
 //
 //				System.out.println(cr.getResult());
 				
+				String MSISDN = "5584614839";
+				
 				Activation act = new Activation();
-				ActivationResponse ar = act.activate("5584614839", "1002001037", "19.3959336,-99.176576");
+				ActivationResponse ar = act.activate(MSISDN, "1002001037", "19.3959336,-99.176576");
 				System.out.println(ar.getStatusDescription() + " " + ar.getStatus());
+				
+				Suspend suspend = new Suspend();
+				SuspendResponse sr = suspend.suspend(MSISDN);
+				System.out.println(sr.getStatusDescription() + " " + sr.getStatus());
+				
+				if (sr.getStatus().equals("success")){
+					System.out.println("orderid" + sr.getOrderId());					
+				} else {
+					System.out.println("detail" + sr.getDetail());
+				}
+				
+				Thread.sleep(30000);
+				
+				Resume resume = new Resume();
+				ResumeResponse rr = resume.resume(MSISDN);
+				System.out.println(rr.getStatusDescription() + " " + rr.getStatus());
+				
+				if (rr.getStatus().equals("success")){
+					System.out.println("orderid" + rr.getOrderId());					
+				} else {
+					System.out.println("detail" + rr.getDetail());
+				}				
 			}
 			;
 
