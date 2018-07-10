@@ -37,9 +37,6 @@ public class ActivatePlan extends PluggableTask implements IInternalEventsTask {
 				}
 			}
 			
-			UserBL(myEvent.getInvoice().getUserId()).
-			
-			
 		} else {
 			throw new PluggableTaskException("Cannot process event " + event);
 
