@@ -16,7 +16,7 @@ import com.sapienter.jbilling.server.system.event.Event;
 import com.sapienter.jbilling.server.system.event.task.IInternalEventsTask;
 
 
-public class ActivatePlan extends PluggableTask implements IInternalEventsTask {
+public class ActivatePlanTask extends PluggableTask implements IInternalEventsTask {
 	private static final Class<Event> events[] = new Class[] {PaymentLinkedToInvoiceEvent.class};
 
 	private static final FormatLogger LOG = new FormatLogger(
