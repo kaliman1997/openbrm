@@ -21,9 +21,9 @@ import org.json.*;
 public class Coverage {
 	CoverageResp ar = new CoverageResp();
 
-	public CoverageResp check(String token, String lat, String lng) {
+	public CoverageResp check(String token, String location) {
 		try {
-			String location = lat + "%2C" + lng;
+			//String location = lat + "%2C" + lng;
 
 			location = location.replaceAll("-", "%2D");
 

@@ -16,23 +16,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Calendar;
 
-import org.apache.log4j.Logger;
 import org.json.*;
-
-import com.sapienter.jbilling.common.FormatLogger;
 
 /**
  *
  * @author Arturo Ruiz
  */
 public class OAuth {
-	private static final FormatLogger LOG = new FormatLogger(
-			Logger.getLogger(OAuth.class));
+//	private static final FormatLogger LOG = new FormatLogger(
+//			Logger.getLogger(OAuth.class));
 	private final String base64Credentials = 
 			"aGhZbU1BbUJtR3FraHJrN3h5N21KNGh2UEt0SklpMUU6b3FHUFcwcnRkZ255Mm45Ug==";
 	
-	private static AccessToken accessToken = new AccessToken();
-	
+
 	private static class AccessToken{
 		private static String accessToken;
 		private static Calendar tokenAdquireTime;
@@ -66,12 +62,14 @@ public class OAuth {
 
 	public OAuthResp getToken() {
 		try {
-			
+			System.out.println("Oauth::" + AccessToken.getAccessToken());
 			
 			if(AccessToken.getAccessToken()!= null && (Calendar.getInstance().getTimeInMillis()/1000 < 
 					((AccessToken.getTokenAdquireTime().getTimeInMillis() /1000 ) + 
 							AccessToken.getExpiresIn() - 600) 
 					)){
+				
+				System.out.println("Oauth:: no genera");
 				or.setStatus("success");
 				or.setStatusDescription("Credenciales correctas");		
 				
@@ -82,6 +80,8 @@ public class OAuth {
 			
 
 			String response = sendRequest(base64Credentials);
+			
+			System.out.println("Oauth::" + response);
 
 			if (response.equals("error")) {
 				or.setStatus("error");
@@ -90,7 +90,7 @@ public class OAuth {
 				String[] responseValues = response.split("\\|");
 				String responseCode = responseValues[0];
 				String responseJSON = responseValues[1];
-				System.out.println(responseCode + " sasdasd" + responseJSON);
+				System.out.println(responseCode + " Oauth" + responseJSON);
 				JSONObject jsonObj = new JSONObject(responseJSON);
 
 				if (responseCode.equals("200")) {
@@ -137,7 +137,7 @@ public class OAuth {
 
 	}
 
-	private String sendRequest(String base64Credentials) {
+	public String sendRequest(String base64Credentials) {
 		URL url;
 		HttpURLConnection connection = null;
 		try {

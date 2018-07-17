@@ -5,7 +5,7 @@
  */
 package avanzadagroup.net.altanAPI;
 
-import avanzadagroup.net.altanAPI.responses.SuspendResponse;
+import avanzadagroup.net.altanAPI.responses.ActivationResponse;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -19,19 +19,18 @@ import org.json.*;
  *
  * @author Arturo Ruiz
  */
-public class Suspend {
-	SuspendResponse sr = new SuspendResponse();
+public class IMEI {
+	ActivationResponse ar = new ActivationResponse();
 
-	public SuspendResponse suspend(String MSISDN) {
-		OAuth oauth = new OAuth();
+	public ActivationResponse operation(String IMEI, String operation) {
 		
-		String response = sendRequest(oauth.getToken().getAccessToken(), MSISDN);		
+		String response = sendRequest(new OAuth().getToken().
+                        getAccessToken(), IMEI, operation);		
+                ar.setJsonResponse(response);
 
-                sr.setJsonResponse(response);
-                
-                if (response.equals("error")) {
-			sr.setStatus("error");
-			sr.setStatusDescription("Error en WS Altan");
+		if (response.equals("error")) {
+			ar.setStatus("error");
+			ar.setStatusDescription("Error en WS Altan");
 		} else {
 			try {
 
@@ -45,19 +44,19 @@ public class Suspend {
 
 				if (responseCode.equals("200")) {
 
-					sr.setStatus("success");
-					sr.setStatusDescription("Suspencin correcta");
-					sr.setMsisdn(jsonObj.getString("msisdn"));
-					sr.setEffectiveDate(jsonObj.getString("effectiveDate"));
-					sr.setOrderId(jsonObj.getJSONObject("order").getString("id"));
+					ar.setStatus("success");
+					ar.setStatusDescription("Activacion correcta");
+					ar.setMsisdn(jsonObj.getString("msisdn"));
+					ar.setEffectiveDate(jsonObj.getString("effectiveDate"));
+					ar.setOrderId(jsonObj.getJSONObject("order").getString("id"));
 
 				} else if (responseCode.equals("400")) {
-					sr.setStatus("error 400");
-					sr.setStatusDescription(jsonObj.getString("description"));
-					sr.setErrorCode(jsonObj.getString("errorCode"));
-					sr.setDescription(jsonObj.getString("description"));
+					ar.setStatus("error 400");
+					ar.setStatusDescription(jsonObj.getString("description"));
+					ar.setErrorCode(jsonObj.getString("errorCode"));
+					ar.setDescription(jsonObj.getString("description"));
 					try{
-						sr.setDetail(jsonObj.getString("detail"));
+						ar.setDetail(jsonObj.getString("detail"));
 					} catch (JSONException jsonE){
 						System.out.println(jsonE.toString());
 						for(StackTraceElement ste : jsonE.getStackTrace()){
@@ -67,12 +66,12 @@ public class Suspend {
 					}
 
 				} else if (responseCode.equals("500")) {
-					sr.setStatus("error 500");
-					sr.setStatusDescription(jsonObj.getString("description"));
-					sr.setErrorCode(jsonObj.getString("errorCode"));
-					sr.setDescription(jsonObj.getString("description"));
+					ar.setStatus("error 500");
+					ar.setStatusDescription(jsonObj.getString("description"));
+					ar.setErrorCode(jsonObj.getString("errorCode"));
+					ar.setDescription(jsonObj.getString("description"));
 					try{
-						sr.setDetail(jsonObj.getString("detail"));
+						ar.setDetail(jsonObj.getString("detail"));
 					} catch (JSONException jsonE){
 						System.out.println(jsonE.toString());
 						for(StackTraceElement ste : jsonE.getStackTrace()){
@@ -87,46 +86,32 @@ public class Suspend {
 					System.out.println(ste.toString());
 					
 				}
-				sr.setStatus("error 500");
-				sr.setStatusDescription("Server error");
+				ar.setStatus("error 500");
+				ar.setStatusDescription("Server error");
 
 			}
 
 		}
 
-		return sr;
+		return ar;
 
 	}
 
-	private String sendRequest(String accessToken, String msisdn) {
-//		return "200|{\"msisdn\": \"5554316832\"," + 
-//				"  \"effectiveDate\": \"20180705223420\"," + 
-//				"  \"offeringId\": \"\"," + 
-//				"  \"order\": {" + 
-//				"    \"id\": \"9e1321375c5f48c1e472c7b69d4406f9\"" + 
-//				"  }" + 
-//				"}";
+	public String sendRequest(String accessToken, String IMEI, 
+                String operation) {
 		
 		
 		URL url;
 		HttpURLConnection connection = null;
 		try {
 			url = new URL("https://altanredes-prod.apigee.net/"
-					+ "cm/v1/subscribers/"+msisdn+"/suspend");
+                                + "cm/v1/imei/"+IMEI+"/" + operation);
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("authorization", "Bearer " + accessToken);
+
 			connection.setRequestProperty("Accept", "application/json");
-			connection.setRequestProperty("Content-Length", "0");
 			connection.setDoInput(true);
-			connection.setDoOutput(true);
-			String body = "";
-			
-			if (body != null) {
-				connection.setRequestProperty("Content-Length", Integer.toString(body.length()));
-				connection.getOutputStream().write(body.getBytes("UTF8"));
-				}
-		
 			
 			BufferedReader d;
 			

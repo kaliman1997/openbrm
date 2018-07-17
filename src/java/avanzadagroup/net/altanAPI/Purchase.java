@@ -5,10 +5,9 @@
  */
 package avanzadagroup.net.altanAPI;
 
-import avanzadagroup.net.altanAPI.responses.SuspendResponse;
+import avanzadagroup.net.altanAPI.responses.ActivationResponse;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -19,19 +18,22 @@ import org.json.*;
  *
  * @author Arturo Ruiz
  */
-public class Suspend {
-	SuspendResponse sr = new SuspendResponse();
+public class Purchase {
+	ActivationResponse ar = new ActivationResponse();
 
-	public SuspendResponse suspend(String MSISDN) {
+	public ActivationResponse activate(String MSISDN, String offeringId){
+		String body = "{\"msisdn\": \""+MSISDN+"\",\n" +
+                               "\"offerings\": [\n" +
+                        "    \""+offeringId+"\"\n" +"    ]\n}";
+
 		OAuth oauth = new OAuth();
 		
-		String response = sendRequest(oauth.getToken().getAccessToken(), MSISDN);		
+		String response = sendRequest(oauth.getToken().getAccessToken(), MSISDN, body);		
+                ar.setJsonResponse(response);
 
-                sr.setJsonResponse(response);
-                
-                if (response.equals("error")) {
-			sr.setStatus("error");
-			sr.setStatusDescription("Error en WS Altan");
+		if (response.equals("error")) {
+			ar.setStatus("error");
+			ar.setStatusDescription("Error en WS Altan");
 		} else {
 			try {
 
@@ -45,19 +47,19 @@ public class Suspend {
 
 				if (responseCode.equals("200")) {
 
-					sr.setStatus("success");
-					sr.setStatusDescription("Suspencin correcta");
-					sr.setMsisdn(jsonObj.getString("msisdn"));
-					sr.setEffectiveDate(jsonObj.getString("effectiveDate"));
-					sr.setOrderId(jsonObj.getJSONObject("order").getString("id"));
+					ar.setStatus("success");
+					ar.setStatusDescription("Activacion correcta");
+					ar.setMsisdn(jsonObj.getString("msisdn"));
+					ar.setEffectiveDate(jsonObj.getString("effectiveDate"));
+					ar.setOrderId(jsonObj.getJSONObject("order").getString("id"));
 
 				} else if (responseCode.equals("400")) {
-					sr.setStatus("error 400");
-					sr.setStatusDescription(jsonObj.getString("description"));
-					sr.setErrorCode(jsonObj.getString("errorCode"));
-					sr.setDescription(jsonObj.getString("description"));
+					ar.setStatus("error 400");
+					ar.setStatusDescription(jsonObj.getString("description"));
+					ar.setErrorCode(jsonObj.getString("errorCode"));
+					ar.setDescription(jsonObj.getString("description"));
 					try{
-						sr.setDetail(jsonObj.getString("detail"));
+						ar.setDetail(jsonObj.getString("detail"));
 					} catch (JSONException jsonE){
 						System.out.println(jsonE.toString());
 						for(StackTraceElement ste : jsonE.getStackTrace()){
@@ -67,12 +69,12 @@ public class Suspend {
 					}
 
 				} else if (responseCode.equals("500")) {
-					sr.setStatus("error 500");
-					sr.setStatusDescription(jsonObj.getString("description"));
-					sr.setErrorCode(jsonObj.getString("errorCode"));
-					sr.setDescription(jsonObj.getString("description"));
+					ar.setStatus("error 500");
+					ar.setStatusDescription(jsonObj.getString("description"));
+					ar.setErrorCode(jsonObj.getString("errorCode"));
+					ar.setDescription(jsonObj.getString("description"));
 					try{
-						sr.setDetail(jsonObj.getString("detail"));
+						ar.setDetail(jsonObj.getString("detail"));
 					} catch (JSONException jsonE){
 						System.out.println(jsonE.toString());
 						for(StackTraceElement ste : jsonE.getStackTrace()){
@@ -87,18 +89,18 @@ public class Suspend {
 					System.out.println(ste.toString());
 					
 				}
-				sr.setStatus("error 500");
-				sr.setStatusDescription("Server error");
+				ar.setStatus("error 500");
+				ar.setStatusDescription("Server error");
 
 			}
 
 		}
 
-		return sr;
+		return ar;
 
 	}
 
-	private String sendRequest(String accessToken, String msisdn) {
+	public String sendRequest(String accessToken, String msisdn, String body) {
 //		return "200|{\"msisdn\": \"5554316832\"," + 
 //				"  \"effectiveDate\": \"20180705223420\"," + 
 //				"  \"offeringId\": \"\"," + 
@@ -111,22 +113,19 @@ public class Suspend {
 		URL url;
 		HttpURLConnection connection = null;
 		try {
-			url = new URL("https://altanredes-prod.apigee.net/"
-					+ "cm/v1/subscribers/"+msisdn+"/suspend");
+			url = new URL("https://altanredes-prod.apigee.net/cm/v1/products/purchase");
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("authorization", "Bearer " + accessToken);
+			connection.setRequestProperty("Content-Type", "application/json");
 			connection.setRequestProperty("Accept", "application/json");
-			connection.setRequestProperty("Content-Length", "0");
 			connection.setDoInput(true);
 			connection.setDoOutput(true);
-			String body = "";
 			
 			if (body != null) {
 				connection.setRequestProperty("Content-Length", Integer.toString(body.length()));
 				connection.getOutputStream().write(body.getBytes("UTF8"));
 				}
-		
 			
 			BufferedReader d;
 			

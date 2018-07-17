@@ -27,6 +27,7 @@ public class Resume {
 		
 		String response = sendRequest(oauth.getToken().getAccessToken(), MSISDN);		
 
+                sr.setJsonResponse(response);
 		if (response.equals("error")) {
 			sr.setStatus("error");
 			sr.setStatusDescription("Error en WS Altan");

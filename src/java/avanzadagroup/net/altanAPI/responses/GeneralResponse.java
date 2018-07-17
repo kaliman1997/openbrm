@@ -12,6 +12,7 @@ package avanzadagroup.net.altanAPI.responses;
 public class GeneralResponse {
     private String status;
     private String statusDescription;
+    private String jsonResponse;
 
     public String getStatus() {
         return status;
@@ -27,6 +28,14 @@ public class GeneralResponse {
 
     public void setStatusDescription(String statusDescription) {
         this.statusDescription = statusDescription;
+    }
+
+    public String getJsonResponse() {
+        return jsonResponse;
+    }
+
+    public void setJsonResponse(String jsonResponse) {
+        this.jsonResponse = jsonResponse;
     }
     
 }
