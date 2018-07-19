@@ -35,7 +35,7 @@ class TabConfigTagLib {
 
         if (tab.requiredRole) {
             attrs.roles = tab.requiredRole
-            out << sec.ifAllGranted(attrs, body)
+            out << sec.ifAnyGranted(attrs, body)
         } else if (tab.accessUrl) {
             attrs.url = tab.accessUrl
             out << sec.access(attrs, body)

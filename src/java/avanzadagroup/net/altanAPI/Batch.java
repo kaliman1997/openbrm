@@ -113,7 +113,7 @@ public class Batch {
 
     private String uploadFile(String accessToken, String pathToFile, String operation) {
         try {
-            String url = "https://altanredes-prod.apigee.net/"
+            String url = "https://altanredes-test.apigee.net/"
                     + "cm/v1/subscribers/" + operation;
             String charset = "UTF-8";
             String param = "value";

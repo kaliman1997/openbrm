@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<Context>
+
+<Resource name="jdbc/postgres" auth="Container"
+          type="javax.sql.DataSource" driverClassName="org.postgresql.Driver"
+          url="jdbc:postgresql://localhost:5432/openbrm_prod"
+          username="openbrm_prod" password="openbrm_prod" maxTotal="20" maxIdle="10"
+maxWaitMillis="-1"/>
+</Context>
+
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">

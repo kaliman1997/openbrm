@@ -71,7 +71,7 @@ public class Coverage {
 		URL url;
 
 		try {
-			url = new URL("https://altanredes-prod.apigee.net/sqm/v1/"
+			url = new URL("https://altanredes-test.apigee.net/sqm/v1/"
 					+ "network-services/serviceability?address=" + loc);
 
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();

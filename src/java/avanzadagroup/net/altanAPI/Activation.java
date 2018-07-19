@@ -113,7 +113,7 @@ public class Activation {
         URL url;
         HttpURLConnection connection = null;
         try {
-            url = new URL("https://altanredes-prod.apigee.net/cm/v1/subscribers/" + msisdn + "/activate");
+            url = new URL("https://altanredes-test.apigee.net/cm/v1/subscribers/" + msisdn + "/activate");
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("authorization", "Bearer " + accessToken);

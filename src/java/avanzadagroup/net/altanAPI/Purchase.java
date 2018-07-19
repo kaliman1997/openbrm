@@ -113,7 +113,7 @@ public class Purchase {
 		URL url;
 		HttpURLConnection connection = null;
 		try {
-			url = new URL("https://altanredes-prod.apigee.net/cm/v1/products/purchase");
+			url = new URL("https://altanredes-test.apigee.net/cm/v1/products/purchase");
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("authorization", "Bearer " + accessToken);

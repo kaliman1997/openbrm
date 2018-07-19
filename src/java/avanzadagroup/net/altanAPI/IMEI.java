@@ -104,7 +104,7 @@ public class IMEI {
 		URL url;
 		HttpURLConnection connection = null;
 		try {
-			url = new URL("https://altanredes-prod.apigee.net/"
+			url = new URL("https://altanredes-test.apigee.net/"
                                 + "cm/v1/imei/"+IMEI+"/" + operation);
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");

@@ -141,7 +141,7 @@ public class OAuth {
 		URL url;
 		HttpURLConnection connection = null;
 		try {
-			url = new URL("https://altanredes-prod.apigee.net/v1/oauth/"
+			url = new URL("https://altanredes-test.apigee.net/v1/oauth/"
 					+ "accesstoken?grant-type=client_credentials");
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");

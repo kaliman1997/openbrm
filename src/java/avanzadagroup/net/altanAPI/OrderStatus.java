@@ -88,7 +88,7 @@ public class OrderStatus {
 		URL url;
 		HttpURLConnection connection = null;
 		try {
-			url = new URL("https://altanredes-prod.apigee.net/ac/v1/orders/" + orderId);
+			url = new URL("https://altanredes-test.apigee.net/ac/v1/orders/" + orderId);
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 			connection.setRequestProperty("authorization", "Bearer " + accessToken);
