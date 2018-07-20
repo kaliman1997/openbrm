@@ -310,12 +310,17 @@
                         </g:applyLayout>
 
                         <g:if test="${isNew}">
+                        	<!--  
                             <g:applyLayout name="form/checkbox">
+                                  
                                 <content tag="label"><g:message code="payment.is.refund.payment"/></content>
                                 <content tag="label.for">refund_cb</content>
                                 <g:checkBox id="refund_cb" class="cb checkbox" name="isRefund" checked="${payment?.isRefund > 0}"/>
+                                
                                 %{--<g:hiddenField id="refund_cb_hidden" name="isRefund" value=""/>--}%
                             </g:applyLayout>
+                            -->
+                            
                         </g:if>
                         <g:else>
                             <g:applyLayout name="form/text">
@@ -329,7 +334,8 @@
                             <g:applyLayout name="form/checkbox">
                                 <content tag="label"><g:message code="payment.process.realtime"/></content>
                                 <content tag="label.for">processNow</content>
-                                <g:checkBox class="cb checkbox" name="processNow" value="${processNow}"/>
+                                <g:checkBox class="cb checkbox" checked="true" readonly="true" 
+                                onclick="javascript: return false;" name="processNow" value="${processNow}"/>
                             </g:applyLayout>
                         </g:if>
 

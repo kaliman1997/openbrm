@@ -1483,7 +1483,7 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 							OAuthResp oar = oAuth.getToken();
 
 							CoverageResp cr = new Coverage().check(
-									oar.getAccessToken(), acr.getLatitude(),
+									oar.getAccessToken(), acr.getLatitude()+","+
 									acr.getLongitude());
 
 							LOG.debug("avanzada:: cobertura " + cr.getResult());
