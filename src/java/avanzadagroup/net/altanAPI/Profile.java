@@ -5,7 +5,7 @@
  */
 package avanzadagroup.net.altanAPI;
 
-import avanzadagroup.net.altanAPI.responses.ResumeResponse;
+import avanzadagroup.net.altanAPI.responses.ProfileResponse;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -20,90 +20,108 @@ import org.json.*;
  * @author Arturo Ruiz
  */
 public class Profile {
-//	ProfileResponse pr = new ProfileResponse();
-//
-//	public ProfileResponse profile(String MSISDN) {
-//		OAuth oauth = new OAuth();
-//		
-//		String response = sendRequest(oauth.getToken().getAccessToken(), MSISDN);		
-//
-//		if (response.equals("error")) {
-//			sr.setStatus("error");
-//			sr.setStatusDescription("Error en WS Altan");
-//		} else {
-//			try {
-//
-//				System.out.println(response);
-//				String[] responseValues = response.split("\\|");
-//
-//				String responseCode = responseValues[0];
-//				String responseJSON = responseValues[1];
-//				System.out.println(responseCode);
-//				JSONObject jsonObj = new JSONObject(responseJSON);
-//
-//				if (responseCode.equals("200")) {
-//
-//					sr.setStatus("success");
-//					sr.setStatusDescription("Reanudacion correcta");
-//					sr.setMsisdn(jsonObj.getString("msisdn"));
-//					sr.setEffectiveDate(jsonObj.getString("effectiveDate"));
-//					sr.setOrderId(jsonObj.getJSONObject("order").getString("id"));
-//
-//				} else if (responseCode.equals("400")) {
-//					sr.setStatus("error 400");
-//					sr.setStatusDescription(jsonObj.getString("description"));
-//					sr.setErrorCode(jsonObj.getString("errorCode"));
-//					sr.setDescription(jsonObj.getString("description"));
-//					try{
-//						sr.setDetail(jsonObj.getString("detail"));
-//					} catch (JSONException jsonE){
-//						System.out.println(jsonE.toString());
-//						for(StackTraceElement ste : jsonE.getStackTrace()){
-//							System.out.println(ste.toString());
-//							
-//						}
-//					}
-//
-//				} else if (responseCode.equals("500")) {
-//					sr.setStatus("error 500");
-//					sr.setStatusDescription(jsonObj.getString("description"));
-//					sr.setErrorCode(jsonObj.getString("errorCode"));
-//					sr.setDescription(jsonObj.getString("description"));
-//					try{
-//						sr.setDetail(jsonObj.getString("detail"));
-//					} catch (JSONException jsonE){
-//						System.out.println(jsonE.toString());
-//						for(StackTraceElement ste : jsonE.getStackTrace()){
-//							System.out.println(ste.toString());
-//							
-//						}
-//					}
-//				}
-//			} catch (Exception e) {
-//				System.out.println(e.toString());
-//				for(StackTraceElement ste : e.getStackTrace()){
-//					System.out.println(ste.toString());
-//					
-//				}
-//				sr.setStatus("error 500");
-//				sr.setStatusDescription("Server error");
-//
-//			}
-//
-//		}
-//
-//		return sr;
-//
-//	}
+	ProfileResponse sr = new ProfileResponse();
+
+	public ProfileResponse profile(String MSISDN) {
+		OAuth oauth = new OAuth();
+		
+		String response = sendRequest(oauth.getToken().getAccessToken(), MSISDN);		
+
+		if (response.equals("error")) {
+			sr.setStatus("error");
+			sr.setStatusDescription("Error en WS Altan");
+		} else {
+			try {
+				sr.setJsonResponse(response);
+				
+				String[] responseValues = response.split("\\|");
+
+				String responseCode = responseValues[0];
+				String responseJSON = responseValues[1];
+				System.out.println(responseCode);
+				JSONObject jsonObj = new JSONObject(responseJSON);
+
+				if (responseCode.equals("200")) {
+
+					sr.setStatus("success");
+					sr.setStatusDescription("Perfil Obtenido");
+					sr.setIdSubscriber(jsonObj.getJSONObject("responseSubscriber").
+							getJSONObject("information").getString("idSubscriber"));
+					sr.setImsi(
+							jsonObj.getJSONObject("responseSubscriber").
+							getJSONObject("information").getString("IMSI"));
+					sr.setIcc(
+							jsonObj.getJSONObject("responseSubscriber").
+							getJSONObject("information").getString("ICCID"));
+					sr.setSubStatus(jsonObj.getJSONObject("responseSubscriber").
+							getJSONObject("status").
+							getString("subStatus"));
+					
+
+				} else if (responseCode.equals("400")) {
+					sr.setStatus("error 400");
+					sr.setStatusDescription(jsonObj.getString("description"));
+					sr.setErrorCode(jsonObj.getString("errorCode"));
+					sr.setDescription(jsonObj.getString("description"));
+					try{
+						sr.setDetail(jsonObj.getString("detail"));
+					} catch (JSONException jsonE){
+						System.out.println(jsonE.toString());
+						for(StackTraceElement ste : jsonE.getStackTrace()){
+							System.out.println(ste.toString());
+							
+						}
+					}
+
+				} else if (responseCode.equals("500")) {
+					sr.setStatus("error 500");
+					sr.setStatusDescription(jsonObj.getString("description"));
+					sr.setErrorCode(jsonObj.getString("errorCode"));
+					sr.setDescription(jsonObj.getString("description"));
+					try{
+						sr.setDetail(jsonObj.getString("detail"));
+					} catch (JSONException jsonE){
+						System.out.println(jsonE.toString());
+						for(StackTraceElement ste : jsonE.getStackTrace()){
+							System.out.println(ste.toString());
+							
+						}
+					}
+				}
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				for(StackTraceElement ste : e.getStackTrace()){
+					System.out.println(ste.toString());
+					
+				}
+				sr.setStatus("error 500");
+				sr.setStatusDescription("Server error");
+
+			}
+
+		}
+
+		return sr;
+
+	}
 
 	public String sendRequest(String accessToken, String msisdn) {
-//		return "200|{\"msisdn\": \"5554316832\"," + 
-//				"  \"effectiveDate\": \"20180705223420\"," + 
-//				"  \"offeringId\": \"\"," + 
-//				"  \"order\": {" + 
-//				"    \"id\": \"9e1321375c5f48c1e472c7b69d4406f9\"" + 
-//				"  }" + 
-//				"}";
+/*{                
+	"responseSubscriber": {                    
+		"information":{                        
+			"idSubscriber": "1010000992228",                        
+			"IMSI":"334140000004708",                        
+			"ICCID":"8952140061701559260"                    },                    
+			"status":{                        
+				"subStatus": "Active"                    },                    
+			"primaryOffering":{                        "offeringId": "1001000537"                    },                    
+			"freeUnits": [
+				{"name":"Free Data",
+				"freeUnit": {"totalAmt":"5220","unusedAmt":"5220"},
+				"detailOfferings":[{"offeringId":"1001000537","initialAmt":"5220","unusedAmt":"5220","effectiveDate":"20180722050000","expireDate":"20180723050000"}]
+				}]                
+	}            
+} */;
 		
 		
 		URL url;
