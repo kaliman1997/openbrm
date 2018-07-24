@@ -1479,11 +1479,8 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 						if (acr.getStatus().equals("200")) {
 							LOG.debug("avanzada:: las cordenadas son "
 									+ acr.getLatitude() + ":" + acr.getLongitude());
-							OAuth oAuth = new OAuth();
-							OAuthResp oar = oAuth.getToken();
 
-							CoverageResp cr = new Coverage().check(
-									oar.getAccessToken(), acr.getLatitude()+","+
+							CoverageResp cr = new Coverage().check(acr.getLatitude()+","+
 									acr.getLongitude());
 
 							LOG.debug("avanzada:: cobertura " + cr.getResult());

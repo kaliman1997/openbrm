@@ -11,7 +11,7 @@ package avanzadagroup.net.altanAPI.responses;
  */
 public class OAuthResp extends GeneralResponse{
        private String accessToken ,clientId, tokenType, issuedAt, 
-               expiresIn, status ,scopes, errorCode, summary, 
+               expiresIn, statusToken ,scopes, errorCode, summary, 
                description;
 
     public String getAccessToken() {
@@ -54,15 +54,15 @@ public class OAuthResp extends GeneralResponse{
         this.expiresIn = expiresIn;
     }
 
-    public String getStatus() {
-        return status;
-    }
+    public String getStatusToken() {
+		return statusToken;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public void setStatusToken(String statusToken) {
+		this.statusToken = statusToken;
+	}
 
-    public String getScopes() {
+	public String getScopes() {
         return scopes;
     }
 

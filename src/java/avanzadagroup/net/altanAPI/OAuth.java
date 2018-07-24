@@ -14,6 +14,7 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.json.*;
@@ -73,7 +74,11 @@ public class OAuth {
 				or.setStatus("success");
 				or.setStatusDescription("Credenciales correctas");		
 				
-				or.setAccessToken(AccessToken.getAccessToken());	
+				or.setAccessToken(AccessToken.getAccessToken());
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				
+				or.setIssuedAt(format.format(AccessToken.getTokenAdquireTime().getTime()));
+				or.setExpiresIn(AccessToken.getExpiresIn().toString());
 				return or;
 				
 			}
@@ -112,7 +117,7 @@ public class OAuth {
 					or.setExpiresIn(jsonObj.getString("expiresIn"));					
 					AccessToken.setExpiresIn(or.getExpiresIn());
 					
-					or.setStatus(jsonObj.getString("status"));
+					or.setStatusToken(jsonObj.getString("status"));
 					or.setScopes(jsonObj.getString("scopes"));
 
 				} else if (responseCode.equals("401")) {

@@ -5,24 +5,33 @@
 	<div class="box">
 		<g:form name="operation_form" controller="altanOperations"
 			action="operationResult">
-			<label>Calle: </label>
-			<g:textField class="field" name="calle" />
-			<br />
-			<label>No. Exterior: </label>
-			<g:textField class="field" name="noExterior" />
-			<br />
-			<label>Colonia: </label>
-			<g:textField class="field" name="colonia" />
-			<br />
-			<label>CP: </label>
-			<g:textField class="field" name="cp" />
-			<br />
-			<label>Ciudad: </label>
-			<g:textField class="field" name="ciudad" />
-			<br />
-			<label>Estado: </label>
-			<g:textField class="field" name="estado" />
-			<br />
+
+			<table>
+				<tr>
+					<td align="right"><label>Calle: </label></td>
+					<td align="left"><g:textField name="calle" /></td>
+				</tr>
+				<tr>
+					<td align="right"><label>No. Exterior: </label></td>
+					<td align="left"><g:textField class="field" name="noExterior" /></td>
+				</tr>
+				<tr>
+					<td align="right"><label>Colonia: </label></td>
+					<td align="left"><g:textField class="field" name="colonia" /></td>
+				</tr>
+				<tr>
+					<td align="right"><label>CP: </label></td>
+					<td align="left"><g:textField class="field" name="cp" /></td>
+				</tr>
+				<tr>
+					<td align="right"><label>Ciudad: </label></td>
+					<td align="left"><g:textField class="field" name="ciudad" /></td>
+				</tr>
+				<tr>
+					<td align="right"><label>Estado: </label></td>
+					<td align="left"><g:textField class="field" name="estado" /></td>
+				</tr>
+			</table>
 		</g:form>
 	</div>
 	<div class="btn-box">

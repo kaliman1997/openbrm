@@ -3,11 +3,13 @@ package avanzada
 
 import avanzadagroup.net.altanAPI.Coverage;
 import avanzadagroup.net.altanAPI.IMEI
+import avanzadagroup.net.altanAPI.OAuth
 import avanzadagroup.net.altanAPI.OrderStatus
 import avanzadagroup.net.altanAPI.Profile
 import avanzadagroup.net.altanAPI.responses.AddressCoordinatesResp;
 import avanzadagroup.net.altanAPI.responses.CoverageResp
 import avanzadagroup.net.altanAPI.responses.IMEIResponse
+import avanzadagroup.net.altanAPI.responses.OAuthResp
 import avanzadagroup.net.altanAPI.responses.OrderStatusResponse
 import avanzadagroup.net.altanAPI.responses.ProfileResponse
 import avanzadagroup.net.google.AddressCoordinates
@@ -99,6 +101,13 @@ class AltanOperationsController {
 		breadcrumbService.addBreadcrumb(controllerName, "index", null, null,  null)
 		def id = params.get('id')
 
+		if(params.get('id').equals('1_1')){
+			OAuthResp oar = new OAuth().getToken();
+			render template:'security/authenticationResult', model:[oar:oar]
+			return;
+		}
+
+
 		if(id.equals('2_1')){
 			render template:'serviciability/qos'
 			return
@@ -135,6 +144,7 @@ class AltanOperationsController {
 	def operationResult () {
 		def id = params.get('id')
 		breadcrumbService.addBreadcrumb(controllerName, "index", null, null,  null)
+
 		if(params.get('id').equals('2_1')){
 			AddressCoordinates ac = new AddressCoordinates();
 			AddressCoordinatesResp acr = ac.getCoordinates(params.get('calle'),
@@ -157,7 +167,7 @@ class AltanOperationsController {
 		}else if(id.equals('4_1') || id.equals('4_2')){
 			IMEIResponse ir = new IMEI().operation(params.get('imei'),
 					id.equals('4_1')?"lock":"unlock");
-			render template:'clients/blockIMEIResult', 
+			render template:'clients/blockIMEIResult',
 			model:[imei: params.get('imei'), ir:ir, id:id]
 			return;
 		}else if(params.get('id').equals('4_5')){
