@@ -4272,8 +4272,8 @@ COPY public.base_user (id, entity_id, password, deleted, language_id, status_id,
 130	10	$2a$10$gNwEehQuLk2dw5Sao.uIfeJ06HJSsG0aDvr63fpwKGEm4Di5neE1y	0	1	1	9	110	2018-07-03 01:10:08.037	\N	2018-07-18 10:21:20.108	clienteTest5	0	33	\N	6	\N	\N
 230	10	\N	0	20	1	9	110	2018-07-19 23:01:12.059	\N	\N	clienteTest6	0	1	\N	6	\N	\N
 70	20	$2a$10$gNwEehQuLk2dw5Sao.uIfeJ06HJSsG0aDvr63fpwKGEm4Di5neE1y	0	1	1	9	1	2018-07-01 19:17:51.689	\N	2018-07-19 23:06:15.92	adminHija	0	5	\N	6	\N	\N
-10	10	$2a$10$gNwEehQuLk2dw5Sao.uIfeJ06HJSsG0aDvr63fpwKGEm4Di5neE1y	0	1	1	9	110	2018-06-28 11:36:15.589	\N	2018-07-22 21:42:03.316	admin	0	259	\N	6	\N	\N
 31	10	$2a$10$gNwEehQuLk2dw5Sao.uIfeJ06HJSsG0aDvr63fpwKGEm4Di5neE1y	0	20	1	14	110	2018-07-01 12:58:27.639	\N	2018-07-18 10:18:18.217	aruiz	0	13	\N	6	\N	\N
+10	10	$2a$10$gNwEehQuLk2dw5Sao.uIfeJ06HJSsG0aDvr63fpwKGEm4Di5neE1y	0	1	1	9	110	2018-06-28 11:36:15.589	\N	2018-07-24 00:23:47.461	admin	0	284	\N	6	\N	\N
 220	20	\N	1	1	1	13	1	2018-07-18 10:30:44.242	2018-07-18 22:24:17.783	\N	clienteTeKonecta	0	2	\N	6	\N	\N
 200	10	\N	1	1	1	13	110	2018-07-08 18:24:32.536	2018-07-08 18:25:52.177	\N	weqweqweq	0	2	\N	6	\N	\N
 190	10	\N	1	1	1	13	110	2018-07-08 18:17:59.186	2018-07-08 18:26:00.198	\N	wevevw33v3v	0	2	\N	6	\N	\N
@@ -4308,6 +4308,12 @@ COPY public.batch_job_execution (job_execution_id, version, job_instance_id, cre
 15	2	14	2018-07-22 13:00:00.208	2018-07-22 13:00:00.318	2018-07-22 13:00:00.579	COMPLETED	COMPLETED		2018-07-22 13:00:00.579	\N
 14	2	15	2018-07-22 13:00:00.208	2018-07-22 13:00:00.318	2018-07-22 13:00:00.579	COMPLETED	COMPLETED		2018-07-22 13:00:00.579	\N
 16	2	16	2018-07-22 18:50:00.33	2018-07-22 18:50:00.659	2018-07-22 18:50:01.306	COMPLETED	COMPLETED		2018-07-22 18:50:01.31	\N
+17	2	17	2018-07-23 22:36:27.943	2018-07-23 22:36:28.284	2018-07-23 22:36:30.398	COMPLETED	COMPLETED		2018-07-23 22:36:30.418	\N
+18	2	18	2018-07-23 22:36:39.812	2018-07-23 22:36:39.931	2018-07-23 22:36:40.541	COMPLETED	COMPLETED		2018-07-23 22:36:40.544	\N
+19	2	19	2018-07-23 22:36:59.623	2018-07-23 22:36:59.63	2018-07-23 22:37:00.166	COMPLETED	COMPLETED		2018-07-23 22:37:00.167	\N
+20	2	20	2018-07-23 22:37:16.596	2018-07-23 22:37:16.603	2018-07-23 22:37:17.28	COMPLETED	COMPLETED		2018-07-23 22:37:17.283	\N
+21	2	21	2018-07-23 22:37:44.592	2018-07-23 22:37:44.597	2018-07-23 22:37:45.613	COMPLETED	COMPLETED		2018-07-23 22:37:45.614	\N
+22	2	22	2018-07-24 00:26:21.943	2018-07-24 00:26:22.224	2018-07-24 00:26:24.671	COMPLETED	COMPLETED		2018-07-24 00:26:24.687	\N
 \.
 
 
@@ -4332,6 +4338,12 @@ COPY public.batch_job_execution_context (job_execution_id, short_context, serial
 15	{"map":[{"entry":{"string":"userIds","list":[""]}}]}	\N
 14	{"map":[{"entry":{"string":"userIds","list":[""]}}]}	\N
 16	{"map":[{"entry":{"string":"userIds","list":[""]}}]}	\N
+20	{"map":[{"entry":[{"string":"successfulUsersList","list":[{"int":[10,20,31,100,130,230]}]},{"string":"billingProcessId","int":93},{"string":"usersFailed","int":0},{"string":"userIds","list":[{"int":[10,20,31,100,130,230]}]},{"string":"userInvoices","map":[{"entry":[{"int":130,"java.lang.Integer-array":[""]},{"int":100,"java.lang.Integer-array":[""]},{"int":20,"java.lang.Integer-array":[""]},{"int":230,"java.lang.Integer-array":[""]},{"int":10,"java.lang.Integer-array":[""]},{"int":31,"java.lang.Integer-array":[""]}]}]},{"string":"totalInvoices","int":0},{"string":"failedUsersList","list":[""]}]}]}	\N
+17	{"map":[{"entry":[{"string":"successfulUsersList","list":[{"int":[10,20,31,100,130,230]}]},{"string":"billingProcessId","int":90},{"string":"usersFailed","int":0},{"string":"userIds","list":[{"int":[10,20,31,100,130,230]}]},{"string":"userInvoices","map":[{"entry":[{"int":130,"java.lang.Integer-array":[""]},{"int":100,"java.lang.Integer-array":[""]},{"int":20,"java.lang.Integer-array":[""]},{"int":230,"java.lang.Integer-array":[""]},{"int":10,"java.lang.Integer-array":[""]},{"int":31,"java.lang.Integer-array":[""]}]}]},{"string":"totalInvoices","int":0},{"string":"failedUsersList","list":[""]}]}]}	\N
+22	{"map":[{"entry":[{"string":"successfulUsersList","list":[{"int":[10,20,31,100,130,230]}]},{"string":"billingProcessId","int":100},{"string":"usersFailed","int":0},{"string":"userIds","list":[{"int":[10,20,31,100,130,230]}]},{"string":"userInvoices","map":[{"entry":[{"int":130,"java.lang.Integer-array":[""]},{"int":20,"java.lang.Integer-array":[""]},{"int":100,"java.lang.Integer-array":[""]},{"int":230,"java.lang.Integer-array":[""]},{"int":10,"java.lang.Integer-array":[""]},{"int":31,"java.lang.Integer-array":[""]}]}]},{"string":"totalInvoices","int":0},{"string":"failedUsersList","list":[""]}]}]}	\N
+18	{"map":[{"entry":[{"string":"successfulUsersList","list":[{"int":[10,20,31,100,130,230]}]},{"string":"billingProcessId","int":91},{"string":"usersFailed","int":0},{"string":"userIds","list":[{"int":[10,20,31,100,130,230]}]},{"string":"userInvoices","map":[{"entry":[{"int":130,"java.lang.Integer-array":[""]},{"int":20,"java.lang.Integer-array":[""]},{"int":100,"java.lang.Integer-array":[""]},{"int":230,"java.lang.Integer-array":[""]},{"int":10,"java.lang.Integer-array":[""]},{"int":31,"java.lang.Integer-array":[""]}]}]},{"string":"totalInvoices","int":0},{"string":"failedUsersList","list":[""]}]}]}	\N
+21	{"map":[{"entry":[{"string":"successfulUsersList","list":[{"int":[10,20,31,100,130,230]}]},{"string":"billingProcessId","int":94},{"string":"usersFailed","int":0},{"string":"userIds","list":[{"int":[10,20,31,100,130,230]}]},{"string":"userInvoices","map":[{"entry":[{"int":130,"java.lang.Integer-array":[""]},{"int":20,"java.lang.Integer-array":[""]},{"int":100,"java.lang.Integer-array":[""]},{"int":230,"java.lang.Integer-array":[""]},{"int":10,"java.lang.Integer-array":[""]},{"int":31,"java.lang.Integer-array":[""]}]}]},{"string":"totalInvoices","int":0},{"string":"failedUsersList","list":[""]}]}]}	\N
+19	{"map":[{"entry":[{"string":"successfulUsersList","list":[{"int":[10,20,31,100,130,230]}]},{"string":"billingProcessId","int":92},{"string":"usersFailed","int":0},{"string":"userIds","list":[{"int":[10,20,31,100,130,230]}]},{"string":"userInvoices","map":[{"entry":[{"int":130,"java.lang.Integer-array":[""]},{"int":20,"java.lang.Integer-array":[""]},{"int":100,"java.lang.Integer-array":[""]},{"int":230,"java.lang.Integer-array":[""]},{"int":10,"java.lang.Integer-array":[""]},{"int":31,"java.lang.Integer-array":[""]}]}]},{"string":"totalInvoices","int":0},{"string":"failedUsersList","list":[""]}]}]}	\N
 \.
 
 
@@ -4430,6 +4442,39 @@ COPY public.batch_job_execution_params (job_execution_id, type_cd, key_name, str
 16	STRING	entityId	10	1969-12-31 18:00:00	0	0	Y
 16	DATE	ageingDate		2018-07-22 18:50:00.131	0	0	Y
 16	DATE	unique		2018-07-22 18:50:00.156	0	0	Y
+17	STRING	entityId	10	1969-12-31 18:00:00	0	0	Y
+17	DATE	billingDate		2018-07-20 00:00:00	0	0	Y
+17	STRING	periodValue	1	1969-12-31 18:00:00	0	0	Y
+17	STRING	periodType	3	1969-12-31 18:00:00	0	0	Y
+17	STRING	review	0	1969-12-31 18:00:00	0	0	Y
+18	STRING	entityId	10	1969-12-31 18:00:00	0	0	Y
+18	DATE	billingDate		2018-07-21 00:00:00	0	0	Y
+18	STRING	periodValue	1	1969-12-31 18:00:00	0	0	Y
+18	STRING	periodType	3	1969-12-31 18:00:00	0	0	Y
+18	STRING	review	1	1969-12-31 18:00:00	0	0	Y
+18	DATE	unique		2018-07-23 22:36:39.806	0	0	Y
+19	STRING	entityId	10	1969-12-31 18:00:00	0	0	Y
+19	DATE	billingDate		2018-07-21 00:00:00	0	0	Y
+19	STRING	periodValue	1	1969-12-31 18:00:00	0	0	Y
+19	STRING	periodType	3	1969-12-31 18:00:00	0	0	Y
+19	STRING	review	0	1969-12-31 18:00:00	0	0	Y
+20	STRING	entityId	10	1969-12-31 18:00:00	0	0	Y
+20	DATE	billingDate		2018-07-22 00:00:00	0	0	Y
+20	STRING	periodValue	1	1969-12-31 18:00:00	0	0	Y
+20	STRING	periodType	3	1969-12-31 18:00:00	0	0	Y
+20	STRING	review	1	1969-12-31 18:00:00	0	0	Y
+20	DATE	unique		2018-07-23 22:37:16.588	0	0	Y
+21	STRING	entityId	10	1969-12-31 18:00:00	0	0	Y
+21	DATE	billingDate		2018-07-22 00:00:00	0	0	Y
+21	STRING	periodValue	1	1969-12-31 18:00:00	0	0	Y
+21	STRING	periodType	3	1969-12-31 18:00:00	0	0	Y
+21	STRING	review	0	1969-12-31 18:00:00	0	0	Y
+22	STRING	entityId	10	1969-12-31 18:00:00	0	0	Y
+22	DATE	billingDate		2018-07-23 00:00:00	0	0	Y
+22	STRING	periodValue	1	1969-12-31 18:00:00	0	0	Y
+22	STRING	periodType	3	1969-12-31 18:00:00	0	0	Y
+22	STRING	review	1	1969-12-31 18:00:00	0	0	Y
+22	DATE	unique		2018-07-24 00:26:21.162	0	0	Y
 \.
 
 
@@ -4437,7 +4482,7 @@ COPY public.batch_job_execution_params (job_execution_id, type_cd, key_name, str
 -- Name: batch_job_execution_seq; Type: SEQUENCE SET; Schema: public; Owner: openbrm_prod
 --
 
-SELECT pg_catalog.setval('public.batch_job_execution_seq', 16, true);
+SELECT pg_catalog.setval('public.batch_job_execution_seq', 22, true);
 
 
 --
@@ -4461,6 +4506,12 @@ COPY public.batch_job_instance (job_instance_id, version, job_name, job_key) FRO
 15	0	ageingProcessJob	f2642784894663fffb1b533e1d6c2a7c
 14	0	ageingProcessJob	95904d9b3323e0fde48e6460e935f920
 16	0	ageingProcessJob	7ebc4a3cf724c8c0af10c4197d231fec
+17	0	generateInvoicesJob	5457ce2209ebd44976db9e8d8db67aa3
+18	0	generateInvoicesJob	af4be3fa1326f1f9b93dff7bcf8d5c23
+19	0	generateInvoicesJob	21af8a34b49f3833e0f854ca9eba1f2d
+20	0	generateInvoicesJob	ce0af4e35207be8d883ea00fcaeed0d6
+21	0	generateInvoicesJob	552909d6dd637664e2ac884904a027ac
+22	0	generateInvoicesJob	7d883ef69b17437c726b6d0d83a26448
 \.
 
 
@@ -4468,7 +4519,7 @@ COPY public.batch_job_instance (job_instance_id, version, job_name, job_key) FRO
 -- Name: batch_job_seq; Type: SEQUENCE SET; Schema: public; Owner: openbrm_prod
 --
 
-SELECT pg_catalog.setval('public.batch_job_seq', 16, true);
+SELECT pg_catalog.setval('public.batch_job_seq', 22, true);
 
 
 --
@@ -4481,7 +4532,10 @@ COPY public.batch_process_info (id, process_id, job_execution_id, total_failed_u
 300	40	8	0	5	0
 400	50	10	0	5	0
 600	70	12	0	5	0
-700	80	13	0	6	0
+800	90	17	0	6	0
+802	92	19	0	6	0
+804	94	21	0	6	0
+900	100	22	0	6	0
 \.
 
 
@@ -4506,6 +4560,8 @@ COPY public.batch_step_execution (step_execution_id, version, step_name, job_exe
 8	2	emailAndPayment	1	2018-07-08 12:02:19.094	2018-07-08 12:02:19.219	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-08 12:02:19.219
 15	3	billingSuccess	1	2018-07-08 12:02:19.235	2018-07-08 12:02:19.256	COMPLETED	1	0	0	0	0	0	0	0	COMPLETED		2018-07-08 12:02:19.256
 57	2	generateInvoices	7	2018-07-16 20:20:00.424	2018-07-16 20:20:00.971	COMPLETED	10	5	0	5	0	0	0	0	COMPLETED		2018-07-16 20:20:00.971
+223	4	partitionEmailAndPayment:email-partition0	21	2018-07-23 22:37:45.401	2018-07-23 22:37:45.423	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:45.423
+198	2	generateInvoices	20	2018-07-23 22:37:16.678	2018-07-23 22:37:16.865	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-23 22:37:16.866
 21	4	partitionGenerateInvoices:partition0	4	2018-07-15 20:22:02.049	2018-07-15 20:22:02.49	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-15 20:22:02.49
 16	14	loadFileAndSaveAssets	2	2018-07-08 13:23:55.833	2018-07-08 13:23:56.582	COMPLETED	12	11	1	10	0	0	0	0	COMPLETED		2018-07-08 13:23:56.582
 22	4	partitionGenerateInvoices:partition1	4	2018-07-15 20:22:02.059	2018-07-15 20:22:02.547	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-15 20:22:02.547
@@ -4518,6 +4574,8 @@ COPY public.batch_step_execution (step_execution_id, version, step_name, job_exe
 74	4	partitionGenerateInvoices:partition1	8	2018-07-17 20:00:31.37	2018-07-17 20:00:31.671	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-17 20:00:31.671
 75	4	partitionGenerateInvoices:partition0	8	2018-07-17 20:00:31.37	2018-07-17 20:00:31.671	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-17 20:00:31.671
 73	4	partitionGenerateInvoices:partition4	8	2018-07-17 20:00:31.37	2018-07-17 20:00:31.83	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-17 20:00:31.83
+224	4	partitionEmailAndPayment:email-partition5	21	2018-07-23 22:37:45.401	2018-07-23 22:37:45.423	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:45.423
+221	4	partitionEmailAndPayment:email-partition1	21	2018-07-23 22:37:45.401	2018-07-23 22:37:45.423	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:45.423
 26	4	partitionEmailAndPayment:email-partition2	4	2018-07-15 20:22:02.75	2018-07-15 20:22:02.8	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-15 20:22:02.8
 86	4	partitionGenerateInvoices:partition0	9	2018-07-17 20:20:00.95	2018-07-17 20:20:01.01	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-17 20:20:01.01
 85	4	partitionGenerateInvoices:partition4	9	2018-07-17 20:20:00.95	2018-07-17 20:20:01.014	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-17 20:20:01.014
@@ -4541,11 +4599,14 @@ COPY public.batch_step_execution (step_execution_id, version, step_name, job_exe
 93	4	partitionEmailAndPayment:email-partition3	9	2018-07-17 20:20:01.043	2018-07-17 20:20:01.064	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-17 20:20:01.11
 94	4	partitionEmailAndPayment:email-partition4	9	2018-07-17 20:20:01.043	2018-07-17 20:20:01.12	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-17 20:20:01.12
 91	4	partitionEmailAndPayment:email-partition1	9	2018-07-17 20:20:01.043	2018-07-17 20:20:01.064	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-17 20:20:01.11
+226	4	partitionEmailAndPayment:email-partition4	21	2018-07-23 22:37:45.426	2018-07-23 22:37:45.449	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:45.449
 90	4	partitionEmailAndPayment:email-partition0	9	2018-07-17 20:20:01.054	2018-07-17 20:20:01.13	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-17 20:20:01.13
 89	2	emailAndPayment	9	2018-07-17 20:20:01.03	2018-07-17 20:20:01.134	COMPLETED	10	5	0	5	0	0	0	0	COMPLETED		2018-07-17 20:20:01.134
+199	4	partitionGenerateInvoices:partition3	20	2018-07-23 22:37:16.72	2018-07-23 22:37:16.782	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:16.782
 132	4	partitionEmailAndPayment:email-partition2	12	2018-07-19 22:42:13.717	2018-07-19 22:42:13.791	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-19 22:42:13.791
 129	4	partitionEmailAndPayment:email-partition3	12	2018-07-19 22:42:13.708	2018-07-19 22:42:13.79	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-19 22:42:13.792
 131	4	partitionEmailAndPayment:email-partition4	12	2018-07-19 22:42:13.715	2018-07-19 22:42:13.793	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-19 22:42:13.794
+200	4	partitionGenerateInvoices:partition2	20	2018-07-23 22:37:16.72	2018-07-23 22:37:16.798	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:16.799
 24	2	emailAndPayment	4	2018-07-15 20:22:02.69	2018-07-15 20:22:02.837	COMPLETED	10	5	0	5	0	0	0	0	COMPLETED		2018-07-15 20:22:02.837
 88	4	partitionGenerateInvoices:partition1	9	2018-07-17 20:20:00.95	2018-07-17 20:20:01.01	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-17 20:20:01.01
 30	3	billingSuccess	4	2018-07-15 20:22:02.88	2018-07-15 20:22:02.969	COMPLETED	1	0	0	0	0	0	0	0	COMPLETED		2018-07-15 20:22:02.969
@@ -4580,13 +4641,18 @@ COPY public.batch_step_execution (step_execution_id, version, step_name, job_exe
 140	4	partitionGenerateInvoices:partition1	13	2018-07-20 20:20:00.852	2018-07-20 20:20:01.321	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-20 20:20:01.321
 141	4	partitionGenerateInvoices:partition2	13	2018-07-20 20:20:00.852	2018-07-20 20:20:01.321	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-20 20:20:01.321
 135	2	generateInvoices	13	2018-07-20 20:20:00.759	2018-07-20 20:20:01.337	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-20 20:20:01.337
+201	4	partitionGenerateInvoices:partition1	20	2018-07-23 22:37:16.723	2018-07-23 22:37:16.804	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:16.804
+227	3	billingSuccess	21	2018-07-23 22:37:45.485	2018-07-23 22:37:45.568	COMPLETED	1	0	0	0	0	0	0	0	COMPLETED		2018-07-23 22:37:45.568
 120	4	partitionEmailAndPayment:email-partition1	11	2018-07-18 19:43:09.664	2018-07-18 19:43:09.766	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-18 19:43:09.766
 118	4	partitionEmailAndPayment:email-partition4	11	2018-07-18 19:43:09.656	2018-07-18 19:43:09.774	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-18 19:43:09.774
+212	3	billingSuccess	20	2018-07-23 22:37:17.107	2018-07-23 22:37:17.271	COMPLETED	1	0	0	0	0	0	0	0	COMPLETED		2018-07-23 22:37:17.271
+225	4	partitionEmailAndPayment:email-partition3	21	2018-07-23 22:37:45.405	2018-07-23 22:37:45.449	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:45.45
 41	4	partitionEmailAndPayment:email-partition3	5	2018-07-15 20:22:59.65	2018-07-15 20:22:59.762	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-15 20:22:59.762
 38	4	partitionEmailAndPayment:email-partition4	5	2018-07-15 20:22:59.717	2018-07-15 20:22:59.777	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-15 20:22:59.777
 37	2	emailAndPayment	5	2018-07-15 20:22:59.62	2018-07-15 20:22:59.779	COMPLETED	10	5	0	5	0	0	0	0	COMPLETED		2018-07-15 20:22:59.779
 43	3	billingSuccess	5	2018-07-15 20:22:59.797	2018-07-15 20:22:59.812	COMPLETED	1	0	0	0	0	0	0	0	COMPLETED		2018-07-15 20:22:59.812
 87	4	partitionGenerateInvoices:partition3	9	2018-07-17 20:20:00.95	2018-07-17 20:20:01.01	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-17 20:20:01.01
+202	4	partitionGenerateInvoices:partition0	20	2018-07-23 22:37:16.742	2018-07-23 22:37:16.849	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:16.85
 49	4	partitionGenerateInvoices:partition1	6	2018-07-15 20:27:09.488	2018-07-15 20:27:09.556	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-15 20:27:09.556
 46	4	partitionGenerateInvoices:partition0	6	2018-07-15 20:27:09.48	2018-07-15 20:27:09.556	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-15 20:27:09.556
 68	4	partitionEmailAndPayment:email-partition0	7	2018-07-16 20:20:01.034	2018-07-16 20:20:01.096	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-16 20:20:01.096
@@ -4599,12 +4665,16 @@ COPY public.batch_step_execution (step_execution_id, version, step_name, job_exe
 65	4	partitionEmailAndPayment:email-partition1	7	2018-07-16 20:20:01.018	2018-07-16 20:20:01.112	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-16 20:20:01.112
 66	4	partitionEmailAndPayment:email-partition4	7	2018-07-16 20:20:01.034	2018-07-16 20:20:01.112	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-16 20:20:01.112
 82	3	billingSuccess	8	2018-07-17 20:00:31.938	2018-07-17 20:00:32.121	COMPLETED	1	0	0	0	0	0	0	0	COMPLETED		2018-07-17 20:00:32.121
+222	4	partitionEmailAndPayment:email-partition2	21	2018-07-23 22:37:45.401	2018-07-23 22:37:45.456	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:45.457
 98	4	partitionGenerateInvoices:partition2	10	2018-07-18 00:30:22.968	2018-07-18 00:30:23.462	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-18 00:30:23.462
 99	4	partitionGenerateInvoices:partition1	10	2018-07-18 00:30:22.968	2018-07-18 00:30:23.524	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-18 00:30:23.569
 100	4	partitionGenerateInvoices:partition3	10	2018-07-18 00:30:22.968	2018-07-18 00:30:23.465	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-18 00:30:23.58
 97	4	partitionGenerateInvoices:partition4	10	2018-07-18 00:30:22.965	2018-07-18 00:30:23.464	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-18 00:30:23.58
 101	4	partitionGenerateInvoices:partition0	10	2018-07-18 00:30:22.967	2018-07-18 00:30:23.465	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-18 00:30:23.586
 96	2	generateInvoices	10	2018-07-18 00:30:22.799	2018-07-18 00:30:23.6	COMPLETED	10	5	0	5	0	0	0	0	COMPLETED		2018-07-18 00:30:23.6
+208	4	partitionEmailAndPayment:email-partition3	20	2018-07-23 22:37:16.927	2018-07-23 22:37:16.957	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:16.958
+206	4	partitionEmailAndPayment:email-partition1	20	2018-07-23 22:37:16.927	2018-07-23 22:37:16.96	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:16.96
+207	4	partitionEmailAndPayment:email-partition2	20	2018-07-23 22:37:16.927	2018-07-23 22:37:16.968	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:16.969
 52	4	partitionEmailAndPayment:email-partition3	6	2018-07-15 20:27:09.598	2018-07-15 20:27:09.611	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-15 20:27:09.611
 53	4	partitionEmailAndPayment:email-partition0	6	2018-07-15 20:27:09.598	2018-07-15 20:27:09.626	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-15 20:27:09.626
 51	4	partitionEmailAndPayment:email-partition2	6	2018-07-15 20:27:09.598	2018-07-15 20:27:09.626	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-15 20:27:09.626
@@ -4619,6 +4689,7 @@ COPY public.batch_step_execution (step_execution_id, version, step_name, job_exe
 104	4	partitionEmailAndPayment:email-partition0	10	2018-07-18 00:30:23.782	2018-07-18 00:30:23.88	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-18 00:30:23.88
 105	4	partitionEmailAndPayment:email-partition2	10	2018-07-18 00:30:23.782	2018-07-18 00:30:23.88	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-18 00:30:23.882
 102	2	emailAndPayment	10	2018-07-18 00:30:23.68	2018-07-18 00:30:23.901	COMPLETED	10	5	0	5	0	0	0	0	COMPLETED		2018-07-18 00:30:23.901
+203	4	partitionGenerateInvoices:partition5	20	2018-07-23 22:37:16.76	2018-07-23 22:37:16.85	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:16.85
 125	4	partitionGenerateInvoices:partition2	12	2018-07-19 22:42:13.265	2018-07-19 22:42:13.545	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-19 22:42:13.545
 124	4	partitionGenerateInvoices:partition1	12	2018-07-19 22:42:13.265	2018-07-19 22:42:13.546	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-19 22:42:13.546
 111	4	partitionGenerateInvoices:partition2	11	2018-07-18 19:43:09.167	2018-07-18 19:43:09.515	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-18 19:43:09.515
@@ -4631,17 +4702,90 @@ COPY public.batch_step_execution (step_execution_id, version, step_name, job_exe
 126	4	partitionGenerateInvoices:partition3	12	2018-07-19 22:42:13.265	2018-07-19 22:42:13.644	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-19 22:42:13.645
 122	2	generateInvoices	12	2018-07-19 22:42:13.152	2018-07-19 22:42:13.653	COMPLETED	10	5	0	5	0	0	0	0	COMPLETED		2018-07-19 22:42:13.654
 130	4	partitionEmailAndPayment:email-partition1	12	2018-07-19 22:42:13.712	2018-07-19 22:42:13.789	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-19 22:42:13.795
+231	4	partitionGenerateInvoices:partition3	22	2018-07-24 00:26:22.616	2018-07-24 00:26:23.178	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-24 00:26:23.178
+204	4	partitionGenerateInvoices:partition4	20	2018-07-23 22:37:16.773	2018-07-23 22:37:16.858	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:16.858
 147	4	partitionEmailAndPayment:email-partition3	13	2018-07-20 20:20:01.399	2018-07-20 20:20:01.477	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-20 20:20:01.477
 146	4	partitionEmailAndPayment:email-partition1	13	2018-07-20 20:20:01.399	2018-07-20 20:20:01.477	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-20 20:20:01.477
+232	4	partitionGenerateInvoices:partition2	22	2018-07-24 00:26:22.616	2018-07-24 00:26:23.292	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-24 00:26:23.292
+205	2	emailAndPayment	20	2018-07-23 22:37:16.891	2018-07-23 22:37:17.081	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-23 22:37:17.081
+233	4	partitionGenerateInvoices:partition0	22	2018-07-24 00:26:22.616	2018-07-24 00:26:23.194	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-24 00:26:23.194
 145	4	partitionEmailAndPayment:email-partition2	13	2018-07-20 20:20:01.399	2018-07-20 20:20:01.462	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-20 20:20:01.462
 144	4	partitionEmailAndPayment:email-partition5	13	2018-07-20 20:20:01.399	2018-07-20 20:20:01.462	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-20 20:20:01.462
 148	4	partitionEmailAndPayment:email-partition4	13	2018-07-20 20:20:01.399	2018-07-20 20:20:01.462	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-20 20:20:01.462
 143	4	partitionEmailAndPayment:email-partition0	13	2018-07-20 20:20:01.399	2018-07-20 20:20:01.462	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-20 20:20:01.462
 142	2	emailAndPayment	13	2018-07-20 20:20:01.352	2018-07-20 20:20:01.477	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-20 20:20:01.477
+211	4	partitionEmailAndPayment:email-partition5	20	2018-07-23 22:37:16.962	2018-07-23 22:37:16.989	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:16.99
 149	3	billingSuccess	13	2018-07-20 20:20:01.524	2018-07-20 20:20:01.555	COMPLETED	1	0	0	0	0	0	0	0	COMPLETED		2018-07-20 20:20:01.555
 150	2	reviewStatusAndPayment	15	2018-07-22 13:00:00.505	2018-07-22 13:00:00.579	COMPLETED	0	0	0	0	0	0	0	0	COMPLETED		2018-07-22 13:00:00.579
 151	2	reviewStatusAndPayment	14	2018-07-22 13:00:00.521	2018-07-22 13:00:00.579	COMPLETED	0	0	0	0	0	0	0	0	COMPLETED		2018-07-22 13:00:00.579
+220	2	emailAndPayment	21	2018-07-23 22:37:45.018	2018-07-23 22:37:45.464	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-23 22:37:45.464
 152	2	reviewStatusAndPayment	16	2018-07-22 18:50:01.141	2018-07-22 18:50:01.225	COMPLETED	0	0	0	0	0	0	0	0	COMPLETED		2018-07-22 18:50:01.225
+234	4	partitionGenerateInvoices:partition5	22	2018-07-24 00:26:22.616	2018-07-24 00:26:23.194	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-24 00:26:23.194
+158	4	partitionGenerateInvoices:partition3	17	2018-07-23 22:36:28.739	2018-07-23 22:36:29.425	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:29.425
+155	4	partitionGenerateInvoices:partition2	17	2018-07-23 22:36:28.737	2018-07-23 22:36:29.483	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:29.523
+157	4	partitionGenerateInvoices:partition0	17	2018-07-23 22:36:28.737	2018-07-23 22:36:29.542	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:29.613
+159	4	partitionGenerateInvoices:partition1	17	2018-07-23 22:36:28.742	2018-07-23 22:36:29.548	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:29.616
+154	4	partitionGenerateInvoices:partition4	17	2018-07-23 22:36:28.742	2018-07-23 22:36:29.663	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:29.704
+156	4	partitionGenerateInvoices:partition5	17	2018-07-23 22:36:28.738	2018-07-23 22:36:29.711	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:29.712
+153	2	generateInvoices	17	2018-07-23 22:36:28.557	2018-07-23 22:36:29.727	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-23 22:36:29.728
+176	4	partitionEmailAndPayment:email-partition1	18	2018-07-23 22:36:40.342	2018-07-23 22:36:40.372	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:40.372
+177	4	partitionEmailAndPayment:email-partition0	18	2018-07-23 22:36:40.342	2018-07-23 22:36:40.394	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:40.395
+178	4	partitionEmailAndPayment:email-partition5	18	2018-07-23 22:36:40.343	2018-07-23 22:36:40.394	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:40.394
+181	4	partitionEmailAndPayment:email-partition2	18	2018-07-23 22:36:40.346	2018-07-23 22:36:40.453	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:40.453
+180	4	partitionEmailAndPayment:email-partition4	18	2018-07-23 22:36:40.344	2018-07-23 22:36:40.453	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:40.453
+179	4	partitionEmailAndPayment:email-partition3	18	2018-07-23 22:36:40.343	2018-07-23 22:36:40.46	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:40.46
+175	2	emailAndPayment	18	2018-07-23 22:36:40.302	2018-07-23 22:36:40.47	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-23 22:36:40.47
+209	4	partitionEmailAndPayment:email-partition0	20	2018-07-23 22:37:16.929	2018-07-23 22:37:16.991	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:16.991
+229	4	partitionGenerateInvoices:partition1	22	2018-07-24 00:26:22.616	2018-07-24 00:26:23.194	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-24 00:26:23.194
+161	4	partitionEmailAndPayment:email-partition5	17	2018-07-23 22:36:29.838	2018-07-23 22:36:29.907	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:29.907
+163	4	partitionEmailAndPayment:email-partition2	17	2018-07-23 22:36:29.844	2018-07-23 22:36:29.911	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:29.911
+170	4	partitionGenerateInvoices:partition5	18	2018-07-23 22:36:40.039	2018-07-23 22:36:40.257	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:40.257
+174	4	partitionGenerateInvoices:partition0	18	2018-07-23 22:36:40.091	2018-07-23 22:36:40.269	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:40.27
+168	2	generateInvoices	18	2018-07-23 22:36:39.985	2018-07-23 22:36:40.278	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-23 22:36:40.278
+165	4	partitionEmailAndPayment:email-partition0	17	2018-07-23 22:36:29.842	2018-07-23 22:36:29.905	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:29.905
+166	4	partitionEmailAndPayment:email-partition1	17	2018-07-23 22:36:29.844	2018-07-23 22:36:29.913	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:29.913
+162	4	partitionEmailAndPayment:email-partition4	17	2018-07-23 22:36:29.839	2018-07-23 22:36:29.916	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:29.916
+164	4	partitionEmailAndPayment:email-partition3	17	2018-07-23 22:36:29.843	2018-07-23 22:36:29.919	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:29.919
+160	2	emailAndPayment	17	2018-07-23 22:36:29.76	2018-07-23 22:36:29.933	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-23 22:36:29.933
+167	3	billingSuccess	17	2018-07-23 22:36:29.961	2018-07-23 22:36:30.389	COMPLETED	1	0	0	0	0	0	0	0	COMPLETED		2018-07-23 22:36:30.389
+210	4	partitionEmailAndPayment:email-partition4	20	2018-07-23 22:37:16.981	2018-07-23 22:37:17.048	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:17.048
+230	4	partitionGenerateInvoices:partition4	22	2018-07-24 00:26:22.616	2018-07-24 00:26:23.292	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-24 00:26:23.292
+169	4	partitionGenerateInvoices:partition1	18	2018-07-23 22:36:40.029	2018-07-23 22:36:40.096	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:40.096
+185	4	partitionGenerateInvoices:partition2	19	2018-07-23 22:36:59.739	2018-07-23 22:36:59.8	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:59.801
+171	4	partitionGenerateInvoices:partition2	18	2018-07-23 22:36:40.044	2018-07-23 22:36:40.145	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:40.146
+186	4	partitionGenerateInvoices:partition1	19	2018-07-23 22:36:59.747	2018-07-23 22:36:59.805	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:59.805
+173	4	partitionGenerateInvoices:partition4	18	2018-07-23 22:36:40.062	2018-07-23 22:36:40.193	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:40.193
+184	4	partitionGenerateInvoices:partition3	19	2018-07-23 22:36:59.736	2018-07-23 22:36:59.807	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:59.807
+172	4	partitionGenerateInvoices:partition3	18	2018-07-23 22:36:40.052	2018-07-23 22:36:40.212	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:40.212
+187	4	partitionGenerateInvoices:partition4	19	2018-07-23 22:36:59.747	2018-07-23 22:36:59.822	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:59.822
+189	4	partitionGenerateInvoices:partition0	19	2018-07-23 22:36:59.779	2018-07-23 22:36:59.843	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:59.843
+182	3	billingSuccess	18	2018-07-23 22:36:40.501	2018-07-23 22:36:40.532	COMPLETED	1	0	0	0	0	0	0	0	COMPLETED		2018-07-23 22:36:40.533
+188	4	partitionGenerateInvoices:partition5	19	2018-07-23 22:36:59.76	2018-07-23 22:36:59.863	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:59.863
+183	2	generateInvoices	19	2018-07-23 22:36:59.703	2018-07-23 22:36:59.868	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-23 22:36:59.868
+213	2	generateInvoices	21	2018-07-23 22:37:44.662	2018-07-23 22:37:44.998	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-23 22:37:44.998
+228	2	generateInvoices	22	2018-07-24 00:26:22.505	2018-07-24 00:26:23.292	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-24 00:26:23.292
+193	4	partitionEmailAndPayment:email-partition1	19	2018-07-23 22:36:59.927	2018-07-23 22:36:59.953	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:59.953
+192	4	partitionEmailAndPayment:email-partition0	19	2018-07-23 22:36:59.927	2018-07-23 22:36:59.961	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:59.961
+194	4	partitionEmailAndPayment:email-partition4	19	2018-07-23 22:36:59.929	2018-07-23 22:36:59.98	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:59.98
+195	4	partitionEmailAndPayment:email-partition5	19	2018-07-23 22:36:59.956	2018-07-23 22:36:59.98	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:59.98
+196	4	partitionEmailAndPayment:email-partition3	19	2018-07-23 22:36:59.964	2018-07-23 22:36:59.987	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:36:59.987
+191	4	partitionEmailAndPayment:email-partition2	19	2018-07-23 22:36:59.927	2018-07-23 22:37:00	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:00.001
+237	4	partitionEmailAndPayment:email-partition0	22	2018-07-24 00:26:23.354	2018-07-24 00:26:23.401	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-24 00:26:23.401
+240	4	partitionEmailAndPayment:email-partition3	22	2018-07-24 00:26:23.354	2018-07-24 00:26:23.417	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-24 00:26:23.417
+239	4	partitionEmailAndPayment:email-partition2	22	2018-07-24 00:26:23.354	2018-07-24 00:26:23.417	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-24 00:26:23.417
+238	4	partitionEmailAndPayment:email-partition4	22	2018-07-24 00:26:23.354	2018-07-24 00:26:23.417	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-24 00:26:23.417
+236	4	partitionEmailAndPayment:email-partition1	22	2018-07-24 00:26:23.354	2018-07-24 00:26:23.417	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-24 00:26:23.417
+241	4	partitionEmailAndPayment:email-partition5	22	2018-07-24 00:26:23.354	2018-07-24 00:26:23.417	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-24 00:26:23.417
+235	2	emailAndPayment	22	2018-07-24 00:26:23.323	2018-07-24 00:26:23.417	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-24 00:26:23.417
+190	2	emailAndPayment	19	2018-07-23 22:36:59.89	2018-07-23 22:37:00.008	COMPLETED	12	6	0	6	0	0	0	0	COMPLETED		2018-07-23 22:37:00.008
+197	3	billingSuccess	19	2018-07-23 22:37:00.029	2018-07-23 22:37:00.158	COMPLETED	1	0	0	0	0	0	0	0	COMPLETED		2018-07-23 22:37:00.158
+218	4	partitionGenerateInvoices:partition2	21	2018-07-23 22:37:44.775	2018-07-23 22:37:44.96	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:44.961
+217	4	partitionGenerateInvoices:partition0	21	2018-07-23 22:37:44.773	2018-07-23 22:37:44.962	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:44.963
+219	4	partitionGenerateInvoices:partition1	21	2018-07-23 22:37:44.779	2018-07-23 22:37:44.928	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:44.97
+216	4	partitionGenerateInvoices:partition5	21	2018-07-23 22:37:44.772	2018-07-23 22:37:44.976	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:44.977
+215	4	partitionGenerateInvoices:partition3	21	2018-07-23 22:37:44.768	2018-07-23 22:37:44.987	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:44.987
+214	4	partitionGenerateInvoices:partition4	21	2018-07-23 22:37:44.763	2018-07-23 22:37:44.932	COMPLETED	2	1	0	1	0	0	0	0	COMPLETED		2018-07-23 22:37:44.977
+242	3	billingSuccess	22	2018-07-24 00:26:24.609	2018-07-24 00:26:24.655	COMPLETED	1	0	0	0	0	0	0	0	COMPLETED		2018-07-24 00:26:24.671
 \.
 
 
@@ -4669,6 +4813,11 @@ COPY public.batch_step_execution_context (step_execution_id, short_context, seri
 57	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
 16	{"map":[{"entry":[{"string":"FlatFileItemWriter.current.count","long":0},{"string":"FlatFileItemWriter.written","long":0},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"FlatFileItemReader.read.count","int":12},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 150	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
+164	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+170	{"map":[{"entry":[{"string":"minValue","int":230},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":230},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+175	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
+194	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+198	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
 21	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 22	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 20	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
@@ -4720,6 +4869,8 @@ COPY public.batch_step_execution_context (step_execution_id, short_context, seri
 138	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 142	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
 152	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
+168	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
+182	{"map":[{"entry":[{"string":["batch.taskletType","com.sun.proxy.$Proxy1047"]},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 35	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 25	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 30	{"map":[{"entry":[{"string":["batch.taskletType","com.sun.proxy.$Proxy273"]},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
@@ -4737,19 +4888,31 @@ COPY public.batch_step_execution_context (step_execution_id, short_context, seri
 31	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
 67	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 64	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+158	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+153	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
+201	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 149	{"map":[{"entry":[{"string":["batch.taskletType","com.sun.proxy.$Proxy98"]},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+209	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 68	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 73	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 39	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 42	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 99	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+224	{"map":[{"entry":[{"string":"minValue","int":230},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":230},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+199	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 41	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 38	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+210	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+218	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+240	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+229	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 80	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 111	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+235	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
 112	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 87	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 88	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+242	{"map":[{"entry":[{"string":["batch.taskletType","com.sun.proxy.$Proxy2295"]},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 65	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 40	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 37	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
@@ -4763,10 +4926,17 @@ COPY public.batch_step_execution_context (step_execution_id, short_context, seri
 86	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 94	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 113	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+159	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+169	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 49	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 46	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+180	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 45	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 44	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
+189	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+188	{"map":[{"entry":[{"string":"minValue","int":230},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":230},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+202	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+225	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 50	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
 66	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 78	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
@@ -4777,31 +4947,95 @@ COPY public.batch_step_execution_context (step_execution_id, short_context, seri
 102	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
 110	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 119	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+155	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 121	{"map":[{"entry":[{"string":["batch.taskletType","com.sun.proxy.$Proxy98"]},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 125	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 122	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
 130	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 132	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+191	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+171	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 134	{"map":[{"entry":[{"string":["batch.taskletType","com.sun.proxy.$Proxy1069"]},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 136	{"map":[{"entry":[{"string":"minValue","int":230},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":230},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+200	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+195	{"map":[{"entry":[{"string":"minValue","int":230},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":230},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+212	{"map":[{"entry":[{"string":["batch.taskletType","com.sun.proxy.$Proxy1047"]},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+234	{"map":[{"entry":[{"string":"minValue","int":230},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":230},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+226	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+236	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 91	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 69	{"map":[{"entry":[{"string":["batch.taskletType","com.sun.proxy.$Proxy98"]},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 79	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 84	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 83	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
+157	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+167	{"map":[{"entry":[{"string":["batch.taskletType","com.sun.proxy.$Proxy1047"]},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 52	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 53	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 51	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 55	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+173	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 54	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 56	{"map":[{"entry":[{"string":["batch.taskletType","com.sun.proxy.$Proxy273"]},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+193	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+203	{"map":[{"entry":[{"string":"minValue","int":230},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":230},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+192	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+197	{"map":[{"entry":[{"string":["batch.taskletType","com.sun.proxy.$Proxy1047"]},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 92	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+154	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 144	{"map":[{"entry":[{"string":"minValue","int":230},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":230},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 148	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 147	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+232	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+174	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+183	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
+204	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+196	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+190	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
+237	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+238	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+217	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+213	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
+222	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+220	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
 146	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+156	{"map":[{"entry":[{"string":"minValue","int":230},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":230},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+184	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+172	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+181	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+205	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
+214	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+227	{"map":[{"entry":[{"string":["batch.taskletType","com.sun.proxy.$Proxy1047"]},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+230	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+239	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+241	{"map":[{"entry":[{"string":"minValue","int":230},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":230},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+186	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+185	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+187	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 145	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+160	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
+215	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+223	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+208	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+206	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+176	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+207	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+177	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+178	{"map":[{"entry":[{"string":"minValue","int":230},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":230},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+179	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+231	{"map":[{"entry":[{"string":"minValue","int":100},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":100},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 143	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+211	{"map":[{"entry":[{"string":"minValue","int":230},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":230},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+219	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+216	{"map":[{"entry":[{"string":"minValue","int":230},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":230},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+221	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+233	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+228	{"map":[{"entry":[{"string":"SimpleStepExecutionSplitter.GRID_SIZE","long":6},{"string":["batch.stepType","org.springframework.batch.core.partition.support.PartitionStep"]}]}]}	\N
+165	{"map":[{"entry":[{"string":"minValue","int":10},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":10},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+161	{"map":[{"entry":[{"string":"minValue","int":230},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":230},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+163	{"map":[{"entry":[{"string":"minValue","int":31},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":31},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+166	{"map":[{"entry":[{"string":"minValue","int":20},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":20},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
+162	{"map":[{"entry":[{"string":"minValue","int":130},{"string":["batch.taskletType","org.springframework.batch.core.step.item.ChunkOrientedTasklet"]},{"string":"maxValue","int":130},{"string":["batch.stepType","org.springframework.batch.core.step.tasklet.TaskletStep"]}]}]}	\N
 \.
 
 
@@ -4809,7 +5043,7 @@ COPY public.batch_step_execution_context (step_execution_id, short_context, seri
 -- Name: batch_step_execution_seq; Type: SEQUENCE SET; Schema: public; Owner: openbrm_prod
 --
 
-SELECT pg_catalog.setval('public.batch_step_execution_seq', 152, true);
+SELECT pg_catalog.setval('public.batch_step_execution_seq', 242, true);
 
 
 --
@@ -4822,7 +5056,10 @@ COPY public.billing_process (id, entity_id, billing_date, period_unit_id, period
 40	10	2018-07-11	3	1	0	\N	0	1
 50	10	2018-07-17	3	1	0	\N	0	1
 70	10	2018-07-19	3	1	0	\N	0	1
-80	10	2018-07-20	3	1	1	\N	0	1
+90	10	2018-07-20	3	1	0	\N	0	1
+92	10	2018-07-21	3	1	0	\N	0	1
+94	10	2018-07-22	3	1	0	\N	0	1
+100	10	2018-07-23	3	1	1	\N	0	1
 \.
 
 
@@ -4833,7 +5070,7 @@ COPY public.billing_process (id, entity_id, billing_date, period_unit_id, period
 COPY public.billing_process_configuration (id, entity_id, next_run_date, generate_report, retries, days_for_retry, days_for_report, review_status, due_date_unit_id, due_date_value, df_fm, only_recurring, invoice_date_process, optlock, maximum_periods, auto_payment_application, period_unit_id, last_day_of_month, prorating_type) FROM stdin;
 200	20	2018-08-01	1	0	1	3	1	1	1	\N	1	0	0	99	1	1	f	PRORATING_AUTO_OFF
 300	30	2018-08-18	1	0	1	3	1	1	1	\N	1	0	0	99	1	1	f	PRORATING_AUTO_OFF
-100	10	2018-07-20	1	0	\N	3	1	3	10	\N	1	1	20	99	1	3	f	PRORATING_AUTO_OFF
+100	10	2018-07-23	1	0	\N	3	2	3	10	\N	1	1	30	99	1	3	f	PRORATING_AUTO_OFF
 \.
 
 
@@ -4901,21 +5138,23 @@ COPY public.breadcrumb (id, user_id, controller, action, name, object_id, versio
 2558	31	payment	list	\N	\N	0	\N
 2559	31	order	list	\N	\N	0	\N
 2560	31	billing	index	\N	\N	0	\N
+3708	10	altanOperations	operations	operations	4	0	operations
+3709	10	altanOperations	index	\N	\N	0	\N
 2564	31	CRM	list	\N	\N	0	\N
 2565	130	customer	edit	create	\N	0	create
 2566	130	customer	list	\N	\N	0	\N
 2567	31	customer	list	\N	\N	0	\N
 2568	31	invoice	list	\N	\N	0	\N
 2569	31	payment	list	\N	\N	0	\N
-3587	10	altanOperations	operations	operations	2	0	operations
-3588	10	altanOperations	operations	operations	4	0	operations
-3589	10	altanOperations	operations	operations	3	0	operations
-3590	10	altanOperations	operations	operations	4	0	operations
-3591	10	customer	list	\N	\N	0	\N
-3592	10	customer	list	\N	230	0	\N
-3593	10	altanOperations	operations	operations	4	0	operations
-3594	10	altanOperations	operations	operations	1	0	operations
-3595	10	altanOperations	operations	operations	4	0	operations
+3710	10	customer	list	\N	\N	0	\N
+3711	10	billing	index	\N	\N	0	\N
+3712	10	config	index	\N	\N	0	\N
+3713	10	billingconfiguration	index	\N	\N	0	\N
+3714	10	billing	index	\N	\N	0	\N
+3715	10	billing	show	\N	100	0	\N
+3716	10	billing	list	\N	\N	0	\N
+3717	10	customer	list	\N	\N	0	\N
+3718	10	customer	list	\N	\N	0	\N
 3193	70	customer	list	\N	\N	0	\N
 3194	70	partner	list	\N	\N	0	\N
 3195	70	partner	list	\N	31	0	\N
@@ -7135,6 +7374,42 @@ COPY public.event_log (id, entity_id, user_id, table_id, foreign_id, create_date
 147000	10	\N	10	10	2018-07-22 21:23:29.779	2	2	38	\N	admin	\N	0	10
 147001	10	\N	10	10	2018-07-22 21:41:58.141	2	2	39	\N	admin	\N	0	10
 147002	10	\N	10	10	2018-07-22 21:42:03.316	2	2	38	\N	admin	\N	0	10
+148000	10	\N	10	10	2018-07-23 19:49:19.381	2	2	38	\N	admin	\N	0	10
+149000	10	\N	10	10	2018-07-23 20:16:39.267	2	2	38	\N	admin	\N	0	10
+150000	10	\N	10	10	2018-07-23 20:17:53.577	2	2	38	\N	admin	\N	0	10
+150001	10	\N	10	10	2018-07-23 20:18:02.542	2	2	38	\N	admin	\N	0	10
+151000	10	\N	10	10	2018-07-23 20:25:19.289	2	2	38	\N	admin	\N	0	10
+152000	10	\N	10	10	2018-07-23 20:33:50.179	2	2	38	\N	admin	\N	0	10
+153000	10	\N	10	10	2018-07-23 20:38:58.156	2	2	38	\N	admin	\N	0	10
+154000	10	\N	10	10	2018-07-23 20:45:38.432	2	2	38	\N	admin	\N	0	10
+155000	10	\N	10	10	2018-07-23 21:27:54.594	2	2	38	\N	admin	\N	0	10
+156000	10	\N	10	10	2018-07-23 21:45:41.795	2	2	38	\N	admin	\N	0	10
+157000	10	\N	10	10	2018-07-23 22:00:58.337	2	2	38	\N	admin	\N	0	10
+158000	10	\N	10	10	2018-07-23 22:05:52.366	2	2	38	\N	admin	\N	0	10
+159000	10	\N	10	10	2018-07-23 22:15:10.342	2	2	38	\N	admin	\N	0	10
+160000	10	\N	10	10	2018-07-23 22:22:29.788	2	2	38	\N	admin	\N	0	10
+160001	10	\N	10	10	2018-07-23 22:22:49.11	2	2	39	\N	admin	\N	0	10
+160002	10	\N	10	10	2018-07-23 22:22:54.037	2	2	38	\N	admin	\N	0	10
+160003	10	\N	10	10	2018-07-23 22:23:05.792	2	2	38	\N	admin	\N	0	10
+161000	10	\N	10	10	2018-07-23 22:31:22.775	2	2	38	\N	admin	\N	0	10
+161001	10	\N	34	100	2018-07-23 22:35:58.156	3	1	10	\N	\N	\N	0	\N
+161002	10	10	34	100	2018-07-23 22:36:11.65	2	1	9	1	\N	\N	0	\N
+161003	10	\N	34	100	2018-07-23 22:36:39.805	3	1	11	\N	\N	\N	0	\N
+161004	10	10	34	100	2018-07-23 22:36:52.46	2	1	9	1	\N	\N	0	\N
+161005	10	\N	34	100	2018-07-23 22:37:16.585	3	1	11	\N	\N	\N	0	\N
+161006	10	10	34	100	2018-07-23 22:37:30.619	2	1	9	1	\N	\N	0	\N
+162000	10	\N	10	10	2018-07-23 23:20:56.564	2	2	38	\N	admin	\N	0	10
+163000	10	\N	10	10	2018-07-23 23:37:22.798	2	2	38	\N	admin	\N	0	10
+164000	10	\N	10	10	2018-07-23 23:57:19.146	2	2	38	\N	admin	\N	0	10
+165000	10	\N	10	10	2018-07-24 00:01:25.85	2	2	38	\N	admin	\N	0	10
+166000	10	\N	10	10	2018-07-24 00:06:27.032	2	2	38	\N	admin	\N	0	10
+167000	10	\N	10	10	2018-07-24 00:15:22.959	2	2	38	\N	admin	\N	0	10
+168000	10	\N	10	10	2018-07-24 00:18:18.308	2	2	38	\N	admin	\N	0	10
+169000	10	\N	10	10	2018-07-24 00:23:47.477	2	2	38	\N	admin	\N	0	10
+169001	10	\N	34	100	2018-07-24 00:26:21.146	3	1	11	\N	\N	\N	0	\N
+169002	10	10	34	100	2018-07-24 00:26:41.178	2	1	9	1	\N	\N	0	\N
+169004	10	\N	10	10	2018-07-24 00:27:03.181	2	2	39	\N	admin	\N	0	10
+169003	10	\N	10	10	2018-07-24 00:27:03.181	2	2	39	\N	admin	\N	0	10
 \.
 
 
@@ -11434,7 +11709,7 @@ payment_authorization	10
 shortcut	4
 meta_field_group	4
 currency_exchange	27
-breadcrumb	3596
+event_log	170
 tabConfigurationTab	111
 preference	5
 discount	3
@@ -11446,7 +11721,7 @@ item	3
 asset_status	3
 order_change	21
 validation_rule	5
-billing_process	9
+recent_item	466
 pluggable_task_parameter	6
 base_user	24
 payment_invoice	16
@@ -11461,32 +11736,32 @@ notification_message_arch	29
 payment_instrument_info	12
 entity	4
 asset	5
+billing_process	11
 customer_account_info_type_timeline	13
-event_log	148
 meta_field_value	52
-process_run	9
 item_price	3
 purchase_order	25
 order_line	25
 contact_map	6794
 pluggable_task	15
-process_run_user	8
+process_run	11
 order_status	8
 generic_status	234
 order_period	8
 contact	15
-recent_item	459
+process_run_user	10
 asset_assignment	45
 account_type	4
 billing_process_configuration	4
+breadcrumb	3719
 notification_message	4
 notification_message_line	4
 notification_message_section	7
 enumeration_values	4
 meta_field_name	14
 invoice_line	6
-batch_process_info	8
 order_process	6
+batch_process_info	10
 \.
 
 
@@ -14734,7 +15009,10 @@ COPY public.process_run (id, process_id, run_date, started, finished, payment_fi
 400	40	2018-07-11	2018-07-17 20:00:31.168	2018-07-17 20:00:31.957	2018-07-17 20:00:32.257	0	2	34
 500	50	2018-07-17	2018-07-18 00:30:22.682	2018-07-18 00:30:23.959	2018-07-18 00:30:24.37	0	2	34
 700	70	2018-07-19	2018-07-19 22:42:12.914	2018-07-19 22:42:14.009	2018-07-19 22:42:14.144	0	2	34
-800	80	2018-07-20	2018-07-20 20:20:00.493	2018-07-20 20:20:01.555	\N	0	1	34
+900	90	2018-07-20	2018-07-23 22:36:28.419	2018-07-23 22:36:29.992	2018-07-23 22:36:30.619	0	2	34
+902	92	2018-07-21	2018-07-23 22:36:59.664	2018-07-23 22:37:00.044	2018-07-23 22:37:00.262	0	2	34
+904	94	2018-07-22	2018-07-23 22:37:44.634	2018-07-23 22:37:45.497	2018-07-23 22:37:45.558	0	2	34
+1000	100	2018-07-23	2018-07-24 00:26:22.349	2018-07-24 00:26:24.655	\N	0	1	34
 \.
 
 
@@ -14784,12 +15062,30 @@ COPY public.process_run_user (id, process_run_id, user_id, status, created, optl
 601	700	20	1	2018-07-19 22:42:13.414	0
 603	700	100	1	2018-07-19 22:42:13.627	0
 604	700	130	1	2018-07-19 22:42:13.628	0
-702	800	10	1	2018-07-20 20:20:01.212	0
-704	800	230	1	2018-07-20 20:20:01.227	0
-700	800	31	1	2018-07-20 20:20:01.102	0
-703	800	100	1	2018-07-20 20:20:01.227	0
-701	800	20	1	2018-07-20 20:20:01.102	0
-705	800	130	1	2018-07-20 20:20:01.259	0
+802	900	230	1	2018-07-23 22:36:29.294	0
+800	900	10	1	2018-07-23 22:36:29.127	0
+801	900	31	1	2018-07-23 22:36:29.163	0
+803	900	20	1	2018-07-23 22:36:29.343	0
+804	900	100	1	2018-07-23 22:36:29.353	0
+805	900	130	1	2018-07-23 22:36:29.551	0
+812	902	31	1	2018-07-23 22:36:59.783	0
+813	902	20	1	2018-07-23 22:36:59.783	0
+814	902	100	1	2018-07-23 22:36:59.787	0
+815	902	130	1	2018-07-23 22:36:59.805	0
+816	902	10	1	2018-07-23 22:36:59.83	0
+817	902	230	1	2018-07-23 22:36:59.847	0
+825	904	20	1	2018-07-23 22:37:44.875	0
+824	904	130	1	2018-07-23 22:37:44.869	0
+826	904	100	1	2018-07-23 22:37:44.897	0
+827	904	230	1	2018-07-23 22:37:44.922	0
+828	904	31	1	2018-07-23 22:37:44.931	0
+829	904	10	1	2018-07-23 22:37:44.941	0
+904	1000	100	1	2018-07-24 00:26:23.132	0
+900	1000	10	1	2018-07-24 00:26:22.835	0
+905	1000	230	1	2018-07-24 00:26:23.132	0
+903	1000	20	1	2018-07-24 00:26:23.069	0
+902	1000	31	1	2018-07-24 00:26:23.1	0
+901	1000	130	1	2018-07-24 00:26:23.1	0
 \.
 
 
@@ -14953,20 +15249,20 @@ COPY public.recent_item (id, type, object_id, user_id, version) FROM stdin;
 8	CUSTOMER	32	20	0
 22	CUSTOMER	73	70	0
 46	CUSTOMER	60	60	0
+461	BILLINGPROCESS	91	10	0
+462	BILLINGPROCESS	92	10	0
+463	BILLINGPROCESS	93	10	0
+464	BILLINGPROCESS	94	10	0
+465	BILLINGPROCESS	100	10	0
 248	CUSTOMER	130	130	0
 304	INVOICE	200	130	0
 250	CUSTOMER	210	210	0
 251	CUSTOMER	210	210	0
 439	CUSTOMER	130	130	0
 341	PAYMENT	501	31	0
-454	CUSTOMER	230	10	0
-455	CUSTOMER	130	10	0
 343	CUSTOMER	220	70	0
 344	PRODUCT	105	70	0
 345	CUSTOMER	220	70	0
-456	CUSTOMER	230	10	0
-457	CUSTOMER	100	10	0
-458	CUSTOMER	230	10	0
 \.
 
 

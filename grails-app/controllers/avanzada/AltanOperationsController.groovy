@@ -1,18 +1,28 @@
 package avanzada
 
 
+import avanzadagroup.net.altanAPI.Coverage;
+import avanzadagroup.net.altanAPI.IMEI
+import avanzadagroup.net.altanAPI.OrderStatus
 import avanzadagroup.net.altanAPI.Profile
+import avanzadagroup.net.altanAPI.responses.AddressCoordinatesResp;
+import avanzadagroup.net.altanAPI.responses.CoverageResp
+import avanzadagroup.net.altanAPI.responses.IMEIResponse
+import avanzadagroup.net.altanAPI.responses.OrderStatusResponse
 import avanzadagroup.net.altanAPI.responses.ProfileResponse
+import avanzadagroup.net.google.AddressCoordinates
+
 import com.sapienter.jbilling.client.util.SortableCriteria
 import com.sapienter.jbilling.common.SessionInternalError
+
 import org.joda.time.format.DateTimeFormat
+
 import com.sapienter.jbilling.server.item.db.ItemDAS;
 import com.sapienter.jbilling.server.report.db.ReportDTO
 import com.sapienter.jbilling.server.util.Constants
 import com.sapienter.jbilling.server.util.PreferenceBL
 import com.sapienter.jbilling.server.report.db.ReportTypeDTO
 import com.sapienter.jbilling.server.report.ReportBL
-
 import com.sapienter.jbilling.server.report.ReportExportFormat
 import com.sapienter.jbilling.client.util.Constants;
 import com.sapienter.jbilling.client.util.DownloadHelper
@@ -22,6 +32,9 @@ import org.apache.commons.lang.StringUtils;
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.hibernate.criterion.MatchMode
 import org.hibernate.criterion.Restrictions
+
+
+
 
 
 import grails.converters.JSON
@@ -39,8 +52,8 @@ class AltanOperationsController {
 	static scope = "prototype"
 	static pagination = [ max: 10, offset: 0 ]
 	static final viewColumnsToFields =
-			['reportId': 'id']
-	
+	['reportId': 'id']
+
 	def viewUtils
 	def filterService
 	def recentItemService
@@ -55,7 +68,7 @@ class AltanOperationsController {
 
 
 	def list () {
-
+		breadcrumbService.addBreadcrumb(controllerName, "index", null, null,  null)
 		render view: 'list', model: [ selectedTypeId: params.int('id') ]
 	}
 
@@ -75,7 +88,7 @@ class AltanOperationsController {
 
 		jsonData
 	}
-	
+
 	def operations () {
 		def id = params.int('id')
 		breadcrumbService.addBreadcrumb(controllerName, actionName, 'operations', id,  null)
@@ -83,13 +96,34 @@ class AltanOperationsController {
 	}
 
 	def show () {
+		breadcrumbService.addBreadcrumb(controllerName, "index", null, null,  null)
 		def id = params.get('id')
+
+		if(id.equals('2_1')){
+			render template:'serviciability/qos'
+			return
+		}
+
+		if(id.equals('3_1')){
+			render template:'configuration/orderStatus'
+			return
+		}
+
+		if(id.equals('4_1')){
+			render template:'clients/blockIMEI', model:[id:'4_1']
+			return
+		}
+
+		if(id.equals('4_2')){
+			render template:'clients/blockIMEI', model:[id:'4_2']
+			return
+		}
+
 		if(id.equals('4_5')){
-			
 			render template:'clients/profile'
 			return
-		} 
-		
+		}
+
 		render template:'show' , model: [ id: id ]
 	}
 
@@ -99,12 +133,39 @@ class AltanOperationsController {
 	 * to the browser.
 	 */
 	def operationResult () {
-		Profile profile = new Profile();
-		ProfileResponse pr = profile.profile(params.get('msisdn'))
-		
-		render template:'clients/profileResult', model:[msisdn: params.get('msisdn'), pr:pr]
-		return;
+		def id = params.get('id')
+		breadcrumbService.addBreadcrumb(controllerName, "index", null, null,  null)
+		if(params.get('id').equals('2_1')){
+			AddressCoordinates ac = new AddressCoordinates();
+			AddressCoordinatesResp acr = ac.getCoordinates(params.get('calle'),
+					params.get('noExterior'), params.get('cp'), params.get('ciudad'), params.get('estado'),
+					'Mexico');
+			String location = acr.getLatitude()+","+acr.getLongitude();
 
+
+			Coverage co = new Coverage();
+			CoverageResp cr = co.check(location)
+
+			render template:'serviciability/qosResult', model:[
+				location:location,
+				coverage: cr]
+			return;
+		}else if(params.get('id').equals('3_1')){
+			OrderStatusResponse osr = new OrderStatus().status(params.get('orderId'));
+			render template:'configuration/orderStatusResult', model:[orderId:params.get('orderId'), osr:osr]
+			return;
+		}else if(id.equals('4_1') || id.equals('4_2')){
+			IMEIResponse ir = new IMEI().operation(params.get('imei'),
+					id.equals('4_1')?"lock":"unlock");
+			render template:'clients/blockIMEIResult', 
+			model:[imei: params.get('imei'), ir:ir, id:id]
+			return;
+		}else if(params.get('id').equals('4_5')){
+			Profile profile = new Profile();
+			ProfileResponse pr = profile.profile(params.get('msisdn'))
+			render template:'clients/profileResult', model:[msisdn: params.get('msisdn'), pr:pr]
+			return;
+		}
 	}
 
 	/**
@@ -127,7 +188,7 @@ class AltanOperationsController {
 				bindData(parameter, ['value': value])
 			}
 		}
-		
+
 		try {
 			report.childEntities = new ArrayList<Integer>()
 			// bind childs to list

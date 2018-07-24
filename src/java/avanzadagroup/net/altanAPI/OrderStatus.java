@@ -49,7 +49,8 @@ public class OrderStatus {
 					osr.setStatus("success");
 					osr.setStatusDescription("OrderStatus");
 					osr.setOrderId(jsonObj.getString("orderId"));
-                                        osr.setStatus(jsonObj.getString("status"));
+					osr.setOrderStatus(jsonObj.getString("status"));
+					osr.setType(jsonObj.getString("type"));
 
 				} else if (responseCode.equals("400")) {
 					osr.setStatus("error 400");

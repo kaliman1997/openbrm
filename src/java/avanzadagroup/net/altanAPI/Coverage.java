@@ -21,15 +21,15 @@ import org.json.*;
 public class Coverage {
 	CoverageResp ar = new CoverageResp();
 
-	public CoverageResp check(String token, String location) {
+	public CoverageResp check(String location) {
 		try {
+			
 			//String location = lat + "%2C" + lng;
 
 			location = location.replaceAll("-", "%2D");
 
-			System.out.println(token);
-
-			String response = sendRequest(token, location);
+			String response = sendRequest(new OAuth().getToken().getAccessToken(),
+					location);
 
 			if (response.equals("error")) {
 				ar.setStatus("error");

@@ -1,21 +1,20 @@
 <div class="column-hold">
 	<div class="heading">
-		<strong><g:message code="Perfil" /></strong>
+		<strong><g:message code="Cobertura" /></strong>
 	</div>
 	<div class="box">
 		<g:form name="operation_form" controller="altanOperations"
 			action="operationResult">
-			<label>MSISDN: </label>
-			<g:textField name="msisdn" />
+			<label>No. de Orden: </label>
+			<g:textField class="field" name="orderId" />
 			<br />
-		</g:form>
+			</g:form>
 	</div>
 	<div class="btn-box">
-		<g:remoteLink class="cell double" action="operationResult" id="4_5"
-			params="{msisdn:\$('#msisdn').val()}"
+		<g:remoteLink class="cell double" action="operationResult" id="3_1"
+			params="{orderId:\$('#orderId').val()}"
 			before="register(this);" onSuccess="render(data, next);">
-			<strong>Consultar
-			</strong>
+			<strong>Consultar</strong>
 		</g:remoteLink>
 	</div>
 </div>

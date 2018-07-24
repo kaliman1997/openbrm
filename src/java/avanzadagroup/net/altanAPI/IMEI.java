@@ -5,7 +5,7 @@
  */
 package avanzadagroup.net.altanAPI;
 
-import avanzadagroup.net.altanAPI.responses.ActivationResponse;
+import avanzadagroup.net.altanAPI.responses.IMEIResponse;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -20,9 +20,9 @@ import org.json.*;
  * @author Arturo Ruiz
  */
 public class IMEI {
-	ActivationResponse ar = new ActivationResponse();
+	IMEIResponse ar = new IMEIResponse();
 
-	public ActivationResponse operation(String IMEI, String operation) {
+	public IMEIResponse operation(String IMEI, String operation) {
 		
 		String response = sendRequest(new OAuth().getToken().
                         getAccessToken(), IMEI, operation);		
@@ -46,9 +46,8 @@ public class IMEI {
 
 					ar.setStatus("success");
 					ar.setStatusDescription("Activacion correcta");
-					ar.setMsisdn(jsonObj.getString("msisdn"));
+					ar.setImei(jsonObj.getString("imei"));
 					ar.setEffectiveDate(jsonObj.getString("effectiveDate"));
-					ar.setOrderId(jsonObj.getJSONObject("order").getString("id"));
 
 				} else if (responseCode.equals("400")) {
 					ar.setStatus("error 400");
@@ -106,12 +105,18 @@ public class IMEI {
 		try {
 			url = new URL("https://altanredes-test.apigee.net/"
                                 + "cm/v1/imei/"+IMEI+"/" + operation);
+			System.out.println(url.getPath());
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("authorization", "Bearer " + accessToken);
-
+			
+		
 			connection.setRequestProperty("Accept", "application/json");
+			connection.setDoOutput(true);
 			connection.setDoInput(true);
+			connection.setRequestProperty("Content-Length", Integer.toString("...".length()));
+            connection.getOutputStream().write("...".getBytes("UTF8"));
+			System.out.println("Length " + connection.getRequestProperty("Content-Length"));
 			
 			BufferedReader d;
 			
