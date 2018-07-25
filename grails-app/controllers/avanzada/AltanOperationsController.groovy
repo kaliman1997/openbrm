@@ -1,11 +1,14 @@
 package avanzada
 
 
+import avanzadagroup.net.altanAPI.Batch
 import avanzadagroup.net.altanAPI.Coverage;
 import avanzadagroup.net.altanAPI.IMEI
 import avanzadagroup.net.altanAPI.OAuth
 import avanzadagroup.net.altanAPI.OrderStatus
 import avanzadagroup.net.altanAPI.Profile
+import avanzadagroup.net.altanAPI.SubscriberPatch
+import avanzadagroup.net.altanAPI.responses.ActivationResponse
 import avanzadagroup.net.altanAPI.responses.AddressCoordinatesResp;
 import avanzadagroup.net.altanAPI.responses.CoverageResp
 import avanzadagroup.net.altanAPI.responses.IMEIResponse
@@ -19,6 +22,7 @@ import com.sapienter.jbilling.common.SessionInternalError
 
 import org.joda.time.format.DateTimeFormat
 
+import com.sapienter.jbilling.common.Util
 import com.sapienter.jbilling.server.item.db.ItemDAS;
 import com.sapienter.jbilling.server.report.db.ReportDTO
 import com.sapienter.jbilling.server.util.Constants
@@ -31,6 +35,7 @@ import com.sapienter.jbilling.client.util.DownloadHelper
 import com.sapienter.jbilling.server.report.db.ReportParameterDTO
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.io.FilenameUtils
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.hibernate.criterion.MatchMode
 import org.hibernate.criterion.Restrictions
@@ -41,6 +46,7 @@ import org.hibernate.criterion.Restrictions
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import jbilling.Breadcrumb
 
 /**
  * ReportController
@@ -74,6 +80,39 @@ class AltanOperationsController {
 		render view: 'list', model: [ selectedTypeId: params.int('id') ]
 	}
 
+	/**
+	 * Upload a file containing new assets. Start a batch job to import the assets.
+	 *
+	 * @param assetFile - CSV file containing asset definitions
+	 * @param prodId - product the assets will belong to
+	 */
+	def uploadAssets () {
+		def operation = params.get('operation');
+		def file = request.getFile('assetFile');
+		def reportAssetDir = new File(Util.getSysProp("base_dir") + File.separator + "reports" + File.separator + "assets");
+
+		//csv file we are uploading
+		String fileExtension = FilenameUtils.getExtension(file.originalFilename)
+		Breadcrumb lastBreadcrumb = breadcrumbService.lastBreadcrumb as Breadcrumb
+		def csvFile = File.createTempFile("assets", ".csv", reportAssetDir)
+		if (fileExtension && !fileExtension.equals("csv")) {
+			flash.error = "csv.error.found"
+			redirect(controller: lastBreadcrumb.controller, action: lastBreadcrumb.action, params: [id: lastBreadcrumb.objectId, showAssetUploadTemplate: true])
+			return
+		} else if(!fileExtension) {
+			flash.error = "validation.file.upload"
+			redirect(controller: lastBreadcrumb.controller, action: lastBreadcrumb.action, params: [id: lastBreadcrumb.objectId, showAssetUploadTemplate: true])
+			return
+		}
+		//file which will contain a list of errors
+		def csvErrorFile = File.createTempFile("assetsError", ".csv", reportAssetDir)
+
+		//copy the uploaded file to a temp file
+		file.transferTo(csvFile)
+
+		new Batch().activate(csvFile.getPath(), operation);
+		render view: 'processAssets', model: [jobId: executionId, jobStatus: 'busy']
+	}
 
 
 	/**
@@ -92,9 +131,16 @@ class AltanOperationsController {
 	}
 
 	def operations () {
-		def id = params.int('id')
-		breadcrumbService.addBreadcrumb(controllerName, actionName, 'operations', id,  null)
-		render template:'operations', model: [ id: id ]
+		def id = params.get('id')
+		breadcrumbService.addBreadcrumb(controllerName, "index", null, null,  null)
+		if(id.equals('5')){
+			render template:'clients/batch', model: [ id: id ]
+			return;
+
+		} else {
+			render template:'operations', model: [ id: params.int('id') ]
+			return;
+		}
 	}
 
 	def show () {
@@ -125,6 +171,11 @@ class AltanOperationsController {
 
 		if(id.equals('4_2')){
 			render template:'clients/blockIMEI', model:[id:'4_2']
+			return
+		}
+
+		if(id.equals('4_3') || id.equals('4_4')){
+			render template:'clients/subscriberPatch', model:[id:id]
 			return
 		}
 
@@ -170,6 +221,25 @@ class AltanOperationsController {
 			render template:'clients/blockIMEIResult',
 			model:[imei: params.get('imei'), ir:ir, id:id]
 			return;
+		}else if(id.equals('4_3') || id.equals('4_4')){
+			if(id.equals('4_3')){
+				AddressCoordinates ac = new AddressCoordinates();
+				AddressCoordinatesResp acr = ac.getCoordinates(params.get('calle'),
+						params.get('noExterior'), params.get('cp'), params.get('ciudad'), params.get('estado'),
+						'Mexico');
+				String location = acr.getLatitude()+","+acr.getLongitude();
+
+				ActivationResponse ar = new SubscriberPatch().changePrimaryOffer(
+						params.get('msisdn'), params.get('offeringId'), location);
+				render template:'clients/subscriberPatchResult',
+				model:[msisdn: params.get('msisdn'), ar:ar, id:id]
+				return;
+			} else {
+				ActivationResponse ar = new SubscriberPatch().changeICC(params.get('msisdn'),
+						params.get('icc'));
+				render template:'clients/subscriberPatchResult',
+				model:[msisdn: params.get('msisdn'), ar:ar, id:id]
+			}
 		}else if(params.get('id').equals('4_5')){
 			Profile profile = new Profile();
 			ProfileResponse pr = profile.profile(params.get('msisdn'))

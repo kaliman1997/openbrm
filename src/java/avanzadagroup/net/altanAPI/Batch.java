@@ -115,6 +115,9 @@ public class Batch {
         try {
             String url = "https://altanredes-test.apigee.net/"
                     + "cm/v1/subscribers/" + operation;
+            
+            System.out.println(url);
+            System.out.println(pathToFile);
             String charset = "UTF-8";
             String param = "value";
             File textFile = new File(pathToFile);

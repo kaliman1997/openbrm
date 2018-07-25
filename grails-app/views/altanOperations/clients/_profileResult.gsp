@@ -31,6 +31,13 @@
 								${pr.subStatus}
 							</td>
 						</tr>
+						<tr>
+							<td><g:message code="Oferta primaria" /></td>
+							<td class="value">
+								${pr.primaryOffering}
+							</td>
+						</tr>						
+						
 					</g:if>
 					<g:else>
 						<tr>

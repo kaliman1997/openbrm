@@ -56,6 +56,8 @@ public class Profile {
 					sr.setSubStatus(jsonObj.getJSONObject("responseSubscriber").
 							getJSONObject("status").
 							getString("subStatus"));
+					sr.setPrimaryOffering(jsonObj.getJSONObject("responseSubscriber").
+							getJSONObject("primaryOffering").getString("offeringId"));
 					
 
 				} else if (responseCode.equals("400")) {

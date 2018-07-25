@@ -17,7 +17,15 @@ public class ProfileResponse extends GeneralResponse {
     private String errorCode;
     private String description;
     private String detail;
+    private String primaryOffering;
     
+    
+	public String getPrimaryOffering() {
+		return primaryOffering;
+	}
+	public void setPrimaryOffering(String primaryOffering) {
+		this.primaryOffering = primaryOffering;
+	}
 	public String getIdSubscriber() {
 		return idSubscriber;
 	}
