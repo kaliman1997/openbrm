@@ -29,32 +29,60 @@ Affero General Public License along with jbilling. If not, see
 	</div>
 
 	<div class="box">
-		<div class="sub-box">
+		
 
-			<g:uploadForm name="upload-batch-form" url="[action: 'uploadAssets']">
-				<g:applyLayout name="form/text">
-					<content tag="label">
-					<g:message code="Tipo de Operacion" /></content>
-					<select name="operation">
-						<option>activations</option>
-						<option>suspends</option>
-					</select>
-				</g:applyLayout>
-				<g:applyLayout name="form/text">
-					<content tag="label">
-					<g:message code="Seleccione Archivo" /></content>
-					<input type="file" name="assetFile" />
-				</g:applyLayout>
-				
-				<div class="btn-row">
-					<br /> <a onclick="$('#upload-batch-form').submit();"
-						class="submit save"><span><g:message
-								code="button.upload" /></span></a>
-				</div>
-			</g:uploadForm>
+		<g:uploadForm name="upload-batch-form" action="uploadBatch">
+						<g:applyLayout name="form/text">
+				<content tag="label"> <g:message code="Tipo de Operacion" /></content>
+				<select name="operation">
+					<option>activations</option>
+					<option>suspends</option>
+				</select>
+			</g:applyLayout>
+			<g:applyLayout name="form/text">
+				<content tag="label"> <g:message code="Seleccione Archivo" /></content>
+				<input type="file" name="assetFile" />
+			</g:applyLayout>
+				<g:remoteLink class="cell double" action="uploadBatch" id='${id}'
+			params="{operation:\$('#operation').val(),assetFile:\$('#assetFile')}"
+			update="main">
+			<strong>
+				<button>Subir</button>
+			</strong>
+		</g:remoteLink>
+		</g:uploadForm><%--
 
-		</div>
-	</div>
+
+	
+		<g:form name="upload-form" action="uploadBatch" method="post"
+			enctype="multipart/form-data" target="hidden-upload-frame">
+			<select name="operation">
+				<option>activations</option>
+				<option>suspends</option>
+			</select>
+			</br>
+    File: <input type="file" name="assetFile" />
+			<button type="submit">Upload</button>
+		</g:form>
+
+		<iframe id="hidden-upload-frame" name="hidden-upload-frame"
+			style="display: none" onload="onUploadComplete"> </iframe>
+
+		<script type="text/javascript">
+			function onUploadComplete(e) {
+				// Handle upload complete
+				alert("upload complete");
+				// Evaluate iframe content or fire another ajax call to get the details for the previously uploaded file
+			}
+		</script>
+		
+
+
+--%></div>
+
+
+
+	<div id="batchResult"></div>
 
 </div>
 

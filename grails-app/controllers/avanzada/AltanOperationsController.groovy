@@ -10,6 +10,7 @@ import avanzadagroup.net.altanAPI.Profile
 import avanzadagroup.net.altanAPI.SubscriberPatch
 import avanzadagroup.net.altanAPI.responses.ActivationResponse
 import avanzadagroup.net.altanAPI.responses.AddressCoordinatesResp;
+import avanzadagroup.net.altanAPI.responses.BatchResponse
 import avanzadagroup.net.altanAPI.responses.CoverageResp
 import avanzadagroup.net.altanAPI.responses.IMEIResponse
 import avanzadagroup.net.altanAPI.responses.OAuthResp
@@ -86,7 +87,7 @@ class AltanOperationsController {
 	 * @param assetFile - CSV file containing asset definitions
 	 * @param prodId - product the assets will belong to
 	 */
-	def uploadAssets () {
+	def uploadBatch () {
 		def operation = params.get('operation');
 		def file = request.getFile('assetFile');
 		def reportAssetDir = new File(Util.getSysProp("base_dir") + File.separator + "reports" + File.separator + "assets");
@@ -110,8 +111,10 @@ class AltanOperationsController {
 		//copy the uploaded file to a temp file
 		file.transferTo(csvFile)
 
-		new Batch().activate(csvFile.getPath(), operation);
-		render view: 'processAssets', model: [jobId: executionId, jobStatus: 'busy']
+		BatchResponse br = new Batch().activate(csvFile.getPath(), operation)
+		//render template: 'clients/batchResult', model: [br:br]
+		flash.message = "Todo Ok"
+		redirect(action: "list", id: 1)
 	}
 
 

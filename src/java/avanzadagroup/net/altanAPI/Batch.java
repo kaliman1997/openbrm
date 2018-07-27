@@ -5,7 +5,7 @@
  */
 package avanzadagroup.net.altanAPI;
 
-import avanzadagroup.net.altanAPI.responses.ActivationResponse;
+import avanzadagroup.net.altanAPI.responses.BatchResponse;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -31,9 +31,9 @@ import org.json.*;
  */
 public class Batch {
 
-    ActivationResponse ar = new ActivationResponse();
+	BatchResponse ar = new BatchResponse();
 
-    public ActivationResponse activate(String pathToFile, String operation) {
+    public BatchResponse activate(String pathToFile, String operation) {
 
         OAuth oauth = new OAuth();
 
@@ -58,39 +58,24 @@ public class Batch {
 
                     ar.setStatus("success");
                     ar.setStatusDescription("Activacion correcta");
-                    ar.setMsisdn(jsonObj.getString("msisdn"));
                     ar.setEffectiveDate(jsonObj.getString("effectiveDate"));
-                    ar.setOrderId(jsonObj.getJSONObject("order").getString("id"));
+                    ar.setLines(jsonObj.getString("lines"));
+                    ar.setTransactionId(jsonObj.getJSONObject("transaction").
+                    		getString("id"));
 
                 } else if (responseCode.equals("400")) {
                     ar.setStatus("error 400");
                     ar.setStatusDescription(jsonObj.getString("description"));
                     ar.setErrorCode(jsonObj.getString("errorCode"));
                     ar.setDescription(jsonObj.getString("description"));
-                    try {
-                        ar.setDetail(jsonObj.getString("detail"));
-                    } catch (JSONException jsonE) {
-                        System.out.println(jsonE.toString());
-                        for (StackTraceElement ste : jsonE.getStackTrace()) {
-                            System.out.println(ste.toString());
-
-                        }
-                    }
+                    
 
                 } else if (responseCode.equals("500")) {
                     ar.setStatus("error 500");
                     ar.setStatusDescription(jsonObj.getString("description"));
                     ar.setErrorCode(jsonObj.getString("errorCode"));
                     ar.setDescription(jsonObj.getString("description"));
-                    try {
-                        ar.setDetail(jsonObj.getString("detail"));
-                    } catch (JSONException jsonE) {
-                        System.out.println(jsonE.toString());
-                        for (StackTraceElement ste : jsonE.getStackTrace()) {
-                            System.out.println(ste.toString());
-
-                        }
-                    }
+                    
                 }
             } catch (Exception e) {
                 System.out.println(e.toString());
