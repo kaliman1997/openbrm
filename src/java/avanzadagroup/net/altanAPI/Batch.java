@@ -6,30 +6,33 @@
 package avanzadagroup.net.altanAPI;
 
 import avanzadagroup.net.altanAPI.responses.BatchResponse;
+import avanzadagroup.net.dataacess.RegisterOperation;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.file.Files;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+
+
+
+import org.apache.log4j.Logger;
 import org.json.*;
+
+import com.sapienter.jbilling.common.FormatLogger;
 
 /**
  *
  * @author Arturo Ruiz
  */
 public class Batch {
+	private static final FormatLogger LOG = new FormatLogger(
+			Logger.getLogger(OAuth.class));
 
 	BatchResponse ar = new BatchResponse();
 
@@ -46,13 +49,15 @@ public class Batch {
         } else {
             try {
 
-                System.out.println(response);
+                LOG.debug("CBOSS::"+response);
                 String[] responseValues = response.split("\\|");
 
                 String responseCode = responseValues[0];
                 String responseJSON = responseValues[1];
-                System.out.println(responseCode);
+                LOG.debug("CBOSS::"+responseCode);
                 JSONObject jsonObj = new JSONObject(responseJSON);
+                
+                RegisterOperation.write("Batch", responseCode, responseJSON, "");
 
                 if (responseCode.equals("200")) {
 
@@ -78,9 +83,9 @@ public class Batch {
                     
                 }
             } catch (Exception e) {
-                System.out.println(e.toString());
+                LOG.debug("CBOSS::"+e.toString());
                 for (StackTraceElement ste : e.getStackTrace()) {
-                    System.out.println(ste.toString());
+                    LOG.debug("CBOSS::"+ste.toString());
 
                 }
                 ar.setStatus("error 500");
@@ -101,8 +106,8 @@ public class Batch {
             String url = "https://altanredes-test.apigee.net/"
                     + "cm/v1/subscribers/" + operation;
             
-            System.out.println(url);
-            System.out.println(pathToFile);
+            LOG.debug("CBOSS::"+url);
+            LOG.debug("CBOSS::"+pathToFile);
             String charset = "UTF-8";
             String param = "value";
             File textFile = new File(pathToFile);
@@ -153,9 +158,9 @@ public class Batch {
 
             return connection.getResponseCode() + "|" + buf.toString();
         } catch (Exception e) {
-            System.out.println(e.toString());
+            LOG.debug("CBOSS::"+e.toString());
             for (StackTraceElement ste : e.getStackTrace()) {
-                System.out.println(ste.toString());
+                LOG.debug("CBOSS::"+ste.toString());
 
             }
 

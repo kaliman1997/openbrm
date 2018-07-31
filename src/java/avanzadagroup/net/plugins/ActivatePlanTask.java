@@ -25,7 +25,7 @@ public class ActivatePlanTask extends PluggableTask implements IInternalEventsTa
 	private static final Class<Event> events[] = new Class[] {PaymentLinkedToInvoiceEvent.class};
 
 	private static final FormatLogger LOG = new FormatLogger(
-			Logger.getLogger(PaymentLinkedToInvoiceEvent.class));
+			Logger.getLogger(ActivatePlanTask.class));
 
 	@Override
 	public void process(Event event) throws PluggableTaskException {
@@ -82,11 +82,11 @@ public class ActivatePlanTask extends PluggableTask implements IInternalEventsTa
 					&& !MSISDN.equals("") && !MSISDN.equals("----")){
 				if(planType.equalsIgnoreCase("primaryOffer")){
 					Activation activation = new Activation();
-					LOG.debug(activation.activate(MSISDN, offeringId, latitude + "," + longitude).getJsonResponse());
+					LOG.debug("CBOSS::"+ activation.activate(MSISDN, offeringId, latitude + "," + longitude).getJsonResponse());
 					
 				}else {
 					Purchase purchase = new Purchase();
-					LOG.debug(purchase.activate(MSISDN, offeringId).getJsonResponse());
+					LOG.debug("CBOSS::"+ purchase.activate(MSISDN, offeringId).getJsonResponse());
 				}
 				
 			}

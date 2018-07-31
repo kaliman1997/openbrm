@@ -6,6 +6,7 @@
 package avanzadagroup.net.altanAPI;
 
 import avanzadagroup.net.altanAPI.responses.OAuthResp;
+import avanzadagroup.net.dataacess.RegisterOperation;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -17,15 +18,18 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import org.apache.log4j.Logger;
 import org.json.*;
+
+import com.sapienter.jbilling.common.FormatLogger;
 
 /**
  *
  * @author Arturo Ruiz
  */
 public class OAuth {
-//	private static final FormatLogger LOG = new FormatLogger(
-//			Logger.getLogger(OAuth.class));
+	private static final FormatLogger LOG = new FormatLogger(
+			Logger.getLogger(OAuth.class));
 	private final String base64Credentials = 
 			"aGhZbU1BbUJtR3FraHJrN3h5N21KNGh2UEt0SklpMUU6b3FHUFcwcnRkZ255Mm45Ug==";
 	
@@ -63,14 +67,14 @@ public class OAuth {
 
 	public OAuthResp getToken() {
 		try {
-			System.out.println("Oauth::" + AccessToken.getAccessToken());
+			LOG.debug("CBOSS::"+ AccessToken.getAccessToken());
 			
 			if(AccessToken.getAccessToken()!= null && (Calendar.getInstance().getTimeInMillis()/1000 < 
 					((AccessToken.getTokenAdquireTime().getTimeInMillis() /1000 ) + 
 							AccessToken.getExpiresIn() - 600) 
 					)){
 				
-				System.out.println("Oauth:: no genera");
+				LOG.debug("CBOSS:: no genera");
 				or.setStatus("success");
 				or.setStatusDescription("Credenciales correctas");		
 				
@@ -86,7 +90,7 @@ public class OAuth {
 
 			String response = sendRequest(base64Credentials);
 			
-			System.out.println("Oauth::" + response);
+			LOG.debug("CBOSS::Oauth:: " + response);
 
 			if (response.equals("error")) {
 				or.setStatus("error");
@@ -95,8 +99,10 @@ public class OAuth {
 				String[] responseValues = response.split("\\|");
 				String responseCode = responseValues[0];
 				String responseJSON = responseValues[1];
-				System.out.println(responseCode + " Oauth" + responseJSON);
+				LOG.debug("CBOSS::"+responseCode + " Oauth" + responseJSON);
 				JSONObject jsonObj = new JSONObject(responseJSON);
+				
+				RegisterOperation.write("Authentication", responseCode, responseJSON, "");
 
 				if (responseCode.equals("200")) {
 
@@ -173,7 +179,7 @@ public class OAuth {
 
 			}
 
-			System.out.println(buf.toString());
+			LOG.debug("CBOSS::"+ buf.toString());
 
 			br.close();
 			connection.disconnect();
@@ -181,7 +187,7 @@ public class OAuth {
 			return connection.getResponseCode() + "|" + buf.toString();
 		} catch (Exception e) {
 
-			System.out.println(e);
+			LOG.debug("CBOSS::"+e);
 			return "error";
 		}
 

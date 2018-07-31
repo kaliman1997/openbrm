@@ -158,7 +158,11 @@ log4j = {
 	//Specifying "jbilling" as the appender here so that all logs go to jbilling.log
 	//***** END INFO *****
 
-    debug additivity: false, openbrm: "com.sapienter.jbilling"
+	debug additivity: false, openbrm: "avanzadagroup.net.tasks"
+	debug additivity: false, openbrm: "avanzadagroup.net.altanAPI"
+	debug additivity: false, openbrm: "avanzadagroup.net.google"
+	debug additivity: false, openbrm: "avanzadagroup.net.plugins"
+	debug additivity: false, openbrm: "com.sapienter.jbilling"
 	debug additivity: false, openbrm: "in.saralam.sbs"
 	debug additivity: false, openbrm: "dk.comtalk.billing"
     debug additivity: false, openbrm: "grails.app"

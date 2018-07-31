@@ -30,7 +30,7 @@ public class AssignAssetTask extends PluggableTask implements
 	private static final Class<Event> events[] = new Class[] { PaymentLinkedToInvoiceEvent.class };
 
 	private static final FormatLogger LOG = new FormatLogger(
-			Logger.getLogger(PaymentLinkedToInvoiceEvent.class));
+			Logger.getLogger(AssignAssetTask.class));
 
 	@Override
 	public void process(Event event) throws PluggableTaskException {
@@ -57,13 +57,13 @@ public class AssignAssetTask extends PluggableTask implements
 							
 						}
 						
-						LOG.debug("AVANZADA::category " + itDTO.getId() + " "+ itDTO.getDescription());
+						LOG.debug("CBOSS::category " + itDTO.getId() + " "+ itDTO.getDescription());
 
 						for (AssetDTO assetDTO : olDTO.getAssets()) {
 
 							for (AssetStatusDTO asDTO : new AssetStatusDAS()
 									.getStatuses(itDTO.getId(), false)) {
-								LOG.debug("AVANZADA:: Status Desc " + asDTO.getDescription());
+								LOG.debug("CBOSS:: Status Desc " + asDTO.getDescription());
 								
 								if (asDTO.getDescription().equalsIgnoreCase(
 										"Asignado")) {

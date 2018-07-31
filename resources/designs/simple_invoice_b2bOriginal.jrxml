@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="simple_invoice" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="40" bottomMargin="40" uuid="7d450150-7eb2-49d6-96b8-6a9f14121d8a">
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
+	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="244"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="invoiceNumber" class="java.lang.String"/>
+	<parameter name="entityName" class="java.lang.String"/>
+	<parameter name="entityAddress" class="java.lang.String"/>
+	<parameter name="entityCity" class="java.lang.String"/>
+	<parameter name="entityProvince" class="java.lang.String"/>
+	<parameter name="entityPostalCode" class="java.lang.String"/>
+	<parameter name="invoiceDate" class="java.lang.String"/>
+	<parameter name="invoiceDueDate" class="java.lang.String"/>
+	<parameter name="customerName" class="java.lang.String"/>
+	<parameter name="customerAddress" class="java.lang.String"/>
+	<parameter name="customerCity" class="java.lang.String"/>
+	<parameter name="customerProvince" class="java.lang.String"/>
+	<parameter name="customerPostalCode" class="java.lang.String"/>
+	<parameter name="customerMessage1" class="java.lang.String"/>
+	<parameter name="entityLogo" class="java.io.File"/>
+	<parameter name="customerMessage2" class="java.lang.String"/>
+	<parameter name="notes" class="java.lang.String"/>
+	<parameter name="customerOrganization" class="java.lang.String"/>
+	<parameter name="totalWithTax" class="java.lang.String"/>
+	<parameter name="totalWithoutTax" class="java.lang.String"/>
+	<field name="quantity" class="java.math.BigDecimal"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="price" class="java.math.BigDecimal"/>
+	<field name="amount" class="java.math.BigDecimal"/>
+	<group name="invoice_total">
+		<groupFooter>
+			<band height="84">
+				<rectangle>
+					<reportElement positionType="Float" x="342" y="8" width="204" height="31" uuid="9865efe4-6d93-4556-bfb4-65d08bcec0ab"/>
+				</rectangle>
+				<staticText>
+					<reportElement positionType="Float" x="349" y="14" width="92" height="20" uuid="f111243c-f0aa-4951-b23d-6203b38dddfc"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Total amount:]]></text>
+				</staticText>
+				<textField>
+					<reportElement positionType="Float" x="451" y="15" width="89" height="19" uuid="c98503fd-7eb4-4f23-8b70-102a132910c9"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="12" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{totalWithoutTax}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" x="24" y="6" width="314" height="74" uuid="2c007d48-087d-47bc-b97d-3cd74cb004a0"/>
+					<textFieldExpression><![CDATA[$P{notes}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="221">
+			<textField>
+				<reportElement positionType="Float" x="411" y="15" width="125" height="30" uuid="7bb7b043-8358-4610-8a8e-8e3a219e7b4c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="23" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoiceNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="291" y="15" width="120" height="30" uuid="911c0872-2647-460b-8e07-0dd522bc39d2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INVOICE]]></text>
+			</staticText>
+			<image>
+				<reportElement positionType="Float" x="15" y="6" width="168" height="53" uuid="e7741386-19d0-4a5b-b1bd-78db38abd05b"/>
+				<imageExpression><![CDATA[$P{entityLogo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement positionType="Float" x="14" y="135" width="73" height="16" uuid="66fb56e7-3a8c-4dc1-8b3a-f0e90cba06c5"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[BILL TO:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="15" y="64" width="270" height="17" uuid="ac41576f-2d64-4772-97a7-7aed3c928844"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{entityName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="15" y="83" width="270" height="17" uuid="70141c26-7911-44f7-9973-13af640acc18"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{entityAddress}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="15" y="103" width="270" height="17" uuid="ae8047c6-b3c5-472d-a621-e92c80ca0a02"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{entityProvince}!=null && !$P{entityProvince}.trim().equals(""))?$P{entityCity}+", "+ $P{entityProvince}+" "+$P{entityPostalCode}:$P{entityCity}+" "+ $P{entityProvince}+" "+$P{entityPostalCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="14" y="153" width="238" height="17" uuid="8646bb70-d793-4e13-9219-a591785d81c0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerOrganization}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="14" y="172" width="238" height="16" uuid="a2cf5575-9547-40a4-b4a8-3d29367768e8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="314" y="57" width="56" height="16" uuid="ab680bb4-9973-4353-a8e1-93d2e4bc5d60"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="386" y="57" width="150" height="16" uuid="38faa525-5289-4d20-b702-f69a39bd535e"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoiceDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="314" y="79" width="66" height="16" uuid="6ae33e6a-079d-4364-b6f4-6c9c093f8571"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Due Date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="386" y="79" width="150" height="16" uuid="d1156d9f-a953-4d89-8ebe-004e6352060a"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoiceDueDate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="282" y="153" width="250" height="56" uuid="94e0274a-6dee-4e03-ae4c-17f9d18226be"/>
+				<textElement markup="styled">
+					<font size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerMessage1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="314" y="101" width="66" height="16" uuid="379ccf69-f093-4d09-8e3c-d1c293f19fe0"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Due:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement positionType="Float" x="386" y="101" width="150" height="16" uuid="5fb858fd-ed0d-4bf4-8e38-e53646e322ef"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalWithTax}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="14" y="191" width="238" height="16" uuid="2f2a31d6-88d7-48e2-a87c-10d9e5ed592d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{customerProvince}!=null && !$P{customerProvince}.trim().equals(""))?$P{customerCity}+", "+ $P{customerProvince}+" "+$P{customerPostalCode}:$P{customerCity}+" "+ $P{customerProvince}+" "+$P{customerPostalCode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="46">
+			<rectangle>
+				<reportElement positionType="Float" x="8" y="8" width="540" height="38" backcolor="#C3C3C3" uuid="db197e94-a111-434c-b150-aac04435d722"/>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="Float" x="16" y="17" width="40" height="23" uuid="81d513e9-0453-4e27-bd3a-9fe5cedd21cd"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[QTY.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="64" y="17" width="328" height="23" uuid="1b057e9c-2e29-4e98-a365-799cccc92929"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[DESCRIPTION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="415" y="17" width="56" height="23" uuid="76696f22-f7c1-492a-abbb-fb2d91ffe947"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[PRICE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="482" y="17" width="56" height="23" uuid="d0105b64-61a5-4f9d-8063-604d53173c72"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="29">
+			<rectangle>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="8" y="2" width="539" height="26" uuid="bb568ede-6b22-460d-8e20-40a62f8da919">
+					<printWhenExpression><![CDATA[new Boolean($F{amount} != null)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="6" width="30" height="17" uuid="93054eb7-1033-4afd-953b-b62ea2d48541">
+					<printWhenExpression><![CDATA[new Boolean($F{quantity} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new DecimalFormat("#,##0.##")).format($F{quantity}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="64" y="6" width="328" height="20" uuid="9e2cf39c-90e9-4162-b853-7288c81e0761"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="416" y="6" width="55" height="17" uuid="fa1419e0-68a0-42df-a583-784cea78fb0e">
+					<printWhenExpression><![CDATA[new Boolean($F{price} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new DecimalFormat("#,##0.00")).format($F{price}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="481" y="6" width="59" height="17" uuid="2b2bdea1-ecb3-467c-adfe-8f3c45a96975">
+					<printWhenExpression><![CDATA[new Boolean($F{amount} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new DecimalFormat("#,##0.00")).format($F{amount}.doubleValue())]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="34">
+			<textField>
+				<reportElement positionType="Float" x="216" y="10" width="60" height="14" uuid="54817e9c-4159-4ab0-9ccb-8ec0e96b279b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page " + String.valueOf($V{PAGE_NUMBER}) + " of "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement positionType="Float" x="280" y="10" width="26" height="14" uuid="612e1519-cacd-48a4-bc1b-29bdfeec948c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="78">
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="12" y="33" width="531" height="36" uuid="3b9e8c58-84ca-44d5-a43e-efc45ab8c911"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerMessage2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

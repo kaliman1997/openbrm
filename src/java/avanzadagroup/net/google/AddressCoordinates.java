@@ -5,6 +5,7 @@
  */
 package avanzadagroup.net.google;
 
+
 import avanzadagroup.net.altanAPI.responses.AddressCoordinatesResp;
 
 import java.io.BufferedReader;
@@ -13,13 +14,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
+
+import com.sapienter.jbilling.common.FormatLogger;
 
 /**
  *
  * @author Arturo Ruiz
  */
 public class AddressCoordinates {
+	private static final FormatLogger LOG = new FormatLogger(
+			Logger.getLogger(AddressCoordinates.class));
 
 	public AddressCoordinatesResp getCoordinates(String streetName,
 			String streetNumber, String zipCode, String city, String state,
@@ -73,7 +79,7 @@ public class AddressCoordinates {
 
 				}
 
-				System.out.println(buf.toString());
+				LOG.debug("CBOSS::"+buf.toString());
 
 				br.close();
 				connection.disconnect();
@@ -94,7 +100,7 @@ public class AddressCoordinates {
 						+ "");
 
 			} catch (Exception e) {
-				System.out.println(e);
+				LOG.debug("CBOSS::"+e);
 				acr.setStatus("error");
 				acr.setStatusDescription("Error al obtener coordenadas");
 

@@ -20,9 +20,9 @@ public class CheckDBConnection {
     private static final String POSTGRES_DRIVER_NAME = "org.postgresql.Driver";
     private static final String ORACLE_DRIVER_NAME = "oracle.jdbc.driver.OracleDriver";
 
-    private static final String DB_NAME = "jbilling_test";
-    private static final String USERNAME = "jbilling";
-    private static final String PASSWORD = "";
+    private static final String DB_NAME = "openbrm_prod";
+    private static final String USERNAME = "openbrm_prod";
+    private static final String PASSWORD = "openbrm_prod";
 
     public static void main(String[] args) {
         System.out.println("Checking the connection to the DB...");

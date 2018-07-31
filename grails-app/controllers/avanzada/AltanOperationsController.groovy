@@ -113,7 +113,11 @@ class AltanOperationsController {
 
 		BatchResponse br = new Batch().activate(csvFile.getPath(), operation)
 		//render template: 'clients/batchResult', model: [br:br]
-		flash.message = "Todo Ok"
+		flash.message = "Resultado Operacion Batch " 
+		+ br.status.equals("success")?
+		"Estado: "+ br.status +", Fecha" + br.effectiveDate + ", Lineas " + br.Lines + ", Id Transaccion "  + br.transactionId
+		:
+		"Error" +br.errorCode + ", Descripcion" + br.description;
 		redirect(action: "list", id: 1)
 	}
 

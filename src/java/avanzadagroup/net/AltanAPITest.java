@@ -5,24 +5,28 @@
  */
 package avanzadagroup.net;
 
+import org.apache.log4j.Logger;
+
 import avanzadagroup.net.google.*;
 import avanzadagroup.net.altanAPI.*;
 import avanzadagroup.net.altanAPI.responses.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import com.sapienter.jbilling.common.FormatLogger;
 
 /**
  *
  * @author Arturo Ruiz
  */
 public class AltanAPITest {
-	
+	private static final FormatLogger LOG = new FormatLogger(
+			Logger.getLogger(OAuth.class));		
 
 	/**
 	 * @param args
 	 *            the command line arguments
 	 */
 	public static void main(String[] args) {
+	
 		try {
 			AddressCoordinates ac = new AddressCoordinates();
 
@@ -37,40 +41,40 @@ public class AltanAPITest {
 //				CoverageResp cr = new Coverage().check(oar.getAccessToken(),
 //						acr.getLatitude(), acr.getLongitude());
 //
-//				System.out.println(cr.getResult());
+//				LOG.debug("CBOSS::"+cr.getResult());
 				
 				String MSISDN = "5584614839";
 				
 				Activation act = new Activation();
 				ActivationResponse ar = act.activate(MSISDN, "1002001037", "19.3959336,-99.176576");
-				System.out.println(ar.getStatusDescription() + " " + ar.getStatus());
+				LOG.debug("CBOSS::"+ar.getStatusDescription() + " " + ar.getStatus());
 				
 				Suspend suspend = new Suspend();
 				SuspendResponse sr = suspend.suspend(MSISDN);
-				System.out.println(sr.getStatusDescription() + " " + sr.getStatus());
+				LOG.debug("CBOSS::"+sr.getStatusDescription() + " " + sr.getStatus());
 				
 				if (sr.getStatus().equals("success")){
-					System.out.println("orderid" + sr.getOrderId());					
+					LOG.debug("CBOSS::"+"orderid" + sr.getOrderId());					
 				} else {
-					System.out.println("detail" + sr.getDetail());
+					LOG.debug("CBOSS::"+"detail" + sr.getDetail());
 				}
 				
 				Thread.sleep(30000);
 				
 				Resume resume = new Resume();
 				ResumeResponse rr = resume.resume(MSISDN);
-				System.out.println(rr.getStatusDescription() + " " + rr.getStatus());
+				LOG.debug("CBOSS::"+rr.getStatusDescription() + " " + rr.getStatus());
 				
 				if (rr.getStatus().equals("success")){
-					System.out.println("orderid" + rr.getOrderId());					
+					LOG.debug("CBOSS::"+"orderid" + rr.getOrderId());					
 				} else {
-					System.out.println("detail" + rr.getDetail());
+					LOG.debug("CBOSS::"+"detail" + rr.getDetail());
 				}				
 			}
 			;
 
 		} catch (Exception ex) {
-			System.out.println(ex);
+			LOG.debug("CBOSS::"+ex);
 		}
 
 	}
@@ -82,10 +86,10 @@ public class AltanAPITest {
 
 			oar = oa.getToken();
 
-			System.out.println(oar.getAccessToken());
+			LOG.debug("CBOSS::"+oar.getAccessToken());
 
 		} catch (Exception e) {
-			System.out.println(e);
+			LOG.debug("CBOSS::"+e);
 		}
 
 		return oar;
@@ -108,28 +112,27 @@ public class AltanAPITest {
 				intentos++;
 			}
 
-			System.out.println(acr.getStatus() + " "
+			LOG.debug("CBOSS::"+acr.getStatus() + " "
 					+ acr.getStatusDescription());
-			System.out.println(acr.getLatitude() + " " + acr.getLongitude());
+			LOG.debug("CBOSS::"+acr.getLatitude() + " " + acr.getLongitude());
 
 			acr = ac.getCoordinates("Avenida Pacifico", "284", "04330",
 					"Coyoacan", "CDMX", "Mexico");
 
-			System.out.println(acr.getStatus() + " "
+			LOG.debug("CBOSS::"+acr.getStatus() + " "
 					+ acr.getStatusDescription());
-			System.out.println(acr.getLatitude() + " " + acr.getLongitude());
+			LOG.debug("CBOSS::"+acr.getLatitude() + " " + acr.getLongitude());
 
 			Thread.sleep(200);
 
 			acr = ac.getCoordinates("Oriente 26", "289", "",
 					"Cd Nezahualcoyotl", "Mex", "Mexico");
 
-			System.out.println(acr.getStatus() + " "
+			LOG.debug("CBOSS::"+acr.getStatus() + " "
 					+ acr.getStatusDescription());
-			System.out.println(acr.getLatitude() + " " + acr.getLongitude());
+			LOG.debug("CBOSS::"+acr.getLatitude() + " " + acr.getLongitude());
 		} catch (InterruptedException ex) {
-			Logger.getLogger(AltanAPITest.class.getName()).log(Level.SEVERE,
-					null, ex);
+			LOG.debug(ex);
 		}
 	}
 

@@ -35,7 +35,7 @@ public class AssetUpdateTask extends PluggableTask implements
 	private static final Class<Event> events[] = new Class[] { AssetUpdatedEvent.class };
 
 	private static final FormatLogger LOG = new FormatLogger(
-			Logger.getLogger(AssetUpdatedEvent.class));
+			Logger.getLogger(AssetUpdateTask.class));
 
 	@Override
 	public void process(Event event) throws PluggableTaskException {
@@ -62,15 +62,15 @@ public class AssetUpdateTask extends PluggableTask implements
 			 * deleted=0}}
 			 */
 
-			LOG.debug("Avanzada:: ItemCategory "
+			LOG.debug("CBOSS:: ItemCategory "
 					+ myEvent.getAsset().getItem().getCategoryCode(""));
 
 			if (myEvent.getAsset().getItem().getCategoryCode("")
 					.equalsIgnoreCase("SIMS")) {
 				// InternalNumber is productCode
-				LOG.debug("Avanzada::  ICC NUMBER"
+				LOG.debug("CBOSS::  ICC NUMBER"
 						+ myEvent.getAsset().getItem().getNumber());
-				LOG.debug("Avanzada:: ICC "
+				LOG.debug("CBOSS:: ICC "
 						+ myEvent.getAsset().getIdentifier());
 
 				String ICC = myEvent.getAsset().getIdentifier();
@@ -102,8 +102,8 @@ public class AssetUpdateTask extends PluggableTask implements
 
 				}
 
-				LOG.debug("AVANZADA::"
-						+ myEvent.getAsset().getAssetStatus().getDescription());
+				LOG.debug("CBOSS::"+
+						 myEvent.getAsset().getAssetStatus().getDescription());
 
 				if (myEvent.getAsset().getAssetStatus().getDescription()
 						.equalsIgnoreCase("DISPONIBLE")) {
@@ -120,8 +120,8 @@ public class AssetUpdateTask extends PluggableTask implements
 
 					Collections.sort(aaList);
 
-					LOG.debug("AVANZADA:: FIRST " + aaList.get(0).getOrderId());
-					LOG.debug("AVANZADA:: LAST "
+					LOG.debug("CBOSS:: FIRST " + aaList.get(0).getOrderId());
+					LOG.debug("CBOSS:: LAST "
 							+ aaList.get(aaList.size() - 1).getOrderId());
 					{
 
@@ -130,7 +130,7 @@ public class AssetUpdateTask extends PluggableTask implements
 								.getUserId());
 
 						if (user != null) {
-							LOG.debug("AVANZADA::" + user.getUserName());
+							LOG.debug("CBOSS::" + user.getUserName());
 
 							List<MetaFieldValue> mfvList2 = new UserBL()
 									.getUserEntity(user.getId()).getCustomer()
@@ -157,7 +157,7 @@ public class AssetUpdateTask extends PluggableTask implements
 				}
 
 			} else { // CPEs
-				LOG.debug(" Avanzada:: SERIAL "
+				LOG.debug(" CBOSS:: SERIAL "
 						+ myEvent.getAsset().getItem().getInternalNumber());
 
 				String serialNumber = myEvent.getAsset().getIdentifier();
@@ -180,7 +180,7 @@ public class AssetUpdateTask extends PluggableTask implements
 
 				}
 
-				LOG.debug("AVANZADA::"
+				LOG.debug("CBOSS::"
 						+ myEvent.getAsset().getAssetStatus().getDescription());
 
 				if (myEvent.getAsset().getAssetStatus().getDescription()
@@ -198,8 +198,8 @@ public class AssetUpdateTask extends PluggableTask implements
 
 					Collections.sort(aaList);
 
-					LOG.debug("AVANZADA:: FIRST " + aaList.get(0).getOrderId());
-					LOG.debug("AVANZADA:: LAST "
+					LOG.debug("CBOSS:: FIRST " + aaList.get(0).getOrderId());
+					LOG.debug("CBOSS:: LAST "
 							+ aaList.get(aaList.size() - 1).getOrderId());
 					{
 
@@ -208,7 +208,7 @@ public class AssetUpdateTask extends PluggableTask implements
 								.getUserId());
 
 						if (user != null) {
-							LOG.debug("AVANZADA:: " + user.getUserName());
+							LOG.debug("CBOSS:: " + user.getUserName());
 
 							List<MetaFieldValue> mfvList2 = new UserBL()
 									.getUserEntity(user.getId()).getCustomer()

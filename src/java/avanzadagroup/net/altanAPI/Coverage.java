@@ -6,19 +6,25 @@
 package avanzadagroup.net.altanAPI;
 
 import avanzadagroup.net.altanAPI.responses.CoverageResp;
+import avanzadagroup.net.dataacess.RegisterOperation;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.apache.log4j.Logger;
 import org.json.*;
+
+import com.sapienter.jbilling.common.FormatLogger;
 
 /**
  *
  * @author Arturo Ruiz
  */
 public class Coverage {
+	private static final FormatLogger LOG = new FormatLogger(
+			Logger.getLogger(OAuth.class));	
 	CoverageResp ar = new CoverageResp();
 
 	public CoverageResp check(String location) {
@@ -39,6 +45,8 @@ public class Coverage {
 				String responseCode = responseValues[0];
 				String responseJSON = responseValues[1];
 				JSONObject jsonObj = new JSONObject(responseJSON);
+				
+				RegisterOperation.write("Coverage", responseCode, responseJSON, "");
 
 				if (responseCode.equals("200")) {
 
@@ -98,7 +106,7 @@ public class Coverage {
 			return con.getResponseCode() + "|" + buf.toString();
 		} catch (Exception e) {
 
-			System.out.println(e);
+			LOG.debug("CBOSS::"+e);
 			return "error";
 		}
 

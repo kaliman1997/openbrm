@@ -6,20 +6,25 @@
 package avanzadagroup.net.altanAPI;
 
 import avanzadagroup.net.altanAPI.responses.IMEIResponse;
+import avanzadagroup.net.dataacess.RegisterOperation;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.apache.log4j.Logger;
 import org.json.*;
+
+import com.sapienter.jbilling.common.FormatLogger;
 
 /**
  *
  * @author Arturo Ruiz
  */
 public class IMEI {
+	private static final FormatLogger LOG = new FormatLogger(
+			Logger.getLogger(OAuth.class));
 	IMEIResponse ar = new IMEIResponse();
 
 	public IMEIResponse operation(String IMEI, String operation) {
@@ -34,13 +39,15 @@ public class IMEI {
 		} else {
 			try {
 
-				System.out.println(response);
+				LOG.debug("CBOSS::"+response);
 				String[] responseValues = response.split("\\|");
 
 				String responseCode = responseValues[0];
 				String responseJSON = responseValues[1];
-				System.out.println(responseCode);
+				LOG.debug("CBOSS::"+responseCode);
 				JSONObject jsonObj = new JSONObject(responseJSON);
+				
+				RegisterOperation.write("Imei", responseCode, responseJSON, "");
 
 				if (responseCode.equals("200")) {
 
@@ -57,9 +64,9 @@ public class IMEI {
 					try{
 						ar.setDetail(jsonObj.getString("detail"));
 					} catch (JSONException jsonE){
-						System.out.println(jsonE.toString());
+						LOG.debug("CBOSS::"+jsonE.toString());
 						for(StackTraceElement ste : jsonE.getStackTrace()){
-							System.out.println(ste.toString());
+							LOG.debug("CBOSS::"+ste.toString());
 							
 						}
 					}
@@ -72,17 +79,17 @@ public class IMEI {
 					try{
 						ar.setDetail(jsonObj.getString("detail"));
 					} catch (JSONException jsonE){
-						System.out.println(jsonE.toString());
+						LOG.debug("CBOSS::"+jsonE.toString());
 						for(StackTraceElement ste : jsonE.getStackTrace()){
-							System.out.println(ste.toString());
+							LOG.debug("CBOSS::"+ste.toString());
 							
 						}
 					}
 				}
 			} catch (Exception e) {
-				System.out.println(e.toString());
+				LOG.debug("CBOSS::"+e.toString());
 				for(StackTraceElement ste : e.getStackTrace()){
-					System.out.println(ste.toString());
+					LOG.debug("CBOSS::"+ste.toString());
 					
 				}
 				ar.setStatus("error 500");
@@ -105,7 +112,7 @@ public class IMEI {
 		try {
 			url = new URL("https://altanredes-test.apigee.net/"
                                 + "cm/v1/imei/"+IMEI+"/" + operation);
-			System.out.println(url.getPath());
+			LOG.debug("CBOSS::"+url.getPath());
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("authorization", "Bearer " + accessToken);
@@ -116,7 +123,7 @@ public class IMEI {
 			connection.setDoInput(true);
 			connection.setRequestProperty("Content-Length", Integer.toString("...".length()));
             connection.getOutputStream().write("...".getBytes("UTF8"));
-			System.out.println("Length " + connection.getRequestProperty("Content-Length"));
+			LOG.debug("CBOSS::"+"Length " + connection.getRequestProperty("Content-Length"));
 			
 			BufferedReader d;
 			
@@ -142,9 +149,9 @@ public class IMEI {
 
 			return connection.getResponseCode() + "|" + buf.toString();
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			LOG.debug("CBOSS::"+e.toString());
 			for(StackTraceElement ste: e.getStackTrace()){
-				System.out.println(ste.toString());
+				LOG.debug("CBOSS::"+ste.toString());
 				
 			}
 

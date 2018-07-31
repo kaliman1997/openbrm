@@ -50,10 +50,10 @@ Affero General Public License along with jbilling. If not, see
 				<button>Subir</button>
 			</strong>
 		</g:remoteLink>
-		</g:uploadForm><%--
-
-
-	
+		</g:uploadForm>
+		
+		
+		<%--
 		<g:form name="upload-form" action="uploadBatch" method="post"
 			enctype="multipart/form-data" target="hidden-upload-frame">
 			<select name="operation">
@@ -74,11 +74,9 @@ Affero General Public License along with jbilling. If not, see
 				alert("upload complete");
 				// Evaluate iframe content or fire another ajax call to get the details for the previously uploaded file
 			}
-		</script>
+		</script>--%>
 		
-
-
---%></div>
+		</div>
 
 
 

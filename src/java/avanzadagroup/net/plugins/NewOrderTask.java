@@ -18,7 +18,7 @@ public class NewOrderTask extends PluggableTask implements IInternalEventsTask {
 	private static final Class<Event> events[] = new Class[] { NewOrderEvent.class };
 
 	private static final FormatLogger LOG = new FormatLogger(
-			Logger.getLogger(NewOrderEvent.class));
+			Logger.getLogger(NewOrderTask.class));
 
 	@Override
 	public void process(Event event) throws PluggableTaskException {

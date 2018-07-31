@@ -6,6 +6,7 @@
 package avanzadagroup.net.altanAPI;
 
 import avanzadagroup.net.altanAPI.responses.ResumeResponse;
+import avanzadagroup.net.dataacess.RegisterOperation;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -13,13 +14,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.apache.log4j.Logger;
 import org.json.*;
+
+import com.sapienter.jbilling.common.FormatLogger;
 
 /**
  *
  * @author Arturo Ruiz
  */
 public class Resume {
+	private static final FormatLogger LOG = new FormatLogger(
+			Logger.getLogger(OAuth.class));
 	ResumeResponse sr = new ResumeResponse();
 
 	public ResumeResponse resume(String MSISDN) {
@@ -34,13 +40,15 @@ public class Resume {
 		} else {
 			try {
 
-				System.out.println(response);
+				LOG.debug("CBOSS::"+response);
 				String[] responseValues = response.split("\\|");
 
 				String responseCode = responseValues[0];
 				String responseJSON = responseValues[1];
-				System.out.println(responseCode);
+				LOG.debug("CBOSS::"+responseCode);
 				JSONObject jsonObj = new JSONObject(responseJSON);
+				
+				RegisterOperation.write("Resume", responseCode, responseJSON, MSISDN);
 
 				if (responseCode.equals("200")) {
 
@@ -58,9 +66,9 @@ public class Resume {
 					try{
 						sr.setDetail(jsonObj.getString("detail"));
 					} catch (JSONException jsonE){
-						System.out.println(jsonE.toString());
+						LOG.debug("CBOSS::"+jsonE.toString());
 						for(StackTraceElement ste : jsonE.getStackTrace()){
-							System.out.println(ste.toString());
+							LOG.debug("CBOSS::"+ste.toString());
 							
 						}
 					}
@@ -73,17 +81,17 @@ public class Resume {
 					try{
 						sr.setDetail(jsonObj.getString("detail"));
 					} catch (JSONException jsonE){
-						System.out.println(jsonE.toString());
+						LOG.debug("CBOSS::"+jsonE.toString());
 						for(StackTraceElement ste : jsonE.getStackTrace()){
-							System.out.println(ste.toString());
+							LOG.debug("CBOSS::"+ste.toString());
 							
 						}
 					}
 				}
 			} catch (Exception e) {
-				System.out.println(e.toString());
+				LOG.debug("CBOSS::"+e.toString());
 				for(StackTraceElement ste : e.getStackTrace()){
-					System.out.println(ste.toString());
+					LOG.debug("CBOSS::"+ste.toString());
 					
 				}
 				sr.setStatus("error 500");
@@ -151,9 +159,9 @@ public class Resume {
 
 			return connection.getResponseCode() + "|" + buf.toString();
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			LOG.debug("CBOSS::"+e.toString());
 			for(StackTraceElement ste: e.getStackTrace()){
-				System.out.println(ste.toString());
+				LOG.debug("CBOSS::"+ste.toString());
 				
 			}
 

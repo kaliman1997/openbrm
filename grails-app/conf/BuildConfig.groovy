@@ -132,7 +132,7 @@ grails.project.dependency.resolution = {
             excludes 'struts-core', 'struts-taglib', 'struts-tiles'
         }
 
-        compile('net.sf.jasperreports:jasperreports:5.6.1') {
+        compile('net.sf.jasperreports:jasperreports:6.6.0') {
             excludes 'jaxen', 'xalan', 'xml-apis', 'jdtcore'
         }
 
