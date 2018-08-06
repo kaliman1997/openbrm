@@ -29,6 +29,7 @@ import avanzadagroup.net.altanAPI.OAuth;
 import avanzadagroup.net.altanAPI.responses.AddressCoordinatesResp;
 import avanzadagroup.net.altanAPI.responses.CoverageResp;
 import avanzadagroup.net.altanAPI.responses.OAuthResp;
+import avanzadagroup.net.banwire.PagoOnDemand;
 import avanzadagroup.net.google.AddressCoordinates;
 
 import com.sapienter.jbilling.common.*;
@@ -58,6 +59,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -91,6 +93,8 @@ import org.apache.log4j.Logger;
 import org.hibernate.LockMode;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.mortbay.log.Log;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
@@ -1403,6 +1407,9 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 		// The Payment Instruments must be unique
 		validateUniquePaymentInstruments(newUser.getPaymentInstruments());
 
+		newUser.setPaymentInstruments(tokenizePaymentInstruments(newUser,
+				newUser.getPaymentInstruments()));
+
 		ContactBL cBl = new ContactBL();
 		UserDTOEx dto = new UserDTOEx(newUser, entityId);
 
@@ -1435,15 +1442,104 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 		return userId;
 	}
 
+	private List<PaymentInformationWS> tokenizePaymentInstruments(UserWS user,
+			List<PaymentInformationWS> paymentInstruments) {
+		String email = "";
+		List<PaymentInformationWS> returnList = new ArrayList<>();
+
+		for (MetaFieldValueWS mfvws : user.getMetaFields()) {
+			if (mfvws.getFieldName().equalsIgnoreCase("Email")) {
+				email = (String) mfvws.getValue();
+			}
+
+		}
+
+		for (PaymentInformationWS pi : paymentInstruments) {
+			String cardHolder = "", expDate = "", cardNumber = "", expMonth = "", expYear = "", cvv = "", token = "no-token";
+
+			for (MetaFieldValueWS mfvws : pi.getMetaFields()) {
+//				LOG.debug("CBOSS::" + mfvws.getFieldName() + ":"
+//						+ mfvws.getValue());
+				if (mfvws.getFieldName().equalsIgnoreCase("cc.cardholder.name")) {
+					cardHolder = (String) mfvws.getValue();
+				} else if (mfvws.getFieldName().equalsIgnoreCase("cc.number")) {
+					cardNumber = (String) mfvws.getValue();
+				} else if (mfvws.getFieldName().equalsIgnoreCase(
+						"cc.expiry.date")) {
+					expDate = (String) mfvws.getValue();
+					expMonth = expDate.substring(0, 2);
+					expYear = expDate.substring(5);
+					//LOG.debug("CBOSS::Date" + expDate);
+					//LOG.debug("CBOSS::Month" + expMonth);
+					//LOG.debug("CBOSS::Year" + expYear);
+				} else if (mfvws.getFieldName().equalsIgnoreCase("CVV")) {
+					cvv = (String) mfvws.getValue();
+				}
+			}
+			Map<String, Object> params = new LinkedHashMap<>();
+
+			params.put("method", "add");
+			params.put("user", "pruebasbw");
+			params.put("number", cardNumber);
+			params.put("exp_month", expMonth);
+			params.put("exp_year", expYear);
+			params.put("cvv", cvv);
+			params.put("name", cardHolder);
+			params.put("address", "");
+			params.put("postal_code", "");
+			params.put("phone", "");
+			params.put("email", email);
+
+			String response = new PagoOnDemand().sendRequest("card&exists=1",
+					params);
+
+			String[] responses = response.split("\\|");
+
+			if (responses[0].equals("200")) {
+				try {
+					JSONObject jsonObj = new JSONObject(responses[1]);
+					token = jsonObj.getString("token");
+				} catch (JSONException e) {
+					LOG.debug("CBOSS::Exception " + e);
+					LOG.debug(e);
+					return paymentInstruments;
+
+				}
+			}
+
+			MetaFieldValueWS[] fvl = new MetaFieldValueWS[pi.getMetaFields().length];
+			int i = 0;
+
+			for (MetaFieldValueWS mfvws : pi.getMetaFields()) {
+				if (mfvws.getFieldName().equalsIgnoreCase("cc.token")) {
+					mfvws.setValue(token);
+				}
+				if (mfvws.getFieldName().equalsIgnoreCase("cc.number")) {
+					mfvws.setValue(((String)mfvws.getValue()).replaceFirst("[0-9]{12}", "************"));
+				}
+				
+				fvl[i] = mfvws;
+				i++;
+			}
+
+			pi.setMetaFields(fvl);
+
+			returnList.add(pi);
+		}
+
+		return returnList;
+	}
+
 	private MetaFieldValueWS[] getCoverage(UserWS newUser) throws Exception {
 		try {
 			String calle = "", noExterior = "", cp = "", col = "", ciudad = "", estado = "";
 
 			for (MetaFieldValueWS mfvws : newUser.getMetaFields()) {
-				LOG.debug("avanzada::" + mfvws.getFieldName() + ":"
+				LOG.debug("CBOSS::" + mfvws.getFieldName() + ":"
 						+ mfvws.getValue());
 
-				if (mfvws.getFieldName().equalsIgnoreCase("Calle, No Ext, No Int"))
+				if (mfvws.getFieldName().equalsIgnoreCase(
+						"Calle, No Ext, No Int"))
 					calle = (String) mfvws.getValue();
 				if (mfvws.getFieldName().equalsIgnoreCase("no exterior"))
 					noExterior = (String) mfvws.getValue();
@@ -1467,28 +1563,29 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 
 				if (mfvws.getFieldName().equalsIgnoreCase("Cobertura")) {
 
-					LOG.debug("avanzada:: direccion " + calle + " " + noExterior
+					LOG.debug("CBOSS:: direccion " + calle + " " + noExterior
 							+ " " + cp);
 
-					if (!calle.equals("") && !cp.equals("") && !estado.equals("")) {
+					if (!calle.equals("") && !cp.equals("")
+							&& !estado.equals("")) {
 						AddressCoordinates ac = new AddressCoordinates();
 						AddressCoordinatesResp acr = ac.getCoordinates(calle,
 								noExterior, cp, ciudad, estado, "Mexico");
-						LOG.debug("avanzada::" + acr.getStatus());
+						LOG.debug("CBOSS::Respuesta GoogleMaps " + acr.getStatus());
 
 						if (acr.getStatus().equals("200")) {
-							LOG.debug("avanzada:: las cordenadas son "
-									+ acr.getLatitude() + ":" + acr.getLongitude());
+							LOG.debug("CBOSS:: las cordenadas son "
+									+ acr.getLatitude() + ":"
+									+ acr.getLongitude());
 
-							CoverageResp cr = new Coverage().check(acr.getLatitude()+","+
-									acr.getLongitude());
+							CoverageResp cr = new Coverage().check(acr
+									.getLatitude() + "," + acr.getLongitude());
 
-							LOG.debug("avanzada:: cobertura " + cr.getResult());
+							LOG.debug("CBOSS:: cobertura " + cr.getResult());
 
 							coverage = cr.getResult();
 							latitude = acr.getLatitude();
 							longitude = acr.getLongitude();
-							LOG.debug("AVANZADA:: " + latitude);
 
 							mfvws.setValue(cr.getResult());
 
@@ -1500,29 +1597,29 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 				}
 				mfvList.add(mfvws);
 			}
-			
 
 			if (!latitude.equals("")) {
-				LOG.debug("AVANZADA:: " + latitude);
 				mfvList = new ArrayList<MetaFieldValueWS>();
 				for (MetaFieldValueWS mfvws : newUser.getMetaFields()) {
 					LOG.debug("fieldName" + mfvws.getFieldName());
 					if (mfvws.getFieldName().equalsIgnoreCase("Latitud")) {
 						mfvws.setValue(latitude);
-					} else if(mfvws.getFieldName().equalsIgnoreCase("Longitud")){
+					} else if (mfvws.getFieldName()
+							.equalsIgnoreCase("Longitud")) {
 						mfvws.setValue(longitude);
 					}
-					
+
 					mfvList.add(mfvws);
 				}
 			}
-			
-			MetaFieldValueWS[]  arrayToReturn = new MetaFieldValueWS[mfvList.size()];
-			
-			for(int i = 0; i < mfvList.size(); i++ ){
-				arrayToReturn[i] = mfvList.get(i);				
+
+			MetaFieldValueWS[] arrayToReturn = new MetaFieldValueWS[mfvList
+					.size()];
+
+			for (int i = 0; i < mfvList.size(); i++) {
+				arrayToReturn[i] = mfvList.get(i);
 			}
-					
+
 			return arrayToReturn;
 		} catch (Exception e) {
 			LOG.debug(e);
@@ -1651,6 +1748,20 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 
 		// get the entity
 		Integer executorId = getCallerId();
+		
+		//CBOSSS
+		user.setPaymentInstruments(tokenizePaymentInstruments(user,
+				user.getPaymentInstruments()));
+
+//		for (PaymentInformationWS pi : user.getPaymentInstruments()) {
+//			for (MetaFieldValueWS mfws : pi.getMetaFields()) {
+//				LOG.debug("CBOSS::A LA SALIDA_" + mfws.getFieldName() + "::"
+//						+ mfws.getValue());
+//
+//			}
+//
+//		}		
+		//CBOSSS_END
 
 		// convert user WS to a DTO that includes customer data
 		UserDTOEx dto = new UserDTOEx(user, entityId);

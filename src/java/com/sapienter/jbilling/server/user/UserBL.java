@@ -192,15 +192,16 @@ public class UserBL extends ResultList implements UserSQL {
      * @return users locale
      */
     public static Locale getLocale(UserDTO user) {
-        String languageCode = user.getLanguage().getCode();
-
-        ContactDTO contact = new ContactDAS().findContact(user.getId());
-
-        String countryCode = null;
-        if (contact != null)
-            countryCode = contact.getCountryCode();
-
-        return countryCode != null ? new Locale(languageCode, countryCode) : new Locale(languageCode);
+    	return new Locale("es", "MX");
+//        String languageCode = user.getLanguage().getCode();
+//
+//        ContactDTO contact = new ContactDAS().findContact(user.getId());
+//
+//        String countryCode = null;
+//        if (contact != null)
+//            countryCode = contact.getCountryCode();
+//
+//        return countryCode != null ? new Locale(languageCode, countryCode) : new Locale(languageCode);
     }
 
     public static boolean validate(UserWS userWS) {
