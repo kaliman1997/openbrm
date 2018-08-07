@@ -25,23 +25,8 @@ import org.json.*;
  */
 public class PagoPro {
 
-    public String sendRequest() {
-        Map<String, Object> params = new LinkedHashMap<>();
-        params.put("response_format", "JSON");
-        params.put("user", "pruebasbw");
-        params.put("reference", "12345");
-        params.put("currency", "MXN");
-        params.put("ammount", ".50");
-        params.put("concept", "Prueba de pago");
-        params.put("card_num", "5134422031476272");
-        params.put("card_name", "Pruebasbw");
-        params.put("card_type", "MasterCard");
-        params.put("card_exp", "12/19");
-        params.put("card_ccv2", "162");
-        params.put("address", "Horacio");
-        params.put("post_code", "11560");
-        params.put("phone", "15799155");
-        params.put("mail", "jruiz@banwire.com");
+    public String sendRequest(Map<String, Object> params) {
+        
 
         URL url;
         HttpURLConnection connection = null;
