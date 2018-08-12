@@ -108,7 +108,7 @@ public class Deactivate {
 		URL url;
 		HttpURLConnection connection = null;
 		try {
-			url = new URL("https://altanredes-test.apigee.net/"
+			url = new URL("https://altanredes-prod.apigee.net/"
 					+ "cm/v1/subscribers/"+msisdn+"/deactivate");
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");

@@ -194,6 +194,10 @@ public class BasicEmailNotificationTask extends PluggableTask
                     "mail.smtp.socketFactory.class",
                     "javax.net.ssl.SSLSocketFactory");
         }
+        
+        sender.getJavaMailProperties().setProperty("mail.smtp.auth", "true");
+        sender.getJavaMailProperties().setProperty("mail.smtp.ssl.enable", "false");
+        sender.getJavaMailProperties().setProperty("mail.debug", "true");
 
         MimeMessage mimeMsg = sender.createMimeMessage();
         MimeMessageHelper msg = null;

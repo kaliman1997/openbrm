@@ -118,7 +118,7 @@ public class Resume {
 		URL url;
 		HttpURLConnection connection = null;
 		try {
-			url = new URL("https://altanredes-test.apigee.net/"
+			url = new URL("https://altanredes-prod.apigee.net/"
 					+ "cm/v1/subscribers/"+msisdn+"/resume");
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");

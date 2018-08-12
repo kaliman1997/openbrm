@@ -41,7 +41,7 @@ public class RegisterOperation {
 	            Statement st = conn.createStatement();
 	            query = "INSERT INTO altan_requests VALUES(default, "
 	            		+ "current_timestamp, '"+operationType+"', '"+operationResultCode+"', "
-	            				+ "'"+response+"', '"+msisdn+"', 0)";
+	            				+ "'"+response.replace("'", "''")+"', '"+msisdn+"', 0)";
 	            st.executeUpdate(query);
 	            
 	            LOG.debug("CBOSS:: Disconnected from database...");

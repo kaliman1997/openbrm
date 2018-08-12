@@ -110,7 +110,7 @@ public class IMEI {
 		URL url;
 		HttpURLConnection connection = null;
 		try {
-			url = new URL("https://altanredes-test.apigee.net/"
+			url = new URL("https://altanredes-prod.apigee.net/"
                                 + "cm/v1/imei/"+IMEI+"/" + operation);
 			LOG.debug("CBOSS::"+url.getPath());
 			connection = (HttpURLConnection) url.openConnection();

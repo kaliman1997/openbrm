@@ -103,7 +103,7 @@ public class Batch {
 
     private String uploadFile(String accessToken, String pathToFile, String operation) {
         try {
-            String url = "https://altanredes-test.apigee.net/"
+            String url = "https://altanredes-prod.apigee.net/"
                     + "cm/v1/subscribers/" + operation;
             
             LOG.debug("CBOSS::"+url);

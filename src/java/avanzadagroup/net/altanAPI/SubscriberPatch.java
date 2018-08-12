@@ -211,7 +211,7 @@ public class SubscriberPatch {
 		try {
                         allowMethods("PATCH");
                         
-			url = new URL("https://altanredes-test.apigee.net/cm/v1/subscribers/"+msisdn);
+			url = new URL("https://altanredes-prod.apigee.net/cm/v1/subscribers/"+msisdn);
 			connection = (HttpURLConnection) url.openConnection();
 			
                         connection.setRequestProperty("X-HTTP-Method-Override", "PATCH");

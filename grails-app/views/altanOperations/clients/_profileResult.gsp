@@ -49,7 +49,7 @@
 						<tr>
 							<td><g:message code="description" /></td>
 							<td class="value">
-								${pr.Description}
+								${pr.description}
 							</td>
 						</tr>
 

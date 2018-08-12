@@ -137,7 +137,7 @@ public class Profile {
 		URL url;
 		HttpURLConnection connection = null;
 		try {
-                        url = new URL("https://altanredes-test.apigee.net/"
+                        url = new URL("https://altanredes-prod.apigee.net/"
                                 + "cm/v1/subscribers/"+msisdn+"/profile");
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
