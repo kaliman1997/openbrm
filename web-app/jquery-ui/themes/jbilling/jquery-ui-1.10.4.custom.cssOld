@@ -402,12 +402,12 @@ button.ui-button::-moz-focus-inner {
 
 .ui-datepicker-header .ui-state-hover, .ui-datepicker-header .ui-state-focus, .ui-datepicker-header .ui-widget-header .ui-state-focus{
     border: 0;
-    background-color: #ff841b;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff841b), color-stop(100%, #ff841b));
-    background-image: -webkit-linear-gradient(#ff841b,  #ff841b);
-    background-image: -moz-linear-gradient(#ff841b, #ff841b);
-    background-image: -o-linear-gradient(#ff841b, #ff841b);
-    background-image: linear-gradient(#ff841b,  #ff841b);
+    background-color: #72a338;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #638e31), color-stop(100%, #72a338));
+    background-image: -webkit-linear-gradient(#638e31,  #72a338);
+    background-image: -moz-linear-gradient(#638e31, #72a338);
+    background-image: -o-linear-gradient(#638e31, #72a338);
+    background-image: linear-gradient(#638e31,  #72a338);
 }
 
 .ui-datepicker .ui-datepicker-prev span,
@@ -417,28 +417,28 @@ button.ui-button::-moz-focus-inner {
 .ui-datepicker .ui-datepicker-prev {
     top: 0px;
     left: 0px;
-    border-right: 1px solid #002867;
-    -webkit-box-shadow: inset -1px 0 0 #ff841b;
-    -moz-box-shadow: inset -1px 0 0 #ff841b;
-    box-shadow: inset -1px 0 0 #ff841b;
+    border-right: 1px solid #c2dca2;
+    -webkit-box-shadow: inset -1px 0 0 #4b8c3c;
+    -moz-box-shadow: inset -1px 0 0 #4b8c3c;
+    box-shadow: inset -1px 0 0 #4b8c3c;
 }
 .ui-datepicker .ui-datepicker-next {
     top: 0px;
     right: 0px;
-    border-left: 1px solid #002867;
-    -webkit-box-shadow: inset 1px 0 0 #ff841b;
-    -moz-box-shadow: inset 1px 0 0 #ff841b;
-    box-shadow: inset 1px 0 0 #ff841b;
+    border-left: 1px solid #4b8c3c;
+    -webkit-box-shadow: inset 1px 0 0 #c2dca2;
+    -moz-box-shadow: inset 1px 0 0 #c2dca2;
+    box-shadow: inset 1px 0 0 #c2dca2;
 }
 
 .ui-datepicker .ui-datepicker-prev:hover,
 .ui-datepicker .ui-datepicker-next:hover {
-    background-color: #ff841b;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff841b), color-stop(100%, #ff841b));
-    background-image: -webkit-linear-gradient(#ff841b,  #ff841b);
-    background-image: -moz-linear-gradient(#ff841b, #ff841b);
-    background-image: -o-linear-gradient(#ff841b, #ff841b);
-    background-image: linear-gradient(#ff841b,  #ff841b);
+    background-color: #8ec549;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8ec549), color-stop(100%, #88bd46));
+    background-image: -webkit-linear-gradient(#8ec549,  #88bd46);
+    background-image: -moz-linear-gradient(#8ec549, #88bd46);
+    background-image: -o-linear-gradient(#8ec549, #88bd46);
+    background-image: linear-gradient(#8ec549,  #88bd46);
 }
 
 
@@ -884,11 +884,11 @@ body .ui-tooltip {
 	color: #6eaa39;
 }
 .ui-widget-header {
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff841b), color-stop(3%, #ff841b), color-stop(100%, #ff841b));
-    background-image: -webkit-linear-gradient(#ff841b, #ff841b 3%, #ff841b);
-    background-image: -moz-linear-gradient(#ff841b, #ff841b 3%, #ff841b);
-    background-image: -o-linear-gradient(#ff841b, #ff841b 3%, #ff841b);
-    background-image: linear-gradient(#ff841b, #ff841b 3%, #ff841b);
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #cce4ad), color-stop(3%, #8dc449), color-stop(100%, #7baa3f));
+    background-image: -webkit-linear-gradient(#cce4ad, #8dc449 3%, #7baa3f);
+    background-image: -moz-linear-gradient(#cce4ad, #8dc449 3%, #7baa3f);
+    background-image: -o-linear-gradient(#cce4ad, #8dc449 3%, #7baa3f);
+    background-image: linear-gradient(#cce4ad, #8dc449 3%, #7baa3f);
     -webkit-border-radius: 3px 3px 0 0;
     -moz-border-radius: 3px 3px 0 0;
     -ms-border-radius: 3px 3px 0 0;
@@ -896,11 +896,11 @@ body .ui-tooltip {
     border-radius: 3px 3px 0 0;
     border-width: 1px;
     border-style: solid;
-    border-color: #002867 #002867 #002867 #002867;
+    border-color: #4b8c3c #4b8c3c #37672c #4b8c3c;
     border-radius: 3px;
     text-align: left;
     text-shadow: rgba(255, 255, 255, 0.4) 0 1px 0;
-    color: #002867;
+    color: #37672c;
     padding: 3px 5px 3px;
     text-transform: uppercase;
     font-weight: bold;
@@ -918,7 +918,7 @@ body .ui-tooltip {
     background-color: #f4f4f4;
     border: 1px solid #bbbbbb;
     font-weight: normal;
-    color: #002867;
+    color: #6eaa39;
 }
 .ui-state-default a,
 .ui-state-default a:link,
@@ -932,10 +932,10 @@ body .ui-tooltip {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-	border: 1px solid #ff841b;
-	background: #ff841b ;
+	border: 1px solid #8bc53d;
+	background: #8bc53d ;
 	font-weight: normal;
-	color: #002867;
+	color: #FFF;
 }
 .ui-state-hover a,
 .ui-state-hover a:hover,
@@ -968,8 +968,8 @@ body .ui-tooltip {
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-	border: 1px solid #002867;
-	background: #ff841b url(/images/theme/ui-bg_highlight-soft_75_ffe45c_1x100.png) 50% top repeat-x;
+	border: 1px solid #fed22f;
+	background: #6eaa39 url(/images/theme/ui-bg_highlight-soft_75_ffe45c_1x100.png) 50% top repeat-x;
 	color: #363636;
 }
 .ui-state-highlight a,

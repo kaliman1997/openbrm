@@ -27,10 +27,11 @@ public class Deactivate {
 			Logger.getLogger(OAuth.class));	
 	DeactivateResponse dr = new DeactivateResponse();
 
-	public DeactivateResponse deactivate(String MSISDN) {
+	public DeactivateResponse deactivate(String MSISDN, String method, String scheduleDate) {
 		OAuth oauth = new OAuth();
 		
-		String response = sendRequest(oauth.getToken().getAccessToken(), MSISDN);		
+		String response = sendRequest(oauth.getToken().getAccessToken(), MSISDN, method, 
+				scheduleDate);		
 
 		if (response.equals("error")) {
 			dr.setStatus("error");
@@ -103,13 +104,13 @@ public class Deactivate {
 
 	}
 
-	private String sendRequest(String accessToken, String msisdn) {
+	private String sendRequest(String accessToken, String msisdn, String method, String scheduleDate) {
 		
 		URL url;
 		HttpURLConnection connection = null;
 		try {
 			url = new URL("https://altanredes-prod.apigee.net/"
-					+ "cm/v1/subscribers/"+msisdn+"/deactivate");
+					+ "cm/v1/subscribers/"+msisdn+"/"+method);
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("authorization", "Bearer " + accessToken);
@@ -117,7 +118,14 @@ public class Deactivate {
 			connection.setRequestProperty("Content-Length", "0");
 			connection.setDoInput(true);
 			connection.setDoOutput(true);
-			String body = "";
+			
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("scheduledDate", scheduleDate);
+			
+			String body = jsonObj.toString();
+			
+			LOG.debug("CBOSS:: URL " + url);
+			LOG.debug("CBOSS:: body " + body);
 			
 			if (body != null) {
 				connection.setRequestProperty("Content-Length", Integer.toString(body.length()));

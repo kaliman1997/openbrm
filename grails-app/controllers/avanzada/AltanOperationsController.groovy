@@ -3,19 +3,25 @@ package avanzada
 
 import avanzadagroup.net.altanAPI.Batch
 import avanzadagroup.net.altanAPI.Coverage;
+import avanzadagroup.net.altanAPI.Deactivate
 import avanzadagroup.net.altanAPI.IMEI
 import avanzadagroup.net.altanAPI.OAuth
 import avanzadagroup.net.altanAPI.OrderStatus
 import avanzadagroup.net.altanAPI.Profile
+import avanzadagroup.net.altanAPI.Resume
 import avanzadagroup.net.altanAPI.SubscriberPatch
+import avanzadagroup.net.altanAPI.Suspend
 import avanzadagroup.net.altanAPI.responses.ActivationResponse
 import avanzadagroup.net.altanAPI.responses.AddressCoordinatesResp;
 import avanzadagroup.net.altanAPI.responses.BatchResponse
 import avanzadagroup.net.altanAPI.responses.CoverageResp
+import avanzadagroup.net.altanAPI.responses.DeactivateResponse
 import avanzadagroup.net.altanAPI.responses.IMEIResponse
 import avanzadagroup.net.altanAPI.responses.OAuthResp
 import avanzadagroup.net.altanAPI.responses.OrderStatusResponse
 import avanzadagroup.net.altanAPI.responses.ProfileResponse
+import avanzadagroup.net.altanAPI.responses.ResumeResponse
+import avanzadagroup.net.altanAPI.responses.SuspendResponse
 import avanzadagroup.net.google.AddressCoordinates
 
 import com.sapienter.jbilling.client.util.SortableCriteria
@@ -190,6 +196,34 @@ class AltanOperationsController {
 			render template:'clients/profile'
 			return
 		}
+		
+		if(id.equals('4_6')){
+			render template:'clients/suspend'
+			return
+		}
+		
+		if(id.equals('4_7')){
+			render template:'clients/resume'
+			return
+		}
+		
+		if(id.equals('4_8')){
+			render template:'clients/predeactivate'
+			return
+		}
+		
+		if(id.equals('4_9')){
+			render template:'clients/reactivate'
+			return
+		}
+		
+		if(id.equals('4_10')){
+			render template:'clients/deactivate'
+			return
+		}
+		
+		
+		
 
 		render template:'show' , model: [ id: id ]
 	}
@@ -252,7 +286,42 @@ class AltanOperationsController {
 			ProfileResponse pr = profile.profile(params.get('msisdn'))
 			render template:'clients/profileResult', model:[msisdn: params.get('msisdn'), pr:pr]
 			return;
+		}else if(params.get('id').equals('4_6')){
+			Suspend suspend = new Suspend();
+			SuspendResponse sr = suspend.suspend(params.get('msisdn'))
+			render template:'clients/suspendResult', model:[msisdn: params.get('msisdn'), sr:sr]
+			return;
+		}else if(params.get('id').equals('4_7')){
+			Resume resume = new Resume();
+			ResumeResponse sr = resume.resume(params.get('msisdn'))
+			render template:'clients/resumeResult', model:[msisdn: params.get('msisdn'), sr:sr]
+			return;
+		}else if(params.get('id').equals('4_8') 
+		|| params.get('id').equals('4_9') 
+		|| params.get('id').equals('4_10') ) {
+			def operation = ''
+			def operationDesc = ''
+			
+			if (params.get('id').equals('4_8')){
+				operation = 'predeactivate'
+				operationDesc = 'Baja Temporal'
+			} else if (params.get('id').equals('4_9')){
+				operation = 'reactivate'
+				operationDesc = 'Reactivación'
+			} else {
+				operation = 'deactivate'
+				operationDesc = 'Baja Definitiva'
+			}
+		
+			Deactivate deactivate = new Deactivate();
+			DeactivateResponse sr = deactivate.deactivate(params.get('msisdn'), 
+				operation, params.get('scheduleDate'))
+			render template:'clients/deactivateResult', model:[operation: operation, 
+				operationDesc: operationDesc, msisdn: params.get('msisdn'), sr:sr]
+			return;
 		}
+		
+		
 	}
 
 	/**
