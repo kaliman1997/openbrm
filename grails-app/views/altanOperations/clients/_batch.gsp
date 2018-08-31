@@ -36,15 +36,20 @@ Affero General Public License along with jbilling. If not, see
 				<content tag="label"> <g:message code="Tipo de Operacion" /></content>
 				<select name="operation">
 					<option>activations</option>
-					<option>suspends</option>
+					<option>purchasessupplementary</option>
+					<option>changesprimary</option>
+					<option>suspends</option></option>
+					<option>resumes</option>
+					<option>deactivates</option>
+					<option>reactivates</option>
 				</select>
 			</g:applyLayout>
 			<g:applyLayout name="form/text">
 				<content tag="label"> <g:message code="Seleccione Archivo" /></content>
-				<input type="file" name="assetFile" />
+				<input type="file" name="batchFile" />
 			</g:applyLayout>
 				<g:remoteLink class="cell double" action="uploadBatch" id='${id}'
-			params="{operation:\$('#operation').val(),assetFile:\$('#assetFile')}"
+			params="{operation:\$('#operation').val(),batchFile:\$('#batchFile')}"
 			update="main">
 			<strong>
 				<button>Subir</button>

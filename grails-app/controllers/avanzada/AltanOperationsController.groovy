@@ -88,20 +88,20 @@ class AltanOperationsController {
 	}
 
 	/**
-	 * Upload a file containing new assets. Start a batch job to import the assets.
+	 * Upload a file containing batch Operations. Send batch operations to Altan.
 	 *
 	 * @param assetFile - CSV file containing asset definitions
 	 * @param prodId - product the assets will belong to
 	 */
 	def uploadBatch () {
 		def operation = params.get('operation');
-		def file = request.getFile('assetFile');
-		def reportAssetDir = new File(Util.getSysProp("base_dir") + File.separator + "reports" + File.separator + "assets");
+		def file = request.getFile('batchFile');
+		def reportAssetDir = new File(Util.getSysProp("base_dir") + File.separator + "batch");
 
 		//csv file we are uploading
 		String fileExtension = FilenameUtils.getExtension(file.originalFilename)
 		Breadcrumb lastBreadcrumb = breadcrumbService.lastBreadcrumb as Breadcrumb
-		def csvFile = File.createTempFile("assets", ".csv", reportAssetDir)
+		def csvFile = File.createTempFile("batch", ".csv", reportAssetDir)
 		if (fileExtension && !fileExtension.equals("csv")) {
 			flash.error = "csv.error.found"
 			redirect(controller: lastBreadcrumb.controller, action: lastBreadcrumb.action, params: [id: lastBreadcrumb.objectId, showAssetUploadTemplate: true])
@@ -111,8 +111,6 @@ class AltanOperationsController {
 			redirect(controller: lastBreadcrumb.controller, action: lastBreadcrumb.action, params: [id: lastBreadcrumb.objectId, showAssetUploadTemplate: true])
 			return
 		}
-		//file which will contain a list of errors
-		def csvErrorFile = File.createTempFile("assetsError", ".csv", reportAssetDir)
 
 		//copy the uploaded file to a temp file
 		file.transferTo(csvFile)
