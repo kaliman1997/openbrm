@@ -63,6 +63,13 @@ Affero General Public License along with jbilling. If not, see
 								</strong>
 								<em></em>
 							</g:remoteLink></td>
+
+						<td><g:remoteLink class="cell double" action="show" id="3_2"
+								before="register(this);" onSuccess="render(data, next);">
+								<strong> ${StringEscapeUtils.escapeHtml("Buscar orden por MSISDN")}
+								</strong>
+								<em></em>
+							</g:remoteLink></td>
 					</tr>
 				</g:elseif>
 				<g:elseif test="${id == 4}">
@@ -101,7 +108,8 @@ Affero General Public License along with jbilling. If not, see
 								<em></em>
 							</g:remoteLink></td>
 					</tr>
-					<tr id="consultarPerfil" class="${selectedTypeId == "4" ? 'active' : ''}">
+					<tr id="consultarPerfil"
+						class="${selectedTypeId == "4" ? 'active' : ''}">
 						<td><g:remoteLink class="cell double" action="show" id="4_5"
 								before="register(this);" onSuccess="render(data, next);">
 								<strong> ${StringEscapeUtils.escapeHtml("Consultar Perfil")}
@@ -109,17 +117,19 @@ Affero General Public License along with jbilling. If not, see
 								<em></em>
 							</g:remoteLink></td>
 					</tr>
-					
-					<tr id="Suspender MSISDN" class="${selectedTypeId == "4" ? 'active' : ''}">
+
+					<tr id="Suspender MSISDN"
+						class="${selectedTypeId == "4" ? 'active' : ''}">
 						<td><g:remoteLink class="cell double" action="show" id="4_6"
 								before="register(this);" onSuccess="render(data, next);">
 								<strong> ${StringEscapeUtils.escapeHtml("Suspender MSISDN")}
 								</strong>
 								<em></em>
 							</g:remoteLink></td>
-					</tr>											
-					
-					<tr id="Reanudar MSISDN" class="${selectedTypeId == "4" ? 'active' : ''}">
+					</tr>
+
+					<tr id="Reanudar MSISDN"
+						class="${selectedTypeId == "4" ? 'active' : ''}">
 						<td><g:remoteLink class="cell double" action="show" id="4_7"
 								before="register(this);" onSuccess="render(data, next);">
 								<strong> ${StringEscapeUtils.escapeHtml("Reanudar MSISDN")}
@@ -127,33 +137,36 @@ Affero General Public License along with jbilling. If not, see
 								<em></em>
 							</g:remoteLink></td>
 					</tr>
-					
-					<tr id="Pre-deactivar MSISDN" class="${selectedTypeId == "4" ? 'active' : ''}">
+
+					<tr id="Pre-deactivar MSISDN"
+						class="${selectedTypeId == "4" ? 'active' : ''}">
 						<td><g:remoteLink class="cell double" action="show" id="4_8"
 								before="register(this);" onSuccess="render(data, next);">
 								<strong> ${StringEscapeUtils.escapeHtml("Pre-deactivar MSISDN")}
 								</strong>
 								<em></em>
 							</g:remoteLink></td>
-					</tr>										
-					
-					<tr id="Reactivar MSISDN" class="${selectedTypeId == "4" ? 'active' : ''}">
+					</tr>
+
+					<tr id="Reactivar MSISDN"
+						class="${selectedTypeId == "4" ? 'active' : ''}">
 						<td><g:remoteLink class="cell double" action="show" id="4_9"
 								before="register(this);" onSuccess="render(data, next);">
 								<strong> ${StringEscapeUtils.escapeHtml("Reactivar MSISDN")}
 								</strong>
 								<em></em>
 							</g:remoteLink></td>
-					</tr>					
+					</tr>
 
-					<tr id="Desactivar MSISDN" class="${selectedTypeId == "4" ? 'active' : ''}">
+					<tr id="Desactivar MSISDN"
+						class="${selectedTypeId == "4" ? 'active' : ''}">
 						<td><g:remoteLink class="cell double" action="show" id="4_10"
 								before="register(this);" onSuccess="render(data, next);">
 								<strong> ${StringEscapeUtils.escapeHtml("Desactivar MSISDN")}
 								</strong>
 								<em></em>
 							</g:remoteLink></td>
-					</tr>										
+					</tr>
 
 				</g:elseif>
 			</tbody>

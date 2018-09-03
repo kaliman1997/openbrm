@@ -26,6 +26,8 @@ package com.sapienter.jbilling.server.util;
 
 import avanzadagroup.net.altanAPI.Coverage;
 import avanzadagroup.net.altanAPI.OAuth;
+import avanzadagroup.net.altanAPI.SubscriberPatch;
+import avanzadagroup.net.altanAPI.responses.ActivationResponse;
 import avanzadagroup.net.altanAPI.responses.AddressCoordinatesResp;
 import avanzadagroup.net.altanAPI.responses.CoverageResp;
 import avanzadagroup.net.altanAPI.responses.OAuthResp;
@@ -95,7 +97,6 @@ import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mortbay.log.Log;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameter;
@@ -202,6 +203,7 @@ import com.sapienter.jbilling.server.metafields.DataType;
 import com.sapienter.jbilling.server.metafields.db.MetaField;
 import com.sapienter.jbilling.server.metafields.db.MetaFieldDAS;
 import com.sapienter.jbilling.server.metafields.db.MetaFieldGroup;
+import com.sapienter.jbilling.server.metafields.db.MetaFieldValue;
 import com.sapienter.jbilling.server.metafields.MetaFieldType;
 import com.sapienter.jbilling.server.notification.INotificationSessionBean;
 import com.sapienter.jbilling.server.notification.MessageDTO;
@@ -1399,7 +1401,7 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 			try {
 				newUser.setMetaFields(getCoverage(newUser));
 			} catch (Exception ex) {
-				Log.debug(ex);
+				LOG.debug(ex);
 			}
 
 		}
@@ -1453,25 +1455,28 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 			}
 
 		}
-
-		for (PaymentInformationWS pi : paymentInstruments) {
+		outerloop: for (PaymentInformationWS pi : paymentInstruments) {
 			String cardHolder = "", expDate = "", cardNumber = "", expMonth = "", expYear = "", cvv = "", token = "no-token";
 
 			for (MetaFieldValueWS mfvws : pi.getMetaFields()) {
-//				LOG.debug("CBOSS::" + mfvws.getFieldName() + ":"
-//						+ mfvws.getValue());
+				// LOG.debug("CBOSS::" + mfvws.getFieldName() + ":"
+				// + mfvws.getValue());
 				if (mfvws.getFieldName().equalsIgnoreCase("cc.cardholder.name")) {
 					cardHolder = (String) mfvws.getValue();
 				} else if (mfvws.getFieldName().equalsIgnoreCase("cc.number")) {
 					cardNumber = (String) mfvws.getValue();
+					if (cardNumber.contains("*")) {
+						LOG.debug("CBOSS:: not tokenizable " + cardNumber);
+						break outerloop;
+					}
 				} else if (mfvws.getFieldName().equalsIgnoreCase(
 						"cc.expiry.date")) {
 					expDate = (String) mfvws.getValue();
 					expMonth = expDate.substring(0, 2);
 					expYear = expDate.substring(5);
-					//LOG.debug("CBOSS::Date" + expDate);
-					//LOG.debug("CBOSS::Month" + expMonth);
-					//LOG.debug("CBOSS::Year" + expYear);
+					// LOG.debug("CBOSS::Date" + expDate);
+					// LOG.debug("CBOSS::Month" + expMonth);
+					// LOG.debug("CBOSS::Year" + expYear);
 				} else if (mfvws.getFieldName().equalsIgnoreCase("CVV")) {
 					cvv = (String) mfvws.getValue();
 				}
@@ -1492,6 +1497,8 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 
 			String response = new PagoOnDemand().sendRequest("card&exists=1",
 					params);
+
+			LOG.debug("CBOSS:: PagoOnDemand response: " + response);
 
 			String[] responses = response.split("\\|");
 
@@ -1515,9 +1522,10 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 					mfvws.setValue(token);
 				}
 				if (mfvws.getFieldName().equalsIgnoreCase("cc.number")) {
-					mfvws.setValue(((String)mfvws.getValue()).replaceFirst("[0-9]{12}", "************"));
+					mfvws.setValue(((String) mfvws.getValue()).replaceFirst(
+							"[0-9]{12}", "************"));
 				}
-				
+
 				fvl[i] = mfvws;
 				i++;
 			}
@@ -1535,7 +1543,7 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 			String calle = "", noExterior = "", cp = "", col = "", ciudad = "", estado = "";
 
 			for (MetaFieldValueWS mfvws : newUser.getMetaFields()) {
-				LOG.debug("CBOSS::" + mfvws.getFieldName() + ":"
+				LOG.debug("CBOSS::getCoverage " + mfvws.getFieldName() + ":"
 						+ mfvws.getValue());
 
 				if (mfvws.getFieldName().equalsIgnoreCase(
@@ -1563,15 +1571,16 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 
 				if (mfvws.getFieldName().equalsIgnoreCase("Cobertura")) {
 
-					LOG.debug("CBOSS:: direccion " + calle + " " + noExterior
-							+ " " + cp);
+					LOG.debug("CBOSS::getCoverage direccion " + calle + " "
+							+ noExterior + " " + cp);
 
 					if (!calle.equals("") && !cp.equals("")
 							&& !estado.equals("")) {
 						AddressCoordinates ac = new AddressCoordinates();
 						AddressCoordinatesResp acr = ac.getCoordinates(calle,
 								noExterior, cp, ciudad, estado, "Mexico");
-						LOG.debug("CBOSS::Respuesta GoogleMaps " + acr.getStatus());
+						LOG.debug("CBOSS::Respuesta GoogleMaps "
+								+ acr.getStatus());
 
 						if (acr.getStatus().equals("200")) {
 							LOG.debug("CBOSS:: las cordenadas son "
@@ -1580,8 +1589,15 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 
 							CoverageResp cr = new Coverage().check(acr
 									.getLatitude() + "," + acr.getLongitude());
+							
+							if(!cr.getStatus().equals("success")){
+								throw new Exception(cr.getDescription());
+							} else if (cr.getResult().equalsIgnoreCase("Without serviceability. ")){
+								throw new Exception("No hay cobertura en la direccion especificada");
+							}
 
-							LOG.debug("CBOSS:: cobertura " + cr.getResult());
+							LOG.debug("CBOSS::getCoverage cobertura obtenida "
+									+ cr.getResult());
 
 							coverage = cr.getResult();
 							latitude = acr.getLatitude();
@@ -1601,7 +1617,7 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 			if (!latitude.equals("")) {
 				mfvList = new ArrayList<MetaFieldValueWS>();
 				for (MetaFieldValueWS mfvws : newUser.getMetaFields()) {
-					LOG.debug("fieldName" + mfvws.getFieldName());
+					// LOG.debug("fieldName" + mfvws.getFieldName());
 					if (mfvws.getFieldName().equalsIgnoreCase("Latitud")) {
 						mfvws.setValue(latitude);
 					} else if (mfvws.getFieldName()
@@ -1738,30 +1754,82 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 		// vikasb
 		// validateUser(user);
 
+		// LOG.debug("CBOSS:: before getCoverage " + user.getId());
+
 		try {
 			user.setMetaFields(getCoverage(user));
-		} catch (Exception ex) {
-			Log.debug(ex);
+		} catch (Exception e) {
+			throw new SessionInternalError(e.toString());
+		}
+
+		LOG.debug("CBOSS::updateUser userId " + user.getId());
+
+		String MSISDN = "";
+		String offeringId = null;
+		String latitude = null, longitude = null;
+
+		CustomerDTO customerDTO = new UserDAS().findByUserId(user.getId(),
+				entityId).getCustomer();
+
+		LOG.debug("CBOSS::updateUser DTOId " + customerDTO.getId());
+
+		if (customerDTO != null) {
+
+			for (MetaFieldValueWS mfvWS : user.getMetaFields()) {
+				if (mfvWS.getFieldName().equalsIgnoreCase("OfferingId")) {
+					offeringId = mfvWS.getStringValue();
+				} else if (mfvWS.getFieldName().equalsIgnoreCase("longitud")) {
+					longitude = mfvWS.getStringValue();
+
+				} else if (mfvWS.getFieldName().equalsIgnoreCase("latitud")) {
+					latitude = mfvWS.getStringValue();
+				} else if (mfvWS.getFieldName().equalsIgnoreCase("MSISDN")) {
+					MSISDN = mfvWS.getStringValue();
+				}
+			}
+
+			String oldLongitud = "", oldLatitud = "";
+
+			for (MetaFieldValue mfv : customerDTO.getMetaFields()) {
+				// LOG.debug("Reading customer MFs " +
+				// mfv.getField().getName());
+				if (mfv.getField().getName().equalsIgnoreCase("longitud")) {
+					oldLongitud = (String) mfv.getValue();
+				} else if (mfv.getField().getName().equalsIgnoreCase("latitud")) {
+					oldLatitud = (String) mfv.getValue();
+				}
+			}
+
+			LOG.debug("CBOSS:: oldAddress:" + oldLatitud + "," + oldLongitud
+					+ " " + "newAddress:" + latitude + "," + longitude);
+
+			if (oldLatitud.equalsIgnoreCase(latitude)
+					&& oldLongitud.equalsIgnoreCase(longitude)) {
+				LOG.debug("CBOSS:: Address is the same, dont updateLinking");
+			} else {
+				LOG.debug("CBOSS:: Subscriber address changed "
+						+ "updateLinking for MSISDN " + MSISDN);
+				ActivationResponse response = new SubscriberPatch()
+						.changeLinking(MSISDN, latitude + "," + longitude);
+
+				if (response.getStatus() != "success") {
+					throw new SessionInternalError(
+							response.getDescription().
+							equalsIgnoreCase("Without coverage")?"Fallo Cambio Vinculacion: Sin Cobertura para la velocidad del plan":
+								response.getDescription());
+				}
+			}
 		}
 
 		UserBL bl = new UserBL(user.getUserId());
 
 		// get the entity
 		Integer executorId = getCallerId();
-		
-		//CBOSSS
+
+		// CBOSSS
 		user.setPaymentInstruments(tokenizePaymentInstruments(user,
 				user.getPaymentInstruments()));
-
-//		for (PaymentInformationWS pi : user.getPaymentInstruments()) {
-//			for (MetaFieldValueWS mfws : pi.getMetaFields()) {
-//				LOG.debug("CBOSS::A LA SALIDA_" + mfws.getFieldName() + "::"
-//						+ mfws.getValue());
-//
-//			}
-//
-//		}		
-		//CBOSSS_END
+		// CBOSSS_END
 
 		// convert user WS to a DTO that includes customer data
 		UserDTOEx dto = new UserDTOEx(user, entityId);
@@ -1811,7 +1879,8 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 					.getPassword(), changedPassword);
 
 			if (matches) {
-				// password is not changed and in attempts to update password we
+				// password is not changed and in attempts to update
+				// password we
 				// must use different
 				throw new SessionInternalError(
 						"The new password must be different from the previous one",
@@ -1852,6 +1921,7 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 					.getCustomer().getId());
 			createCustomerNote(customerNotes);
 		}
+
 	}
 
 	/**

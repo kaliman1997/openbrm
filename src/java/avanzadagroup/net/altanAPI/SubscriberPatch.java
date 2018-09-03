@@ -59,7 +59,7 @@ public class SubscriberPatch {
 				LOG.debug("CBOSS::"+responseCode);
 				JSONObject jsonObj = new JSONObject(responseJSON);
 				
-				RegisterOperation.write("Patch", responseCode, responseJSON, MSISDN);
+				RegisterOperation.write("Patch_Primary", responseCode, responseJSON, MSISDN);
 
 				if (responseCode.equals("200")) {
 
@@ -138,8 +138,10 @@ public class SubscriberPatch {
 
 				String responseCode = responseValues[0];
 				String responseJSON = responseValues[1];
-				LOG.debug("CBOSS::"+responseCode);
+				
 				JSONObject jsonObj = new JSONObject(responseJSON);
+				
+				RegisterOperation.write("Patch_ICC", responseCode, responseJSON, MSISDN);
 
 				if (responseCode.equals("200")) {
 
@@ -196,6 +198,88 @@ public class SubscriberPatch {
 
 	}        
 
+	public ActivationResponse changeLinking(String MSISDN, String coordinates) {
+		String body = "{"
+				+ "\"updateLinking\": {" + 
+				"        \"coordinates\": \""+ coordinates +"\""+ 
+				"    }"
+				+ "}";
+
+		String response = sendRequest(new OAuth().getToken().
+                        getAccessToken(), MSISDN, body);		
+                ar.setJsonResponse(response);
+
+		if (response.equals("error")) {
+			ar.setStatus("error");
+			ar.setStatusDescription("Error en WS Altan");
+		} else {
+			try {
+
+				LOG.debug("CBOSS::"+response);
+				String[] responseValues = response.split("\\|");
+
+				String responseCode = responseValues[0];
+				String responseJSON = responseValues[1];
+				LOG.debug("CBOSS::"+responseCode);
+				JSONObject jsonObj = new JSONObject(responseJSON);
+				RegisterOperation.write("Patch_Linking", responseCode, responseJSON, MSISDN);
+
+				if (responseCode.equals("200")) {
+
+					ar.setStatus("success");
+					ar.setStatusDescription("Activacion correcta");
+					ar.setMsisdn(jsonObj.getString("msisdn"));
+					ar.setEffectiveDate(jsonObj.getString("effectiveDate"));
+					ar.setOrderId(jsonObj.getJSONObject("order").getString("id"));
+
+				} else if (responseCode.equals("400")) {
+					ar.setStatus("error 400");
+					ar.setStatusDescription(jsonObj.getString("description"));
+					ar.setErrorCode(jsonObj.getString("errorCode"));
+					ar.setDescription(jsonObj.getString("description"));
+					try{
+						ar.setDetail(jsonObj.getString("detail"));
+					} catch (JSONException jsonE){
+						LOG.debug("CBOSS::"+jsonE.toString());
+						for(StackTraceElement ste : jsonE.getStackTrace()){
+							LOG.debug("CBOSS::"+ste.toString());
+							
+						}
+					}
+
+				} else if (responseCode.equals("500")) {
+					ar.setStatus("error 500");
+					ar.setStatusDescription(jsonObj.getString("description"));
+					ar.setErrorCode(jsonObj.getString("errorCode"));
+					ar.setDescription(jsonObj.getString("description"));
+					try{
+						ar.setDetail(jsonObj.getString("detail"));
+					} catch (JSONException jsonE){
+						LOG.debug("CBOSS::"+jsonE.toString());
+						for(StackTraceElement ste : jsonE.getStackTrace()){
+							LOG.debug("CBOSS::"+ste.toString());
+							
+						}
+					}
+				}
+			} catch (Exception e) {
+				LOG.debug("CBOSS::"+e.toString());
+				for(StackTraceElement ste : e.getStackTrace()){
+					LOG.debug("CBOSS::"+ste.toString());
+					
+				}
+				ar.setStatus("error 500");
+				ar.setStatusDescription("Server error");
+
+			}
+
+		}
+
+		return ar;
+
+	}        
+	
+	
 	public String sendRequest(String accessToken, String msisdn, String body) {
 //		return "200|{\"msisdn\": \"5554316832\"," + 
 //				"  \"effectiveDate\": \"20180705223420\"," + 
@@ -221,6 +305,7 @@ public class SubscriberPatch {
 			connection.setRequestProperty("Accept", "application/json");
 			connection.setDoInput(true);
 			connection.setDoOutput(true);
+			LOG.debug("CBOSS:: PATCH request body " + body);
 			
 			if (body != null) {
 				connection.setRequestProperty("Content-Length", Integer.toString(body.length()));

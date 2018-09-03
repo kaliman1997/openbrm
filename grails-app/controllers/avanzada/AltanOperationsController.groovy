@@ -116,13 +116,22 @@ class AltanOperationsController {
 		file.transferTo(csvFile)
 
 		BatchResponse br = new Batch().activate(csvFile.getPath(), operation)
-		//render template: 'clients/batchResult', model: [br:br]
-		flash.message = "Resultado Operacion Batch " 
-		+ br.status.equals("success")?
-		"Estado: "+ br.status +", Fecha" + br.effectiveDate + ", Lineas " + br.Lines + ", Id Transaccion "  + br.transactionId
-		:
-		"Error" +br.errorCode + ", Descripcion" + br.description;
-		redirect(action: "list", id: 1)
+		
+		String result = ""
+
+		if(br.status.equals("success")){
+		result = "Estado: "+ br.status +
+			", Fecha: " + br.effectiveDate + 
+			", Lineas: " + br.lines + 
+			", Id Transaccion:  "  + br.transactionId
+		} else {
+		result = "Error: " + br.errorCode + 
+		", Descripción: " + br.description
+		}
+		
+		flash.message = "Resultado operación batch " + operation + ": "+ result
+		
+		redirect(action: "list")
 	}
 
 
@@ -172,6 +181,11 @@ class AltanOperationsController {
 
 		if(id.equals('3_1')){
 			render template:'configuration/orderStatus'
+			return
+		}
+		
+		if(id.equals('3_2')){
+			render template:'configuration/orderByMSISDN'
 			return
 		}
 
@@ -254,6 +268,11 @@ class AltanOperationsController {
 			OrderStatusResponse osr = new OrderStatus().status(params.get('orderId'));
 			render template:'configuration/orderStatusResult', model:[orderId:params.get('orderId'), osr:osr]
 			return;
+		}else if(params.get('id').equals('3_2')){
+				OrderStatusResponse osr = new OrderStatus().status(params.get('orderId'));
+				render template:'configuration/orderByMSISDNResult', model:[orderId:params.get('orderId'), osr:osr]
+				return;
+						
 		}else if(id.equals('4_1') || id.equals('4_2')){
 			IMEIResponse ir = new IMEI().operation(params.get('imei'),
 					id.equals('4_1')?"lock":"unlock");

@@ -40,8 +40,12 @@ Affero General Public License along with jbilling. If not, see
 					<option>changesprimary</option>
 					<option>suspends</option></option>
 					<option>resumes</option>
-					<option>deactivates</option>
+					<option>predeactivates</option>
 					<option>reactivates</option>
+					<option>deactivates</option>
+					<option>IMEI-locks</option>
+					<option>IMEI-unlocks</option>
+					
 				</select>
 			</g:applyLayout>
 			<g:applyLayout name="form/text">

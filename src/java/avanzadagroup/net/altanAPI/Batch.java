@@ -18,9 +18,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
 
-
-
-
 import org.apache.log4j.Logger;
 import org.json.*;
 
@@ -36,136 +33,167 @@ public class Batch {
 
 	BatchResponse ar = new BatchResponse();
 
-    public BatchResponse activate(String pathToFile, String operation) {
+	public BatchResponse activate(String pathToFile, String operation) {
 
-        OAuth oauth = new OAuth();
+		OAuth oauth = new OAuth();
 
-        String response = uploadFile(oauth.getToken().getAccessToken(), pathToFile, operation);
-        ar.setJsonResponse(response);
+		String response = uploadFile(oauth.getToken().getAccessToken(),
+				pathToFile, operation);
+		ar.setJsonResponse(response);
 
-        if (response.equals("error")) {
-            ar.setStatus("error");
-            ar.setStatusDescription("Error en WS Altan");
-        } else {
-            try {
+		if (response.equals("error")) {
+			ar.setStatus("error");
+			ar.setStatusDescription("Error en WS Altan");
+		} else {
+			try {
 
-                LOG.debug("CBOSS::"+response);
-                String[] responseValues = response.split("\\|");
+				LOG.debug("CBOSS::" + response);
+				String[] responseValues = response.split("\\|");
 
-                String responseCode = responseValues[0];
-                String responseJSON = responseValues[1];
-                LOG.debug("CBOSS::"+responseCode);
-                JSONObject jsonObj = new JSONObject(responseJSON);
-                
-                RegisterOperation.write("Batch", responseCode, responseJSON, "");
+				String responseCode = responseValues[0];
+				String responseJSON = responseValues[1];
+				LOG.debug("CBOSS::" + responseCode);
+				JSONObject jsonObj = new JSONObject(responseJSON);
 
-                if (responseCode.equals("200")) {
+				RegisterOperation
+						.write("Batch", responseCode, responseJSON, "");
 
-                    ar.setStatus("success");
-                    ar.setStatusDescription("Activacion correcta");
-                    ar.setEffectiveDate(jsonObj.getString("effectiveDate"));
-                    ar.setLines(jsonObj.getString("lines"));
-                    ar.setTransactionId(jsonObj.getJSONObject("transaction").
-                    		getString("id"));
+				if (responseCode.equals("200")) {
 
-                } else if (responseCode.equals("400")) {
-                    ar.setStatus("error 400");
-                    ar.setStatusDescription(jsonObj.getString("description"));
-                    ar.setErrorCode(jsonObj.getString("errorCode"));
-                    ar.setDescription(jsonObj.getString("description"));
-                    
+					ar.setStatus("success");
+					ar.setStatusDescription("Activacion correcta");
+					ar.setEffectiveDate(jsonObj.getString("effectiveDate"));
+					ar.setLines(jsonObj.getString("lines"));
+					ar.setTransactionId(jsonObj.getJSONObject("transaction")
+							.getString("id"));
 
-                } else if (responseCode.equals("500")) {
-                    ar.setStatus("error 500");
-                    ar.setStatusDescription(jsonObj.getString("description"));
-                    ar.setErrorCode(jsonObj.getString("errorCode"));
-                    ar.setDescription(jsonObj.getString("description"));
-                    
-                }
-            } catch (Exception e) {
-                LOG.debug("CBOSS::"+e.toString());
-                for (StackTraceElement ste : e.getStackTrace()) {
-                    LOG.debug("CBOSS::"+ste.toString());
+				} else if (responseCode.equals("400")) {
+					ar.setStatus("error 400");
+					ar.setStatusDescription(jsonObj.getString("description"));
+					ar.setErrorCode(jsonObj.getString("errorCode"));
+					ar.setDescription(jsonObj.getString("description"));
 
-                }
-                ar.setStatus("error 500");
-                ar.setStatusDescription("Server error");
+				} else if (responseCode.equals("500")) {
+					ar.setStatus("error 500");
+					ar.setStatusDescription(jsonObj.getString("description"));
+					ar.setErrorCode(jsonObj.getString("errorCode"));
+					ar.setDescription(jsonObj.getString("description"));
 
-            }
+				}
+			} catch (Exception e) {
+				LOG.debug("CBOSS::" + e.toString());
+				for (StackTraceElement ste : e.getStackTrace()) {
+					LOG.debug("CBOSS::" + ste.toString());
 
-        }
+				}
+				ar.setStatus("error 500");
+				ar.setStatusDescription("Server error");
 
-        return ar;
+			}
 
-    }
+		}
 
+		return ar;
 
+	}
 
-    private String uploadFile(String accessToken, String pathToFile, String operation) {
-        try {
-            String url = "https://altanredes-prod.apigee.net/"
-                    + "cm/v1/subscribers/" + operation;
-            
-            LOG.debug("CBOSS::"+url);
-            LOG.debug("CBOSS::"+pathToFile);
-            String charset = "UTF-8";
-            String param = "value";
-            File textFile = new File(pathToFile);
-            
-            String boundary ="-----" + Long.toHexString(System.currentTimeMillis()); // Just generate some unique random value.
-            String CRLF = "\r\n"; // Line separator required by multipart/form-data.
+	private String uploadFile(String accessToken, String pathToFile,
+			String operation) {
+		try {
+			String url = "";
 
-            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-            connection.setDoOutput(true);
-            connection.setRequestProperty("authorization", "Bearer " + accessToken);
-            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+			if (operation.equals("IMEI-lock")) {
+				url = "https://altanredes-prod.apigee.net/"
+						+ "cm/v1/imei/locks";
+			} else if (operation.equals("IMEI-unlock")) {
+				url = "https://altanredes-prod.apigee.net/"
+						+ "cm/v1/imei/unlocks";
+			} else {
+				url = "https://altanredes-prod.apigee.net/"
+						+ "cm/v1/subscribers/" + operation;
+			}
 
-            try (
-                    OutputStream output = connection.getOutputStream();
-                    PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, charset), true);) {
-      
-                // Send text file.
-                writer.append("--"+boundary).append(CRLF);
-                writer.append("Content-Disposition: form-data; name=\"archivos[]\"; filename=\"" + textFile.getName() + "\"").append(CRLF);
-                writer.append("Content-Type: text/plain").append(CRLF); // Text file itself must be saved in this charset!
-                writer.append(CRLF).flush();
-                Files.copy(textFile.toPath(), output);
-                output.flush(); // Important before continuing with writer!
-                writer.append(CRLF).flush(); // CRLF is important! It indicates end of boundary.
+			LOG.debug("CBOSS::" + url);
+			LOG.debug("CBOSS::" + pathToFile);
+			String charset = "UTF-8";
+			String param = "value";
+			File textFile = new File(pathToFile);
 
-                // End of multipart/form-data.
-                writer.append("--"+boundary+"--").append(CRLF).flush();
-            }
-            BufferedReader d;
+			String boundary = "-----"
+					+ Long.toHexString(System.currentTimeMillis()); // Just
+																	// generate
+																	// some
+																	// unique
+																	// random
+																	// value.
+			String CRLF = "\r\n"; // Line separator required by
+									// multipart/form-data.
 
-            if (connection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
-                d = new BufferedReader(new InputStreamReader(
-                        connection.getInputStream()));
-            } else {
-                d = new BufferedReader(new InputStreamReader(
-                        connection.getErrorStream()));
-            }
+			HttpURLConnection connection = (HttpURLConnection) new URL(url)
+					.openConnection();
+			connection.setDoOutput(true);
+			connection.setRequestProperty("authorization", "Bearer "
+					+ accessToken);
+			connection.setRequestProperty("Content-Type",
+					"multipart/form-data; boundary=" + boundary);
 
-            String inputLine;
+			try (OutputStream output = connection.getOutputStream();
+					PrintWriter writer = new PrintWriter(
+							new OutputStreamWriter(output, charset), true);) {
 
-            StringBuilder buf = new StringBuilder();
-            while ((inputLine = d.readLine()) != null) {
-                buf.append(inputLine);
-            }
+				// Send text file.
+				writer.append("--" + boundary).append(CRLF);
+				writer.append(
+						"Content-Disposition: form-data; name=\"archivos[]\"; filename=\""
+								+ textFile.getName() + "\"").append(CRLF);
+				writer.append("Content-Type: text/plain").append(CRLF); // Text
+																		// file
+																		// itself
+																		// must
+																		// be
+																		// saved
+																		// in
+																		// this
+																		// charset!
+				writer.append(CRLF).flush();
+				Files.copy(textFile.toPath(), output);
+				output.flush(); // Important before continuing with writer!
+				writer.append(CRLF).flush(); // CRLF is important! It indicates
+												// end of boundary.
 
-            d.close();
-            connection.disconnect();
+				// End of multipart/form-data.
+				writer.append("--" + boundary + "--").append(CRLF).flush();
+			}
+			BufferedReader d;
 
-            return connection.getResponseCode() + "|" + buf.toString();
-        } catch (Exception e) {
-            LOG.debug("CBOSS::"+e.toString());
-            for (StackTraceElement ste : e.getStackTrace()) {
-                LOG.debug("CBOSS::"+ste.toString());
+			if (connection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
+				d = new BufferedReader(new InputStreamReader(
+						connection.getInputStream()));
+			} else {
+				d = new BufferedReader(new InputStreamReader(
+						connection.getErrorStream()));
+			}
 
-            }
+			String inputLine;
 
-            return "error";
-        }
-    }
+			StringBuilder buf = new StringBuilder();
+			while ((inputLine = d.readLine()) != null) {
+				buf.append(inputLine);
+			}
+
+			d.close();
+			connection.disconnect();
+
+			return connection.getResponseCode() + "|" + buf.toString();
+		} catch (Exception e) {
+			LOG.debug("CBOSS::" + e.toString());
+			for (StackTraceElement ste : e.getStackTrace()) {
+				LOG.debug("CBOSS::" + ste.toString());
+
+			}
+
+			return "error";
+		}
+	}
 
 }
