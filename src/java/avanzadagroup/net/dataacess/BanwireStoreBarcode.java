@@ -2,17 +2,21 @@ package avanzadagroup.net.dataacess;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.sql.DataSource;
+
 import org.apache.log4j.Logger;
-import org.jfree.util.Log;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import avanzadagroup.net.altanAPI.OAuth;
 
 import com.sapienter.jbilling.common.FormatLogger;
+import com.sapienter.jbilling.server.util.Context;
 
-public class RegisterOperation {
+public class BanwireStoreBarcode {
 	private static final FormatLogger LOG = new FormatLogger(
 			Logger.getLogger(OAuth.class));
 
@@ -24,24 +28,19 @@ public class RegisterOperation {
 	private static final String USERNAME = "openbrm_prod";
 	private static final String PASSWORD = "openbrm_prod";
 
-	public synchronized static void write(String operationType, String operationResultCode, String response, 
-			String msisdn){
+	public synchronized static void write(Integer invoiceId , String resultCode, Integer barcodeId, 
+			String barcode, String barcodeImage){
 			String query = "";	
 	       Connection conn = null;
-	        String url = POSTGRES_URL;
-	        String dbName = DB_NAME;
-	        String driver = POSTGRES_DRIVER_NAME;
-	        String userName = USERNAME;
-	        String password = PASSWORD;
 
 	        try {
-	            Class.forName(driver).newInstance();
-	            conn = DriverManager.getConnection(url + dbName, userName, password);
+	            Class.forName(POSTGRES_DRIVER_NAME).newInstance();
+	            conn = DriverManager.getConnection(POSTGRES_URL + DB_NAME, USERNAME, PASSWORD);
 	            LOG.debug("CBOSS:: Connected to the database...");
 	            Statement st = conn.createStatement();
-	            query = "INSERT INTO altan_requests VALUES(default, "
-	            		+ "current_timestamp, '"+operationType+"', '"+operationResultCode+"', "
-	            				+ "'"+response.replace("'", "''")+"', '"+msisdn+"', 0, 1)";
+	            query = "INSERT INTO banwire_store_barcode VALUES(default, "
+	            		+ invoiceId + ", " + "'"+barcode+"', '"+barcodeImage+"', "
+	            								+ "'" + resultCode+ "', " + barcodeId+ ", 1)";	
 	            st.executeUpdate(query);
 	            
 	            LOG.debug("CBOSS:: Disconnected from database...");
@@ -64,4 +63,37 @@ public class RegisterOperation {
 	        }
 		
 	}
+	
+	public static String getStoreBarCode(Integer invoiceId) {
+		
+		Connection connection = null;
+
+		try {
+            Class.forName(POSTGRES_DRIVER_NAME).newInstance();
+            connection = DriverManager.getConnection(POSTGRES_URL + DB_NAME, USERNAME, PASSWORD);
+
+			Statement stmt = connection.createStatement();
+			
+			ResultSet rs = stmt.executeQuery("SELECT result_code, barcode, barcode_img from banwire_store_barcode where invoice_id = " + invoiceId);
+			
+			if(rs.next()){
+				return rs.getString("result_code") + "|" + rs.getString("barcode") + "|" +rs.getString("barcode_img");
+			} else {
+				return "not_found";
+			}
+			
+		} catch (Exception e) {
+			LOG.debug("CBOSS:: Exception %s", e);
+			return "error";
+		} finally {
+			if(connection != null){
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.debug(e);
+				}
+			}
+		}
+
+	}	
 }

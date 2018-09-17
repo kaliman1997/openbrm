@@ -1,38 +1,31 @@
 <div class="column-hold">
 	<div class="heading">
-		<strong><g:message code="Estado de la orden ${orderId} ${osr.status}" /></strong>
+		<strong><g:message code="Ordenes para MSISDN ${msisdn}" /></strong>
 	</div>
 	<div class="box">
 		<div class="sub-box">
-			<table class="dataTable" cellspacing="0" cellpadding="0">
-				<tbody>
-					<g:if test="${osr.status=='success'}">
-						<tr>
-							<td><g:message code="orden" /></td>
-							<td class="value">
-								${osr.orderId}
-							</td>
-						</tr>
-						<tr>
-							<td><g:message code="estado" /></td>
-							<td class="value">
-								${osr.orderStatus}
-							</td>
-						</tr>
-						<tr>
-							<td><g:message code="tipo" /></td>
-							<td class="value">
-								${osr.type}
-							</td>
-						</tr>
-					</g:if>
-					
-					<g:else>
-						<tr>
-							<td><g:message code="Error al obtener estado" /></td>
-						</tr>
+			<table class="dataTable" cellspacing="3" cellpadding="3">
+				<thead>
+					<tr>
+						<th>Fecha</th>
+						<th>Operación</th>
+						<th>Order Id</th>
+					</tr>
+				</thead>
 
-					</g:else>
+				<tbody>
+					<g:each var="order" in="${orders}">
+						<tr>
+							<td><g:formatDate format="yyyy-MM-dd HH:mm:ss"
+									date="${order.date}" /></td>
+							<td>
+								${order.requestType}
+							</td>
+							<td>
+								${order.orderId}
+							</td>
+						</tr>
+					</g:each>
 				</tbody>
 			</table>
 		</div>

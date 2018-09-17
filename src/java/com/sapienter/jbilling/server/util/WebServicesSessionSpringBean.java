@@ -26,11 +26,13 @@ package com.sapienter.jbilling.server.util;
 
 import avanzadagroup.net.altanAPI.Coverage;
 import avanzadagroup.net.altanAPI.OAuth;
+import avanzadagroup.net.altanAPI.Profile;
 import avanzadagroup.net.altanAPI.SubscriberPatch;
 import avanzadagroup.net.altanAPI.responses.ActivationResponse;
 import avanzadagroup.net.altanAPI.responses.AddressCoordinatesResp;
 import avanzadagroup.net.altanAPI.responses.CoverageResp;
 import avanzadagroup.net.altanAPI.responses.OAuthResp;
+import avanzadagroup.net.altanAPI.responses.ProfileResponse;
 import avanzadagroup.net.banwire.PagoOnDemand;
 import avanzadagroup.net.google.AddressCoordinates;
 
@@ -1589,11 +1591,13 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 
 							CoverageResp cr = new Coverage().check(acr
 									.getLatitude() + "," + acr.getLongitude());
-							
-							if(!cr.getStatus().equals("success")){
+
+							if (!cr.getStatus().equals("success")) {
 								throw new Exception(cr.getDescription());
-							} else if (cr.getResult().equalsIgnoreCase("Without serviceability. ")){
-								throw new Exception("No hay cobertura en la direccion especificada");
+							} else if (cr.getResult().equalsIgnoreCase(
+									"Without serviceability. ")) {
+								throw new Exception(
+										"No hay cobertura en la direccion especificada");
 							}
 
 							LOG.debug("CBOSS::getCoverage cobertura obtenida "
@@ -1803,20 +1807,33 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 			LOG.debug("CBOSS:: oldAddress:" + oldLatitud + "," + oldLongitud
 					+ " " + "newAddress:" + latitude + "," + longitude);
 
-			if (oldLatitud.equalsIgnoreCase(latitude)
-					&& oldLongitud.equalsIgnoreCase(longitude)) {
-				LOG.debug("CBOSS:: Address is the same, dont updateLinking");
+			if ((oldLatitud.equalsIgnoreCase(latitude)
+					&& oldLongitud.equalsIgnoreCase(longitude))
+					|| MSISDN.equals("") || MSISDN.equals("----")) {
+				LOG.debug("CBOSS:: Address is the same or MSISDN not assigned, dont updateLinking");
 			} else {
-				LOG.debug("CBOSS:: Subscriber address changed "
-						+ "updateLinking for MSISDN " + MSISDN);
-				ActivationResponse response = new SubscriberPatch()
-						.changeLinking(MSISDN, latitude + "," + longitude);
+				LOG.debug("CBOSS: validating subscriber profile for MSISDN "
+						+ MSISDN);
 
-				if (response.getStatus() != "success") {
-					throw new SessionInternalError(
-							response.getDescription().
-							equalsIgnoreCase("Without coverage")?"Fallo Cambio Vinculacion: Sin Cobertura para la velocidad del plan":
-								response.getDescription());
+				ProfileResponse pr = new Profile().profile(MSISDN);
+
+				if (pr.getStatus().equalsIgnoreCase("success")
+						&& pr.getSubStatus().equalsIgnoreCase("Active")) {
+
+					LOG.debug("CBOSS:: Subscriber address changed "
+							+ "updateLinking for MSISDN " + MSISDN);
+					ActivationResponse response = new SubscriberPatch()
+							.changeLinking(MSISDN, latitude + "," + longitude);
+
+					if (response.getStatus() != "success") {
+						throw new SessionInternalError(
+								response.getDescription().equalsIgnoreCase(
+										"Without coverage") ? "Fallo Cambio Vinculacion: Sin Cobertura para la velocidad del plan"
+										: response.getDescription());
+					}
+				} else {
+					LOG.debug("CBOSS:: Subscriber network status is not Active for MSISDN " + MSISDN);
+					LOG.debug("CBOSS:: Don't update linking");
 				}
 			}
 		}

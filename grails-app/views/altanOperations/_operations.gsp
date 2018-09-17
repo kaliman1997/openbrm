@@ -63,7 +63,8 @@ Affero General Public License along with jbilling. If not, see
 								</strong>
 								<em></em>
 							</g:remoteLink></td>
-
+					</tr>
+					<tr>
 						<td><g:remoteLink class="cell double" action="show" id="3_2"
 								before="register(this);" onSuccess="render(data, next);">
 								<strong> ${StringEscapeUtils.escapeHtml("Buscar orden por MSISDN")}

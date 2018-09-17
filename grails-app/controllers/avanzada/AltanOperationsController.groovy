@@ -1,6 +1,7 @@
 package avanzada
 
 
+import avanzadagroup.net.AltanOrder
 import avanzadagroup.net.altanAPI.Batch
 import avanzadagroup.net.altanAPI.Coverage;
 import avanzadagroup.net.altanAPI.Deactivate
@@ -28,6 +29,7 @@ import com.sapienter.jbilling.client.util.SortableCriteria
 import com.sapienter.jbilling.common.SessionInternalError
 
 import org.joda.time.format.DateTimeFormat
+import org.json.JSONObject
 
 import com.sapienter.jbilling.common.Util
 import com.sapienter.jbilling.server.item.db.ItemDAS;
@@ -269,8 +271,32 @@ class AltanOperationsController {
 			render template:'configuration/orderStatusResult', model:[orderId:params.get('orderId'), osr:osr]
 			return;
 		}else if(params.get('id').equals('3_2')){
-				OrderStatusResponse osr = new OrderStatus().status(params.get('orderId'));
-				render template:'configuration/orderByMSISDNResult', model:[orderId:params.get('orderId'), osr:osr]
+				def myMSISDN = params.get('MSISDN')
+				
+				def orders1 = AltanRequests.findAll {
+					msisdn == myMSISDN && resultCode == '200' && 'response' ==~ '"order"'
+				}
+				
+				def c = AltanRequests.createCriteria()
+				def orders = c.list (max: 20, offset: 0) {
+					like("response", "%\"order\"%")
+					and {
+						eq("msisdn", myMSISDN)
+					}
+					order("date", "desc")
+				}
+				
+				ArrayList<AltanOrder> altanOrderList = new ArrayList();
+				
+				for (item in orders){
+					AltanOrder altanOrder = new AltanOrder();
+					altanOrder.date = item.date
+					altanOrder.requestType = item.requestType
+					altanOrder.orderId = new JSONObject(item.response).getJSONObject("order").getString("id");
+					altanOrderList.add(altanOrder)
+				}
+				
+				render template:'configuration/orderByMSISDNResult', model:[msisdn:myMSISDN, orders:altanOrderList]
 				return;
 						
 		}else if(id.equals('4_1') || id.equals('4_2')){

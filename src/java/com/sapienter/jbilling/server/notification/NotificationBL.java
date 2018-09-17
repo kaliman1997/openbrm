@@ -43,6 +43,11 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import avanzadagroup.net.dataacess.BanwireOxxoBarcode;
+import avanzadagroup.net.dataacess.BanwireStoreBarcode;
+import avanzadagroup.net.plugins.InvoiceBarCodeTask;
+
+import com.cboss.util.BarcodeImage;
 import com.sapienter.jbilling.server.invoice.InvoiceLineComparator;
 import com.sapienter.jbilling.server.item.CurrencyBL;
 import com.sapienter.jbilling.server.metafields.MetaFieldBL;
@@ -56,6 +61,7 @@ import com.sapienter.jbilling.server.payment.PaymentInformationWS;
 import com.sapienter.jbilling.server.payment.db.PaymentResultDTO;
 import com.sapienter.jbilling.server.order.db.OrderLineDTO;
 import com.sapienter.jbilling.server.process.db.BillingProcessDTO;
+import com.sapienter.jbilling.server.process.event.InvoicesGeneratedEvent;
 import com.sapienter.jbilling.server.user.contact.db.ContactDTO;
 import com.sapienter.jbilling.server.user.db.*;
 
@@ -889,7 +895,7 @@ public class NotificationBL extends ResultList implements NotificationSQL {
                     + "designs/" + design + ".jasper";
 
             File compiledDesign = new File(designFile);
-            LOG.debug("Generating paper invoice with design file : %s", designFile);
+            LOG.debug("NotificationBL.generatePaperInvoice.  Generating paper invoice with design file : %s", designFile);
 
             if(design.equals("invoice_design"))
                 return generatePaperInvoiceNew(compiledDesign, useSqlQuery, invoice, from, to, message1, message2, entityId, username, password);
@@ -909,6 +915,8 @@ public class NotificationBL extends ResultList implements NotificationSQL {
                                                     String username, String password) throws FileNotFoundException,
             SessionInternalError {
         try{
+        	LOG.debug("NotificationBL.generatePaperInvoiceDefault");
+        	
             FileInputStream stream = new FileInputStream(compiledDesign);
             Locale locale = (new UserBL(invoice.getUserId())).getLocale();
             HashMap<String, Object> parameters = new HashMap<String, Object>();
@@ -993,6 +1001,48 @@ public class NotificationBL extends ResultList implements NotificationSQL {
                     .getSysProp("base_dir")
                     + "logos/entity-" + entityId + ".jpg");
             parameters.put("entityLogo", logo);
+            
+            //OxxoBarCode
+            String fullOxxo = BanwireOxxoBarcode.getOxxoBarCode(invoice.getId());
+            String oxxoPath = com.sapienter.jbilling.common.Util
+                    .getSysProp("base_dir")
+                    + "invoices/oxxoBarCode-" +  invoice.getId() + ".bmp";
+            
+            if(fullOxxo.startsWith("200")){
+            	fullOxxo = fullOxxo.substring(4);
+            	LOG.debug("CBBOSS:: fullOxxo " + fullOxxo);
+            	
+            	BarcodeImage.decodeImage(fullOxxo, oxxoPath);
+            } else {
+            	oxxoPath = com.sapienter.jbilling.common.Util
+                        .getSysProp("base_dir")
+                        + "invoices/oxxoBarCode-000.bmp";            	
+            }
+            parameters.put("oxxoBarCode", new File(oxxoPath));
+            
+            //StoreBarCode
+            String fullStore = BanwireStoreBarcode.getStoreBarCode(invoice.getId());
+            String storePath = com.sapienter.jbilling.common.Util
+                    .getSysProp("base_dir")
+                    + "invoices/storeBarCode-" +  invoice.getId() + ".bmp";
+            
+            if(fullStore.startsWith("200")){
+            	String[] storeValues= fullStore.split("\\|");
+            	
+            	parameters.put("storeReference", storeValues[1]);
+            	
+            	LOG.debug("CBOSS:: fullStore" + storeValues[2]);
+            	
+            	BarcodeImage.decodeImage(storeValues[2], storePath);
+            } else {
+            	
+            	parameters.put("storeReference", "0000000000000000");
+            	storePath = com.sapienter.jbilling.common.Util
+                        .getSysProp("base_dir")
+                        + "invoices/storeBarCode-000.bmp";            	
+            }
+            parameters.put("storeBarCode", new File(storePath));
+            
 
             // the invoice lines go as the data source for the report
             // we need to extract the taxes from them, put the taxes as

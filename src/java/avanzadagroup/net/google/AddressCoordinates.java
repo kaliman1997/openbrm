@@ -5,7 +5,6 @@
  */
 package avanzadagroup.net.google;
 
-
 import avanzadagroup.net.altanAPI.responses.AddressCoordinatesResp;
 
 import java.io.BufferedReader;
@@ -13,6 +12,7 @@ import java.io.DataInputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -40,17 +40,19 @@ public class AddressCoordinates {
 			URL url;
 			HttpURLConnection connection = null;
 			try {
-				String sURL = "http://maps.google.com/maps/api/geocode/json?"
-						+ "address=" + streetName + " " + streetNumber + ", "
+				String sURL = "https://maps.google.com/maps/api/geocode/json?"
+						+ "address=" + URLEncoder.encode(streetName + " " + streetNumber + ", "
 						+ city + "," + state + "" + ", " + zipCode + ","
-						+ Country;
+						+ Country
+						//+ "&key=AIzaSyAz7lp-M3oF9Pw7SiJ_h30FGT4TQiO2pVo"
+						, "UTF-8");
 
 				url = new URL(sURL.replace(" ", "%20"));
 				connection = (HttpURLConnection) url.openConnection();
 				connection.setRequestMethod("GET");
 
 				connection.setRequestProperty("Content-Type",
-						"application/json");
+						"application/json; charset=UTF-8");
 				connection
 						.setRequestProperty("Accept",
 								"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
@@ -68,8 +70,17 @@ public class AddressCoordinates {
 				connection.setDoInput(true);
 				connection.setDoOutput(true);
 
-				BufferedReader br = new BufferedReader(new InputStreamReader(
-						connection.getInputStream()));
+				BufferedReader br;
+
+				if (connection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
+					br = new BufferedReader(new InputStreamReader(
+							connection.getInputStream()));
+				} else {
+					br = new BufferedReader(new InputStreamReader(
+							connection.getErrorStream()));
+				}
+				
+				
 
 				String inputLine;
 
@@ -79,7 +90,7 @@ public class AddressCoordinates {
 
 				}
 
-				LOG.debug("CBOSS::"+buf.toString());
+				LOG.debug("CBOSS:: Google API" + buf.toString());
 
 				br.close();
 				connection.disconnect();
@@ -100,7 +111,7 @@ public class AddressCoordinates {
 						+ "");
 
 			} catch (Exception e) {
-				LOG.debug("CBOSS::"+e);
+				LOG.debug("CBOSS::" + e);
 				acr.setStatus("error");
 				acr.setStatusDescription("Error al obtener coordenadas");
 
