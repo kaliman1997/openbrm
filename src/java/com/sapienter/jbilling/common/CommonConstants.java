@@ -93,7 +93,11 @@ public interface CommonConstants {
     public static final Integer PAYMENT_METHOD_MAESTRO = new Integer(13);
     public static final Integer PAYMENT_METHOD_VISA_ELECTRON = new Integer(14);
     public static final Integer PAYMENT_METHOD_CREDIT = new Integer(15);
-	
+    public static final Integer PAYMENT_METHOD_OXXO = new Integer(16);
+    public static final Integer PAYMENT_METHOD_STORE = new Integer(17);
+    public static final Integer PAYMENT_METHOD_IVR = new Integer(18);
+    
+    
 	//  VOUCHER STATUSES
 	
 	public static final Integer VOUCHER_STATUS_NEW = new Integer(1);
